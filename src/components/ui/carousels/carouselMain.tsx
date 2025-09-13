@@ -14,7 +14,7 @@ class CarouselManager {
     queueSize: number;
     currentIndex: number;
     preloadedSlideImages: Set<number>;
-    stack: Slide[];
+    queue2: Slide[];
     queue: Slide[];
     constructor( slides : Slide[], queueSize = 3) {
         this.originalSlides = slides;
@@ -22,22 +22,22 @@ class CarouselManager {
         this.currentIndex = 0;
         this.preloadedSlideImages = new Set();
         this.queue = [];
-        this.stack = [];
+        this.queue2 = [];
         this.initializeDataStructs();
     }
     initializeDataStructs() {
-        this.stack = [...this.originalSlides].reverse();
+        this.queue2 = [...this.originalSlides].reverse();
         this.fillQueue();
         this.preloadImages();
 
     }
     fillQueue() {
-        while(this.queue.length < this.queueSize && this.stack.length > 0) {
-            this.queue.push(this.stack.pop()!);
+        while(this.queue.length < this.queueSize && this.queue2.length > 0) {
+            this.queue.push(this.queue2.pop()!);
         }
-        // if(this.stack.length === 0 && this.queue.length > 0) {
+        // if(this.queue2.length === 0 && this.queue.length > 0) {
         //     const remainingSlides = [...this.originalSlides].filter(slide => !this.queue.find(q => q.id === slide.id));
-        //     this.stack = [...remainingSlides].reverse();
+        //     this.queue2 = [...remainingSlides].reverse();
         //  }
     }
 
@@ -65,7 +65,7 @@ class CarouselManager {
     next(){
         if(this.queue.length === 0) return null;
         const currentSlide = this.queue.shift()
-        this.stack.unshift(currentSlide!);
+        this.queue2.unshift(currentSlide!);
         this.currentIndex = (this.currentIndex + 1) % this.originalSlides.length;
         this.fillQueue();
         this.preloadImages(); // Preload new images    
@@ -73,9 +73,16 @@ class CarouselManager {
     }
 
     prev(){
-        if(this.queue.length === 0) return null;
-        const currentSlide = this.stack.shift();
-        this.queue.unshift(currentSlide!);
+        if(this.queue.length === 0) { return null;}
+        if(this.queue2.length === 0) {
+            const remainingSlides = [...this.originalSlides].filter(slide => !this.queue.find(q => q.id === slide.id)).sort((a,b) => b.id - a.id);
+            this.queue2 = [...remainingSlides];
+         }
+        const upcomingSlide = this.queue2.shift();
+        this.queue.unshift(upcomingSlide!);
+        if(this.queue.length > this.queueSize) {
+            this.queue2.push(this.queue.pop()!);
+        }
         this.currentIndex = (this.currentIndex - 1 + this.originalSlides.length) % this.originalSlides.length;
         this.fillQueue();
         this.preloadImages();
@@ -91,7 +98,7 @@ class CarouselManager {
       ...this.originalSlides.slice(0, targetIndex)
     ];
     
-    this.stack = [...reorderedSlides].reverse();
+    this.queue2 = [...reorderedSlides].reverse();
     this.queue = [];
     this.currentIndex = targetIndex;
     this.fillQueue();
@@ -102,7 +109,7 @@ class CarouselManager {
 
     reset() {
     this.currentIndex = 0;
-    this.stack = [];
+    this.queue2 = [];
     this.queue = [];
     this.preloadedSlideImages.clear();
     this.initializeDataStructs();
@@ -113,10 +120,10 @@ class CarouselManager {
     return {
       current: this.queue[0] || null,
       upcoming: this.queue.slice(1),
-      stack: [...this.stack],
+      queue2: [...this.queue2],
       queue: [...this.queue],
       currentIndex: this.currentIndex,
-      stackSize: this.stack.length,
+      stackSize: this.queue2.length,
       queueSize: this.queue.length,
       preloadedCount: this.preloadedSlideImages.size
     };
@@ -268,87 +275,75 @@ const CarouselMain = ({
 
         if (!carouselState.current) return <div>No slides available</div>;
         return (
-            <div className="w-full max-w-4xl  h-full mx-auto space-y-6">
-             <div className="relative h-96 md:h-[500px] rounded-xl shadow-2xl overflow-hidden">
-        {/* Current Slide */}
-        <div className="relative w-full h-full">
-          <LazyImage
-            src={carouselState.current.image}
-            alt={carouselState.current.title}
-            className="w-full h-full object-cover"
-          />
-          <div className={`absolute inset-0  bg-gradient-to-r ${carouselState.current.color}/0.6`} />
-          <div className="absolute inset-0 flex items-center justify-center text-center">
-            <div className="text-white px-6">
-              <h2 className="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg">
-                {carouselState.current.title}
-              </h2>
-              <p className="text-lg md:text-xl opacity-90 drop-shadow-md">
-                {carouselState.current.subtitle}
-              </p>
+            <div className="w-full max-w-4xl h-full mx-auto space-y-6">
+             <div className="relative rounded-xl shadow-2xl overflow-hidden">
+              {/* Current Slide */}
+              <div className="relative w-full h-full">
+                <LazyImage
+                  src={carouselState.current.image}
+                  alt={carouselState.current.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className={`absolute inset-0  bg-gradient-to-r ${carouselState.current.color}/0.6`} />
+                <div className="absolute inset-0 flex items-center justify-center text-center">
+                  <div className="text-white px-6">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg">
+                      {carouselState.current.title}
+                    </h2>
+                    <p className="text-lg md:text-xl opacity-90 drop-shadow-md">
+                      {carouselState.current.subtitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation Controls */}
+              <button
+                onClick={handlePrev}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
+              >
+                <ChevronLeft className="w-6 h-6 text-white" />
+              </button>
+              
+              <button
+                onClick={handleNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
+              >
+                <ChevronRight className="w-6 h-6 text-white" />
+              </button>
+              
+              {/* Control Panel */}
+              <div className="absolute top-4 right-4 flex space-x-2">
+                <button
+                  onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 transition-all duration-200"
+                >
+                  {isAutoPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white" />}
+                </button>
+                
+                <button
+                  onClick={handleReset}
+                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 transition-all duration-200"
+                >
+                  <RotateCcw className="w-5 h-5 text-white" />
+                </button>
+              </div>
             </div>
-          </div>
-        </div>
-        
-        {/* Navigation Controls */}
-        <button
-          onClick={handlePrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
-        >
-          <ChevronLeft className="w-6 h-6 text-white" />
-        </button>
-        
-        <button
-          onClick={handleNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
-        >
-          <ChevronRight className="w-6 h-6 text-white" />
-        </button>
-        
-        {/* Control Panel */}
-        <div className="absolute top-4 right-4 flex space-x-2">
-          <button
-            onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 transition-all duration-200"
-          >
-            {isAutoPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white" />}
-          </button>
-          
-          <button
-            onClick={handleReset}
-            className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 transition-all duration-200"
-          >
-            <RotateCcw className="w-5 h-5 text-white" />
-          </button>
-        </div>
-      </div>
-      
-      {/* Slide Indicators */}
-      <div className="flex justify-center space-x-2">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => handleJumpToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all duration-200 ${
-              carouselState.currentIndex === index
-                ? 'bg-blue-500 w-8'
-                : 'bg-gray-300 hover:bg-gray-400'
-            }`}
-          />
-        ))}
-      </div>
-      
-      {/* Upcoming Slides Preview */}
-      <div className="bg-white rounded-lg shadow-lg p-4">
-        <h4 className="font-semibold text-gray-800 mb-3">Upcoming Slides (Queue Preview)</h4>
-        <div className="flex space-x-4 overflow-x-auto">
-          {carouselState.upcoming.map((slide) => (
-            <div key={slide.id} className={`flex-shrink-0 w-24 h-16 bg-gradient-to-r ${slide.color} rounded-lg flex items-center justify-center text-white text-sm font-semibold`}>
-              {slide.title}
+            
+            {/* Slide Indicators */}
+            <div className="flex justify-center space-x-2">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleJumpToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    carouselState.currentIndex === index
+                      ? 'bg-blue-500 w-8'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
       </div>
         )
 }

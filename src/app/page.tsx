@@ -6,14 +6,19 @@ import { use } from "react";
 export default function Home() {
   return (
     <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <div className="fixed top-0 left-0 w-full h-inherit bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient-x">
+      <div className="absolute top-0 left-0 w-[100vw] h-inherit z-20">
       <TopNavbar />
       </div>
-      <main className="flex flex-col gap-[32px] row-start-2 w-full h-full bg-amber-200">
-        <div className="flex flex-row w-full h-full items-end">
-          <div className="flex items-center h-[70%] w-[40%]"> <div className=" h-full w-full bg-white"></div> </div>
-          <div className="flex items-end gap-2 h-full w-[60%] bg-amber-700">
-          <CarouselMain />
+      <main className="gap-[32px] row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full bg-amber-200">
+        <div className="row-start-1 flex flex-col w-full h-full items-">
+          <div className="flex flex-row gap-2 w-full h-[50%]">
+            <div className="flex items-center h-[70%] w-[40%]"> <div className=" h-full w-full bg-white"></div> </div>
+            <div className="flex gap-2 w-[60%] bg-amber-700">
+            <CarouselMain />
+            </div>
+          </div>
+          <div>
+            <div className="relative h-[70%] w-[60%]"> <div className=" absolute inset-0 h-full w-full bg-white"></div> </div>
           </div>
         </div>
         </main>
