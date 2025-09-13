@@ -1,15 +1,60 @@
+"use client";
+import {
+  Navbar,
+  NavBody,
+  NavItems,
+  MobileNav,
+  NavbarLogo,
+  NavbarButton,
+  MobileNavHeader,
+  MobileNavToggle,
+  MobileNavMenu,
+} from "@/lib/componentUtils/navbar";
+import { useState } from "react";
 import Image from "next/image";
-import { JSX } from "react/jsx-dev-runtime";
 
 export default function TopNavbar() {
+    const navItems = [
+            {
+        name: "Pricing",
+        link: "#pricing",
+        },
+        {
+        name: "Contact",
+        link: "#contact",
+        }
+    ]
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     return (
-        <nav className="w-full flex justify-between items-center py-4 px-8   text-white rounded-lg">
-            <div className="flex flex-col  p-2 rounded-lg">
-                <Image src="/images/logos/logo.svg" alt="Logo" width={200} height={200} priority />
-            </div>
-            <div className="flex space-x-4 text-lg font-medium px-10">
-                <button className="hover:underline hover:underline-offset-4">Contact</button>
-            </div>
-        </nav>
+    <div className="relative w-full">
+      <Navbar>
+        {/* Desktop Navigation */}
+        <NavBody>
+          <NavbarLogo>
+            <Image
+              src="http://192.168.29.250:3000/images/logos/logo.svg"
+              alt="Logo"
+              width={150}
+              height={150}
+              priority
+              style={{ width: "auto", height: "auto" }}
+            />
+             <Image
+              src="http://192.168.29.250:3000/images/logos/logoSymbol.svg"
+              alt="Logo"
+              width={64}
+              height={64}
+              priority
+              style={{ width: "auto", height: "auto" }}
+            />
+          </NavbarLogo>
+          <NavItems items={navItems} />
+          <div className="flex items-center gap-4">
+            <NavbarButton variant="secondary">Xplore</NavbarButton>
+            <NavbarButton variant="primary">Book a call</NavbarButton>
+          </div>
+        </NavBody>
+        </Navbar>
+        </div>
     )
 }
