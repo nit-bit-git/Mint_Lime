@@ -2,6 +2,7 @@
 import React,  { useState, useRef, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-react';
 import { mainCarouselSlides } from "@/constants/imageData";
+import { AspectRatio } from "@/lib/aspectRatio";
 type Slide = { 
                 id: number,
                 title: string,
@@ -170,6 +171,7 @@ const LazyImage = ({ src, alt, className, onLoad, onError }:{src: string; alt: s
   return (
     <div ref={imgRef} className={`relative ${className}`}>
       {isIntersecting && !hasError && (
+        <AspectRatio ratio={16 / 9}>
         <img
           src={src}
           alt={alt}
@@ -179,6 +181,7 @@ const LazyImage = ({ src, alt, className, onLoad, onError }:{src: string; alt: s
           onLoad={handleLoad}
           onError={handleError}
         />
+        </AspectRatio>
       )}
       
       {isLoading && isIntersecting && (
