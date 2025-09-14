@@ -40,7 +40,7 @@ export const Heading = ({
   const variantStyles = {
     default: "text-gray-900 dark:text-white",
     gradient: "bg-gradient-to-r from-emerald-400 via-lime-400 to-green-500 bg-clip-text text-transparent",
-    outlined: "text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 [-webkit-text-stroke:1px_theme(colors.gray.300)] dark:[-webkit-text-stroke:1px_theme(colors.gray.600)]",
+    outlined: "text-transparent [-webkit-text-stroke:2px_theme(colors.gray.300)] dark:[-webkit-text-stroke:2px_theme(colors.gray.600)] [-webkit-text-fill-color:transparent]",
     shadow: "text-gray-900 dark:text-white [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]",
   };;
   const baseStyles = "leading-tight tracking-tight px-4";

@@ -4,6 +4,8 @@ import CarouselMain from "@/components/ui/carousels/carouselMain";
 import { Boxes } from "@/components/ui/hero/bg";
 import { TagLine } from "@/components/ui/hero/tagLine";
 import { Line1 } from "@/components/ui/hero/typeWriter";
+import FMMarquee from "@/lib/componentUtils/marQ";
+import { Marquee } from "@/components/ui/hero/marquee";
 
 export default function Home() {
   return (
@@ -17,7 +19,7 @@ export default function Home() {
               <div className= "relative w-full oveflow-clip" style={{
                   transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
               }}>
-                <Boxes className="flex w-full h-full" />
+                <Boxes className="flex w-full h-full"/>
               </div>
           
           </div>
@@ -33,8 +35,11 @@ export default function Home() {
                 <Line1 className="rounded-xl p-5 bg-slate-500/20 "/>
           </div>
          <div className="relative w-full ">
-          <div className="absolute left-[-80] w-screen h-60 bg-white ">
-            Section 2
+          <div className="absolute flex items-center-safe left-[-80] w-screen h-60 bg-white ">
+            <div className="flex flex-row justify-center items-center ">
+              <Marquee />
+            </div>
+            
           </div>
         </div>
         </div>
