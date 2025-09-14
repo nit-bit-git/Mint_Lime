@@ -11,7 +11,7 @@ export default function Home() {
       </div>
       <main className="gap-[32px] row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full bg-amber-200/60">
         <div className="row-start-1 flex flex-col w-full h-full items-">
-          <div className="flex flex-row gap-2 w-full h-[50%]">
+          <div className="flex flex-row gap-2 w-full">
             <div className="flex items-center h-[70%] w-[40%]"> <div className=" h-full w-full bg-white"></div> </div>
             <div className="flex gap-2 w-[60%]">
             <CarouselMain />
