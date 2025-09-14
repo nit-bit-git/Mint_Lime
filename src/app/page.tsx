@@ -2,6 +2,8 @@
 import TopNavbar from "@/components/ui/navigationBars/topNav"; // Adjust the path as needed
 import CarouselMain from "@/components/ui/carousels/carouselMain";
 import { use } from "react";
+import { TagLine } from "@/components/ui/hero/tagLine";
+import { Heading } from "@/lib/componentUtils/text";
 
 export default function Home() {
   return (
@@ -9,16 +11,31 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-[100vw] h-inherit z-20">
       <TopNavbar />
       </div>
-      <main className="gap-[32px] row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full bg-amber-200/60">
+      <main className="gap-[32px] row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full">
         <div className="row-start-1 flex flex-col w-full h-full items-">
-          <div className="flex flex-row gap-2 w-full">
-            <div className="flex items-center h-[70%] w-[40%]"> <div className=" h-full w-full bg-white"></div> </div>
-            <div className="flex gap-2 w-[60%]">
+          <div className="flex flex-row w-full items-center-safe justify-between p-2">
+            <div className="flex flex-col w-[40%] gap-2 z-10 p-5"> 
+                <TagLine className=" rounded-xl p-5  bg-slate-500/20 " />
+                <button className="rounded-xl p-5 max-w-50 bg-slate-500/60 hover:bg-slate-700/60 transition text-xl">Get In Touch</button>
+            </div>
+            <div className="flex relative gap-2 w-[60%]">
             <CarouselMain />
             </div>
-          </div>
+           </div>
+
           <div>
-            <div className="relative h-[70%] w-[60%]"> <div className=" absolute inset-0 h-full w-full bg-white"></div> </div>
+            <div className="flex w-full "> <div className="flex flex-row w-full  justify-center">
+              <div>
+                <Heading level={1} size="3xl" color=" text-white" className=" z-10">
+                  We {"{"} 
+                  <span className="text-blue-500"> Design </span> . 
+                  <span className="text-green-500"> Code </span> . 
+                  <span className="text-red-500"> Automate </span>  
+                  {"}"} {"=>"} Your Success STORY
+               </Heading>
+              </div>
+              </div>
+            </div>
           </div>
         </div>
         </main>
