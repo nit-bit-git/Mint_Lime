@@ -1,7 +1,7 @@
 "use client"
 import TopNavbar from "@/components/ui/navigationBars/topNav"; // Adjust the path as needed
 import CarouselMain from "@/components/ui/carousels/carouselMain";
-import { use } from "react";
+import { Boxes } from "@/components/ui/hero/bg";
 import { TagLine } from "@/components/ui/hero/tagLine";
 import { Line1 } from "@/components/ui/hero/typeWriter";
 
@@ -12,25 +12,28 @@ export default function Home() {
       <TopNavbar />
       </div>
       <main className="gap-[32px] row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full">
-        <div className="row-start-1 flex flex-col w-full h-full items-">
+        <div className="row-start-1 flex flex-col w-full h-full items-center">
+          <div className="absolute top-0 w-full h-screen z-0 overflow-hidden">
+              <div className= "relative w-full oveflow-clip" style={{
+                  transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
+              }}>
+                <Boxes className="flex w-full h-full" />
+              </div>
+          
+          </div>
           <div className="flex flex-row w-full items-center-safe justify-between p-2">
             <div className="flex flex-col w-[40%] gap-2 z-10 p-5"> 
                 <TagLine className=" rounded-xl p-5  bg-slate-500/20 " />
-                <button className="rounded-xl p-5 max-w-50 bg-slate-500/60 hover:bg-slate-700/60 transition text-xl">Get In Touch</button>
+                <button className="rounded-xl p-5 self-end-safe max-w-50 bg-slate-500/60 hover:bg-slate-700/60 transition text-xl">Get In Touch</button>
             </div>
             <div className="flex relative gap-2 w-[60%]">
             <CarouselMain />
             </div>
-           </div>
-
-          <div>
-            <div className="flex w-full "> <div className="flex flex-row w-full  justify-center">
-              <div>
-               <Line1 className=" rounded-xl p-5 bg-slate-500/20 "/>
-              </div>
-              </div>
-            </div>
           </div>
+          <div className="flex flex-row w-full justify-center z-10">
+                <Line1 className="rounded-xl p-5 bg-slate-500/20 "/>
+          </div>
+        
         </div>
         </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
