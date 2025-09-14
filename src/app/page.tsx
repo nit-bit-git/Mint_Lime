@@ -3,7 +3,7 @@ import TopNavbar from "@/components/ui/navigationBars/topNav"; // Adjust the pat
 import CarouselMain from "@/components/ui/carousels/carouselMain";
 import { use } from "react";
 import { TagLine } from "@/components/ui/hero/tagLine";
-import { Heading } from "@/lib/componentUtils/text";
+import { Line1 } from "@/components/ui/hero/typeWriter";
 
 export default function Home() {
   return (
@@ -26,13 +26,7 @@ export default function Home() {
           <div>
             <div className="flex w-full "> <div className="flex flex-row w-full  justify-center">
               <div>
-                <Heading level={1} size="3xl" color=" text-white" className=" z-10">
-                  We {"{"} 
-                  <span className="text-blue-500"> Design </span> . 
-                  <span className="text-green-500"> Code </span> . 
-                  <span className="text-red-500"> Automate </span>  
-                  {"}"} {"=>"} Your Success STORY
-               </Heading>
+               <Line1 className=" rounded-xl p-5 bg-slate-500/20 "/>
               </div>
               </div>
             </div>
