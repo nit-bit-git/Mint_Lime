@@ -44,7 +44,6 @@ export const Heading = ({
     shadow: "text-gray-900 dark:text-white [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]",
   };;
   const baseStyles = "leading-tight tracking-tight px-4";
-  console.log(color);
    if (animated) {
         return (
             <motion.div

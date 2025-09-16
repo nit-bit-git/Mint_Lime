@@ -5,6 +5,9 @@ import { Boxes } from "@/components/ui/hero/bg";
 import { TagLine } from "@/components/ui/hero/tagLine";
 import { Line1 } from "@/components/ui/hero/typeWriter";
 import { Marquee } from "@/components/ui/hero/marquee";
+import { WhoAreWe } from "@/components/ui/aboutUs/heading1";
+import { WhoUsContent } from "@/components/ui/aboutUs/para1";
+import { MintLimeIllustration } from "@/components/ui/aboutUs/placeholder1";
 
 export default function Home() {
   return (
@@ -12,7 +15,7 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-[100vw] h-inherit z-20">
       <TopNavbar />
       </div>
-      <main className="row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full">
+      <main className="row-start-2 grid grid-rows-[800px_1fr_100vh_100vh_100vh] h-auto w-full">
         <div className="row-start-1 flex flex-col w-full h-full items-center">
           <div className="absolute top-0 w-full h-screen z-0 overflow-hidden">
               <div className= "relative w-full oveflow-clip" style={{
@@ -42,9 +45,41 @@ export default function Home() {
           </div>
         </div>
         </div>
-        <div className="row-start-2 relative h-full w-full">
-              <div className="absolute inset-0 mt-16 bg-gray-100/20 w-full h-full rounded-xl blur-3xl">Section 3</div>
-              <div className="absolute inset-0  mt-16 bg-gray-100/20 w-full h-full rounded-xl ">Section 3</div>
+        <div className="row-start-2 relative h-[150vh] w-full">
+              <div className="absolute inset-0 mt-10 bg-gray-100/20 w-full h-full rounded-xl blur-3xl"></div>
+              <div className="absolute inset-0  mt-10 bg-gray-100/20 w-full h-full rounded-xl ">
+              <div className=" flex py-16 px-8 bg-gray-100/20 w-full h-1/2  items-center justify-center-safe">
+                <div className="bg-black grid grid-cols-[60%_40%] py-5 w-full ">
+                  <div className="col-start-1 col-end-1 p-10 flex items-center gap-10">
+                    <div className="max-w-full">
+                      <WhoAreWe />
+                    </div>
+                    <span className="flex w-full h-full items-center justify-center-safe">
+                      <WhoUsContent />
+                    </span>
+                  </div>
+                  <div className="col-start-2 flex flex-col items-center justify-center-safe">
+                    <MintLimeIllustration />
+                  </div>
+                </div>
+              </div>
+              <div className=" flex px-8 bg-gray-100/20 w-full h-1/2 rounded-b-xl items-center justify-center-safe">
+                <div className="bg-black grid grid-cols-[60%_40%] py-5 w-full ">
+                  <div className="col-start-1 col-end-1 p-10 flex items-center gap-10">
+                    <div className="max-w-full">
+                      <WhoAreWe />
+                    </div>
+                    <span className="flex w-full h-full items-center justify-center-safe">
+                      <WhoUsContent />
+                    </span>
+                  </div>
+                  <div className="col-start-2 flex flex-col items-center justify-center-safe">
+                    <MintLimeIllustration />
+                  </div>
+                </div>
+              </div>
+              </div>
+              
         </div>
         
         </main>
