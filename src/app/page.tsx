@@ -1,28 +1,54 @@
 "use client"
 import TopNavbar from "@/components/ui/navigationBars/topNav"; // Adjust the path as needed
 import CarouselMain from "@/components/ui/carousels/carouselMain";
-import { use } from "react";
+import { Boxes } from "@/components/ui/hero/bg";
+import { TagLine } from "@/components/ui/hero/tagLine";
+import { Line1 } from "@/components/ui/hero/typeWriter";
+import { Marquee } from "@/components/ui/hero/marquee";
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[1px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
+    <div className="font-sans grid grid-rows-[1px_1fr_100px] items-center justify-items-center min-h-screen p-8 pb-20 gap-10 sm:p-20 overflow-clip">
       <div className="absolute top-0 left-0 w-[100vw] h-inherit z-20">
       <TopNavbar />
       </div>
-      <main className="gap-[32px] row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full bg-amber-200/60">
-        <div className="row-start-1 flex flex-col w-full h-full items-">
-          <div className="flex flex-row gap-2 w-full">
-            <div className="flex items-center h-[70%] w-[40%]"> <div className=" h-full w-full bg-white"></div> </div>
-            <div className="flex gap-2 w-[60%]">
+      <main className="row-start-2 grid grid-rows-[800px_100vh_100vh_100vh_100vh] h-auto w-full">
+        <div className="row-start-1 flex flex-col w-full h-full items-center">
+          <div className="absolute top-0 w-full h-screen z-0 overflow-hidden">
+              <div className= "relative w-full oveflow-clip" style={{
+                  transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
+              }}>
+                <Boxes className="flex w-full h-full"/>
+              </div>
+          
+          </div>
+          <div className="flex flex-row w-full items-center-safe justify-between p-2">
+            <div className="flex flex-col w-[40%] gap-2 z-10 p-5"> 
+                <TagLine className=" rounded-xl p-5  bg-slate-500/20 " />
+                </div>
+            <div className="flex relative gap-2 w-[60%]">
             <CarouselMain />
             </div>
           </div>
-          <div>
-            <div className="relative h-[70%] w-[60%]"> <div className=" absolute inset-0 h-full w-full bg-white"></div> </div>
+          <div className="flex flex-row w-inherit justify-center z-10">
+                <Line1 className="rounded-xl p-5 bg-slate-500/20 "/>
+          </div>
+         <div className="relative w-full ">
+          <div className="absolute flex items-center-safe left-[-80] w-screen h-60 bg-white ">
+            <div className="flex flex-row justify-center items-center ">
+              <Marquee />
+            </div>
+            
           </div>
         </div>
+        </div>
+        <div className="row-start-2 relative h-full w-full">
+              <div className="absolute inset-0 mt-16 bg-gray-100/20 w-full h-full rounded-xl blur-3xl">Section 3</div>
+              <div className="absolute inset-0  mt-16 bg-gray-100/20 w-full h-full rounded-xl ">Section 3</div>
+        </div>
+        
         </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center bg-slate-200 w-full h-full text-black">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
