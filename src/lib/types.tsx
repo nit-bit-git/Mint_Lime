@@ -142,10 +142,11 @@ interface BaseTextProps {
  */
 interface HeadingProps extends BaseTextProps {
   level?: 1 | 2 | 3 | 4 | 5 | 6;
-  variant?: "default" | "gradient" | "outlined" | "shadow";
+  variant?: "default" | "gradient" | "outlined" | "shadow" ;
   size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl";
   weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
   color?: string;
+  bg?:string
 }
 
 /**

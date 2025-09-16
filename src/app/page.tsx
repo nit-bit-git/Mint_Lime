@@ -4,7 +4,6 @@ import CarouselMain from "@/components/ui/carousels/carouselMain";
 import { Boxes } from "@/components/ui/hero/bg";
 import { TagLine } from "@/components/ui/hero/tagLine";
 import { Line1 } from "@/components/ui/hero/typeWriter";
-import FMMarquee from "@/lib/componentUtils/marQ";
 import { Marquee } from "@/components/ui/hero/marquee";
 
 export default function Home() {
