@@ -33,11 +33,15 @@ export function WhyChooseUsCards({ className }: { className: string }) {
           />
             </AspectRatio>
           {/* Overlay Text */}
-          <div className="absolute bottom-0 w-full bg-gradient-to-t from-black/70 via-black/30 to-transparent p-4 backdrop-blur-sm">
-            <h2 className="text-white text-base font-medium">{item.title}</h2>
+          <div className="absolute bottom-0 w-full p-4">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent blur-2xl"></div>
+            <div className="relative z-10">
+                <h2 className="text-white text-base font-medium">{item.title}</h2>
             <p className="inline-block mt-2 text-sm border font-light border-white/50 rounded-full px-3 py-1 text-white">
               {item.tag}
             </p>
+            </div>
+            
           </div>
         </div>
       ))}

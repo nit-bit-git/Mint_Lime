@@ -65,7 +65,7 @@ export default function Home() {
                 </div>
               </div>
               <div className=" flex px-8 w-full flex-1">
-                <div className="bg-black flex flex-col items-center-safe justify-center pb-15 h-full w-full ">
+                <div className="bg-black flex flex-col items-center-safe justify-center h-full w-full pb-20 rounded-b-[70%] ">
                   <WhyUs className="p-10 flex items-center justify-center-safe" />
                  <WhyChooseUsCards className="flex flex-row items-center-safe justify-center h-full w-full "/>
                 </div>
