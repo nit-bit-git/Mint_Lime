@@ -30,7 +30,7 @@ export function WeDoCards({className}: {className?: string}) {
 
   <div className="flex flex-col gap-4">
     <div className="flex justify-center">
-      <div className="bg-gray-300 w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-full"></div>
+      <div className="bg-gray-300 w-20 h-20 sm:w-28 sm:h-28 md:w-64 md:h-64 rounded-full"></div>
     </div>
     <div className="bg-gray-300 rounded-xl flex-1"></div>
   </div>

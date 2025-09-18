@@ -49,8 +49,8 @@ export default function Home() {
         </div>
         </div>
         <div className="row-start-2 mt-10 relative h-[150vh] w-full">
-              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-xl blur-3xl"></div>
-              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-xl">
+              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-3xl blur-3xl"></div>
+              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-bl-3xl">
               <div className=" flex mt-5 px-8 w-full flex-1 items-center justify-center">
                 <div className="bg-black grid grid-cols-[60%_40%] py-5 w-full ">
                   <div className="col-start-1 col-end-1 p-10 flex items-center gap-10">
@@ -79,7 +79,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gray-100/20 w-full h-full [clip-path:polygon(0_40%,100%_0,100%_100%,0_100%)]"></div>     
         </div>
         <div className="row-start-4 my-5 grid grid-cols-2 relative h-full w-full">
-          <div className="absolute inset-0 bg-gray-100/20 w-full h-full rounded-b-xl"></div>
+          <div className="absolute inset-0 bg-gray-100/20 w-full h-full"></div>
           <WeDoCards className="col-start-1 flex flex-col items-center justify-center m-10" />
           <WeDo className="col-start-2 flex flex-col items-center justify-center" />
         </div>
