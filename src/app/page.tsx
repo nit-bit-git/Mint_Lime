@@ -12,8 +12,6 @@ import { WhyChooseUsCards } from "@/components/ui/aboutUs/placeholder2";
 import { WhyUs } from "@/components/ui/aboutUs/heading2";
 import { WeDo } from "@/components/ui/weDo/writeup";
 import { WeDoCards } from "@/components/ui/weDo/imagesHolder";
-import { ServicesCarousel } from "@/components/ui/services/carousel";
-import ServicesMenubar from "@/components/ui/services/menuBar";
 import ServiceComponent from "@/components/ui/services/servicesComponent";
 
 export default function Home() {
@@ -95,7 +93,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gray-100/20 w-full h-full"></div>
           {/* <WeDoCards className="col-start-1 flex flex-col items-center justify-center m-10" />
           <WeDo className="col-start-2 flex flex-col items-center justify-center" /> */}
-          <ServiceComponent />
+          <ServiceComponent className="flex flex-col gap-6 h-full w-full" />
         </div>
         </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center bg-slate-200 w-full h-full text-black">
