@@ -8,6 +8,8 @@ import { Marquee } from "@/components/ui/hero/marquee";
 import { WhoAreWe } from "@/components/ui/aboutUs/heading1";
 import { WhoUsContent } from "@/components/ui/aboutUs/para1";
 import { MintLimeIllustration } from "@/components/ui/aboutUs/placeholder1";
+import { WhyChooseUsCards } from "@/components/ui/aboutUs/placeholder2";
+import { WhyUs } from "@/components/ui/aboutUs/heading2";
 
 export default function Home() {
   return (
@@ -36,19 +38,18 @@ export default function Home() {
           <div className="flex flex-row w-inherit justify-center z-10">
                 <Line1 className="rounded-xl p-5 bg-slate-500/20 "/>
           </div>
-         <div className="relative w-full ">
-          <div className="absolute flex items-center-safe left-[-80] w-screen h-60 bg-white ">
-            <div className="flex flex-row justify-center items-center ">
+         <div className="relative w-full h-inherit z-10">
+          <div className="absolute flex items-center-safe left-[-80] w-screen h-60 bg-white">
+            <div className="flex flex-row justify-center items-center  ">
               <Marquee />
-            </div>
-            
+            </div>  
           </div>
         </div>
         </div>
-        <div className="row-start-2 relative h-[150vh] w-full">
-              <div className="absolute inset-0 mt-10 bg-gray-100/20 w-full h-full rounded-xl blur-3xl"></div>
-              <div className="absolute inset-0  mt-10 bg-gray-100/20 w-full h-full rounded-xl ">
-              <div className=" flex py-16 px-8 bg-gray-100/20 w-full h-1/2  items-center justify-center-safe">
+        <div className="row-start-2 mt-10 relative h-[150vh] w-full">
+              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-xl blur-3xl"></div>
+              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-xl">
+              <div className=" flex mt-5 px-8 w-full flex-1 items-center justify-center">
                 <div className="bg-black grid grid-cols-[60%_40%] py-5 w-full ">
                   <div className="col-start-1 col-end-1 p-10 flex items-center gap-10">
                     <div className="max-w-full">
@@ -63,19 +64,10 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-              <div className=" flex px-8 bg-gray-100/20 w-full h-1/2 rounded-b-xl items-center justify-center-safe">
-                <div className="bg-black grid grid-cols-[60%_40%] py-5 w-full ">
-                  <div className="col-start-1 col-end-1 p-10 flex items-center gap-10">
-                    <div className="max-w-full">
-                      <WhoAreWe />
-                    </div>
-                    <span className="flex w-full h-full items-center justify-center-safe">
-                      <WhoUsContent />
-                    </span>
-                  </div>
-                  <div className="col-start-2 flex flex-col items-center justify-center-safe">
-                    <MintLimeIllustration />
-                  </div>
+              <div className=" flex px-8 w-full flex-1">
+                <div className="bg-black flex flex-col items-center-safe justify-center h-full w-full pb-20 rounded-b-[70%] ">
+                  <WhyUs className="p-10 flex items-center justify-center-safe" />
+                 <WhyChooseUsCards className="flex flex-row items-center-safe justify-center h-full w-full "/>
                 </div>
               </div>
               </div>
