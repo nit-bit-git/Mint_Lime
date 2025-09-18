@@ -12,6 +12,9 @@ import { WhyChooseUsCards } from "@/components/ui/aboutUs/placeholder2";
 import { WhyUs } from "@/components/ui/aboutUs/heading2";
 import { WeDo } from "@/components/ui/weDo/writeup";
 import { WeDoCards } from "@/components/ui/weDo/imagesHolder";
+import { ServicesCarousel } from "@/components/ui/services/carousel";
+import ServicesMenubar from "@/components/ui/services/menuBar";
+import ServiceComponent from "@/components/ui/services/servicesComponent";
 
 export default function Home() {
   return (
@@ -19,7 +22,7 @@ export default function Home() {
       <div className="absolute top-0 left-0 w-[100vw] h-inherit z-20">
       <TopNavbar />
       </div>
-      <main className="row-start-2 grid grid-rows-[800px_1fr_250px_200vh_250px_100vh_100vh] h-auto w-full">
+      <main className="row-start-2 grid grid-rows-[800px_1fr_250px_150vh_250px_100vh_100vh] h-auto w-full">
         <div className="row-start-1 flex flex-col w-full h-full items-center">
           <div className="absolute top-0 w-full h-screen z-0 overflow-hidden">
               <div className= "relative w-full oveflow-clip" style={{
@@ -86,8 +89,14 @@ export default function Home() {
         <div className="row-start-5 my-5 relative h-full w-full">
           <div className="absolute inset-0  bg-gray-100/10 w-full h-full [clip-path:polygon(0_0,100%_0,100%_50%,0_100%)]"></div>
           <div className="absolute top-5 bg-gray-100/20 w-full h-full [clip-path:polygon(0_0,100%_0,100%_60%,0_100%)]"></div>
+          <div className="absolute bottom-[-15] right-0 bg-gray-100/10 w-3/4 h-full [clip-path:polygon(0_100%,100%_65%,100%_100%,0_100%)]"></div>
         </div>
-
+         <div className="row-start-6 relative mt-10 h-full w-full flex flex-col py-10">
+          <div className="absolute inset-0 bg-gray-100/20 w-full h-full"></div>
+          {/* <WeDoCards className="col-start-1 flex flex-col items-center justify-center m-10" />
+          <WeDo className="col-start-2 flex flex-col items-center justify-center" /> */}
+          <ServiceComponent />
+        </div>
         </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center bg-slate-200 w-full h-full text-black">
         <a
