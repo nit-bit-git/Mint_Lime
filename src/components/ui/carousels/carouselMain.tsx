@@ -169,7 +169,7 @@ const LazyImage = ({ src, alt, className, onLoad, onError }:{src: string; alt: s
   };
   
   return (
-    <div ref={imgRef} className={`relative ${className}`}>
+    <div ref={imgRef} className={`relative h-inherit ${className}`}>
       {isIntersecting && !hasError && (
         <AspectRatio ratio={16/9}>
         <img
@@ -278,7 +278,7 @@ const CarouselMain = ({
 
         if (!carouselState.current) return <div>No slides available</div>;
         return (
-            <div className="w-full max-w-4xl h-full mx-auto space-y-6">
+            <div className="w-full h-inherit relative max-w-4xl mx-auto space-y-6">
              <div className="relative rounded-xl shadow-2xl overflow-hidden">
               {/* Current Slide */}
               <div className="relative w-full h-full">
@@ -334,7 +334,7 @@ const CarouselMain = ({
             </div>
             
             {/* Slide Indicators */}
-            <div className="flex justify-center space-x-2">
+            <div className="absolute bottom-10 flex w-full justify-center space-x-2">
               {slides.map((_, index) => (
                 <button
                   key={index}
