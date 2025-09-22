@@ -13,6 +13,7 @@ import { WhyUs } from "@/components/ui/aboutUs/heading2";
 import { WeDo } from "@/components/ui/weDo/writeup";
 import { WeDoCards } from "@/components/ui/weDo/imagesHolder";
 import ServiceComponent from "@/components/ui/services/servicesComponent";
+import { Portfolio } from "@/components/ui/portfolio/projectTiles";
 
 export default function Home() {
   return (
@@ -94,6 +95,15 @@ export default function Home() {
           {/* <WeDoCards className="col-start-1 flex flex-col items-center justify-center m-10" />
           <WeDo className="col-start-2 flex flex-col items-center justify-center" /> */}
           <ServiceComponent className="flex flex-col gap-6 h-full w-full" />
+        </div>
+        <div className="row-start-7 relative mt-10 h-full w-full flex flex-col py-10">
+          <div className="absolute inset-0 bg-gray-100/20 w-full h-full"></div>
+          {/* <WeDoCards className="col-start-1 flex flex-col items-center justify-center m-10" />
+          <WeDo className="col-start-2 flex flex-col items-center justify-center" /> */}
+          <div className="p-10 h-full w-full">
+             <Portfolio />
+          </div>
+         
         </div>
         </main>
       <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center bg-slate-200 w-full h-full text-black">
