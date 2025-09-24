@@ -52,7 +52,7 @@ export const EvervaultCard = ({
         />
         <div className=" z-10 flex items-center justify-center">
           <div className=" h-full w-full  rounded-full flex items-center justify-center text-white font-bold text-4xl">
-            <div className="relative w-[350px] h-[350px]">
+            <div className="relative w-[150px] h-[150px]">
                 <Image
                     src="http://192.168.29.250:3000/images/page2/halfmintLimeLight.svg"
                     alt="idle"

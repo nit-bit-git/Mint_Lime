@@ -16,9 +16,10 @@ interface DraggableCardBodyProps {
   parentRef?: React.RefObject<HTMLDivElement | null>;
   className?: string;
   children: React.ReactNode;
+  setDragging?: (dragging: boolean) => void;
 }
 
-export const DraggableCardBody = ({ parentRef, className, children }: DraggableCardBodyProps) => {
+export const DraggableCardBody = ({ parentRef, className, children, setDragging }: DraggableCardBodyProps) => {
     const dragX = useMotionValue(0);
     const dragY = useMotionValue(0);
     const hoverX = useMotionValue(0);
@@ -223,6 +224,7 @@ export const DraggableCardBody = ({ parentRef, className, children }: DraggableC
     const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
         document.body.style.cursor = "default";
         setIsDragging(false);
+        setDragging?.(false);
         dragX.set(0);
         dragY.set(0);
         if (parentRef?.current && cardRef.current) {
@@ -290,6 +292,7 @@ export const DraggableCardBody = ({ parentRef, className, children }: DraggableC
             onDragStart={() => {
                 document.body.style.cursor = "grabbing";
                 setIsDragging(true);
+                setDragging?.(true);
             }}
             onDragEnd={handleDragEnd}
             style={{
