@@ -40,7 +40,7 @@ const handleClick = (index: number) => {
         <div className={cn(className, "gap-2 p-4")}>
           {selectedNavItem.map((subItem, index) => (
             <span key={index}  style={{ "--pad": `${(index+1) * 40}px` } as React.CSSProperties } className="ml-[var(--pad)] hover:text-gray-300 cursor-pointer bg-black z-10" onClick={()=>handleClick(index)} >
-                 <Heading size='4xl' color={selectedSkill == index ? 'text-white' : 'text-gray-800'} > 
+                 <Heading size='3xl' color={selectedSkill == index ? 'text-white' : 'text-gray-800'} > 
                     {subItem}
                 </Heading>
             </span>
