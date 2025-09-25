@@ -58,8 +58,8 @@ const content = [
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
         {/* Running out of content */}
       </div>
-    ),
-  },
+),
+},
 ];
 
 export const WeDo = ({ className }: { className?: string }) => {

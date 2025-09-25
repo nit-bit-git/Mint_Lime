@@ -40,7 +40,7 @@ export default function TopNavbar() {
         <NavBody>
           <NavbarLogo>
             <Image
-              src="http://192.168.29.250:3000/images/logos/logo.svg"
+              src="/images/logos/logo.svg"
               alt="Logo"
               width={150}
               height={150}
@@ -48,7 +48,7 @@ export default function TopNavbar() {
               style={{ width: "auto", height: "auto" }}
             />
              <Image
-              src="http://192.168.29.250:3000/images/logos/logoSymbol.svg"
+              src="/images/logos/logoSymbol.svg"
               alt="Logo"
               width={64}
               height={64}
