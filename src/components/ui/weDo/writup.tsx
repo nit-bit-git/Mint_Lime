@@ -29,7 +29,7 @@ const content = [
       "Your brand is more than a logo, we believe we are capable for shaping experiences that earn trust and loyalty",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
-        Version control
+        {/* Version control */}
       </div>
     ),
   },
@@ -38,7 +38,7 @@ const content = [
     description: "Obviously repetitive work does get tiring along the line, we can help automate those things for you because money is time yes?",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
-        Running out of content
+        {/* Running out of content */}
       </div>
     ),
   },
@@ -47,7 +47,7 @@ const content = [
     description: "Your business should not collapse under traffic or pressure, so we make sure yours stay alive and balanced when things might go under the weather.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
-        Running out of content
+        {/* Running out of content */}
       </div>
     ),
   },
@@ -56,7 +56,7 @@ const content = [
     description: "It's not just the success we make for your business, it's also about the growth, partnership, business know-how and the friendship you can count on.",
     content: (
       <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] text-white">
-        Running out of content
+        {/* Running out of content */}
       </div>
     ),
   },

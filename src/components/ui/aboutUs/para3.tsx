@@ -1,9 +1,15 @@
+import { Lens } from "@/lib/componentUtils/lens";
 import { Paragraph } from "@/lib/componentUtils/text";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 export const OurMissionContent = ({className}: {className?: string}) => {
+    const [hovering, setHovering] = useState(false);
+    
     return (     
         <div className={cn("inline-block w-full h-full", className)}>
-         <span className="float-left">
+        
+            <Lens hovering={hovering} setHovering={setHovering} lensSize={100}>
+            <span className="p-5">
              <Paragraph  size="xl" color=" text-white" className="z-10" weight="bold">
                At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency and provide strategic guidance to drive informed decisions and sustainable growth.
             </Paragraph>
@@ -31,8 +37,9 @@ export const OurMissionContent = ({className}: {className?: string}) => {
                     </li>
                 </ul>
             </div>
+            </span> 
+               </Lens>
                
-        </span>        
         </div>
     );
 }

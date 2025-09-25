@@ -1,11 +1,12 @@
 import { useOutsideClick } from "@/lib/componentUtils/popup";
 import { motion } from "motion/react";
 import { useRef } from "react";
+import { createPortal } from "react-dom";
 
 export const ExpandableCardDemo = ({ active, setActive }: {active: any, setActive:React.Dispatch<any>}) => {
  const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(ref, () => setActive(null));
-  return (
+  return createPortal (
     <>
       {/* Overlay */}
       <motion.div
@@ -13,12 +14,12 @@ export const ExpandableCardDemo = ({ active, setActive }: {active: any, setActiv
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 bg-black/20 h-full w-full z-10"
+        className="fixed inset-0 bg-black/20 h-screen w-full z-50 backdrop-blur-2xl"
         onClick={() => setActive(null)}
       />
 
       {/* Expanded Card */}
-      <div className="fixed inset-0 grid place-items-center z-[100]">
+      <div className="fixed inset-0  grid place-items-center z-[100] ">
         <motion.div
           layoutId={`card-${active.title}`}
           ref={ref}
@@ -56,6 +57,6 @@ export const ExpandableCardDemo = ({ active, setActive }: {active: any, setActiv
           </div>
         </motion.div>
       </div>
-    </>
+    </>, document.body
   );
 };
