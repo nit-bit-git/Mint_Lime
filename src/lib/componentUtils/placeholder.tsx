@@ -54,7 +54,7 @@ export const EvervaultCard = ({
           <div className=" h-full w-full  rounded-full flex items-center justify-center text-white font-bold text-4xl">
             <div className="relative w-[150px] h-[150px]">
                 <Image
-                    src="http://192.168.29.250:3000/images/page2/halfmintLimeLight.svg"
+                    src="/images/page2/halfmintLimeLight.svg"
                     alt="idle"
                     fill
                     priority
@@ -62,7 +62,7 @@ export const EvervaultCard = ({
                     style={{ opacity: isActive ? 0 : 1 }}
                 />
                 <Image
-                    src="http://192.168.29.250:3000/images/page2/mintLime.svg"
+                    src="/images/page2/mintLime.svg"
                     alt="active"
                     fill
                     priority

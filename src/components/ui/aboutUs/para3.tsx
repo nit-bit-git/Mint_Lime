@@ -8,7 +8,7 @@ export const OurMissionContent = ({className}: {className?: string}) => {
     return (     
         <div className={cn("inline-block w-full h-full", className)}>
         
-            <Lens hovering={hovering} setHovering={setHovering} lensSize={100}>
+            <Lens hovering={hovering} setHovering={setHovering} lensSize={300}>
             <span className="p-5">
              <Paragraph  size="xl" color=" text-white" className="z-10" weight="bold">
                At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency and provide strategic guidance to drive informed decisions and sustainable growth.
