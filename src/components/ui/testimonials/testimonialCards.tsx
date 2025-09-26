@@ -8,7 +8,7 @@ export function Testimonials() {
   return (
     <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
       <Heading size="6xl">
-        What Our Clients Say ?
+        What Our Clients Say...
       </Heading>
       <InfiniteMovingCards
         items={testimonials}
