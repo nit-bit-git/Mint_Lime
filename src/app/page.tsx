@@ -25,7 +25,7 @@ export default function Home() {
  const [navVisible, setNavVisible] = useState< boolean | null>( true );
 
   return (
-    <div className="relative font-sans grid grid-rows-[1fr_100px] items-center justify-items-center pb-20 sm:p-20 overflow-clip">
+    <div className="relative pointer-events-none font-sans grid grid-rows-[1fr_100px] items-center justify-items-center pb-20 sm:p-20 overflow-clip">
       <AnimatePresence>
         {navVisible !== null && (
           <motion.div
@@ -57,10 +57,10 @@ export default function Home() {
       <main className="row-start-1 grid grid-rows-[800px_auto_250px_1fr_100vh_250px_150vh_100vh] h-auto gap-2 w-full">
         <div className="relative row-start-1 flex flex-col w-full h-full items-center overflow-clip">
           <div className="flex flex-row w-full items-center-safe justify-between p-2 ">
-            <div className="flex flex-col w-[40%] gap-2 z-20 p-5"> 
-                <TagLine className=" rounded-xl p-5  bg-slate-500/20 " />
+            <div className="flex flex-col w-[40%] gap-2 z-20 p-5 pointer-events-none"> 
+                <TagLine className=" rounded-xl p-5  " />
                   <div className="flex flex-row w-full justify-center z-20">
-                <Line1 className="rounded-xl p-5 w-full bg-slate-500/20 "/>
+                <Line1 className="rounded-xl p-5 w-full "/>
             </div>
                 </div>
             <div className="flex relative gap-2 w-[60%] z-30">

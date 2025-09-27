@@ -38,7 +38,7 @@ export default function TopNavbar() {
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavbarLogo>
+          <NavbarLogo className="pointer-events-none">
             <Image
               src="/images/logos/logo.svg"
               alt="Logo"
@@ -56,9 +56,9 @@ export default function TopNavbar() {
               style={{ width: "auto", height: "auto" }}
             />
           </NavbarLogo>
-          <NavItems items={navItems} />
+          <NavItems items={navItems}  />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            <NavbarButton variant="primary" className="cursor-pointer pointer-events-auto">Book a call</NavbarButton>
           </div>
         </NavBody>
         <MobileNav>

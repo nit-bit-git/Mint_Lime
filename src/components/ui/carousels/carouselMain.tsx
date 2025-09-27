@@ -150,6 +150,7 @@ const LazyImage = ({ src, alt, className, onLoad, onError }: { src: string; alt:
             className={`w-full h-auto max-h-[400px] object-cover transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'} ${className}`}
             onLoad={handleLoad}
             onError={handleError}
+            data-critical="true"
           />
           {isLoading && (
             <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">

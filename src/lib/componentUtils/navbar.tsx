@@ -102,36 +102,79 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 }
 
 export const NavItems = ({ items, className, onItemClick, visible }: NavItemProps) => {
-    const [hovered, setHovered] = useState<number | null>(null);
-    return (
-        <motion.div 
-            onMouseLeave={() => setHovered(null)}
-            className={cn("absolute inset-0 hidden  flex-1 flex-row items-center justify-center space-x-2 text-sm font-medium text-zinc-600 transition duration-200 hover:text-zinc-800 lg:flex lg:space-x-2", className)}
-            >
-                
-                { items.map((item, index)=>(
-                    <a
-                        onMouseEnter={() => setHovered(index)}
-                        onClick={onItemClick}
-                        className="relative px-4 py-2 text-neutral-600 dark:text-neutral-300"
-                        key={`link-${index}`}
-                        href= {item.link}
-                    >
-                        {hovered === index && (
-                                <motion.div
-                                layoutId="hovered"
-                                className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
-                                />
-                            )
-                        }
-                        <span className={!visible ? "relative z-10 px-3 py-1" : "relative z-10 py-1" }>{item.name}</span>
-                    </a>
-                ))
-                }
-        </motion.div>
-    );
-}
+  const [hovered, setHovered] = useState<number | null>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
+  // Track when visible changes to trigger fade effect
+  React.useEffect(() => {
+    setIsTransitioning(true);
+    const timer = setTimeout(() => {
+      setIsTransitioning(false);
+    }, 200); // Fade duration
+
+    return () => clearTimeout(timer);
+  }, [visible]);
+
+  return (
+    <motion.div
+      onMouseLeave={() => setHovered(null)}
+      layout // 👈 enables smooth layout transitions
+      animate={{
+        // Add responsive spacing based on visible state
+        gap: visible ? "0.25rem" : "0.5rem", // Tighter spacing when compact
+        opacity: isTransitioning ? 0.3 : 1, // Fade during transition
+      }}
+      transition={{ 
+        layout: { duration: 0.4, ease: "easeInOut" }, // Match NavBody transition
+        gap: { duration: 0.4, ease: "easeInOut" },
+        opacity: { duration: 0.2, ease: "easeInOut" }
+      }}
+      className={cn(
+        "hidden w-fit flex-1 flex-row items-center justify-center text-sm font-medium text-zinc-600 hover:text-zinc-800 lg:flex",
+        // Remove space-x-* classes since we're using animated gap
+        className
+      )}
+    >
+      {items.map((item, index) => (
+        <motion.a
+          key={`link-${index}`}
+          href={item.link}
+          onMouseEnter={() => setHovered(index)}
+          onClick={onItemClick}
+          layout // makes spacing/padding animate smoothly
+          animate={{
+            // Responsive padding based on navbar state
+            paddingLeft: visible ? "0.75rem" : "1rem", // px-3 vs px-4
+            paddingRight: visible ? "0.75rem" : "1rem",
+            opacity: isTransitioning ? 0 : 1, // Individual item fade
+          }}
+          transition={{ 
+            layout: { duration: 0.4, ease: "easeInOut" },
+            paddingLeft: { duration: 0.4, ease: "easeInOut" },
+            paddingRight: { duration: 0.4, ease: "easeInOut" },
+            opacity: { duration: 0.15, ease: "easeInOut" }
+          }}
+          className="relative py-2 text-neutral-600 dark:text-neutral-300"
+        >
+          {hovered === index && !isTransitioning && (
+            <motion.div
+              layoutId="hovered"
+              className="absolute inset-0 h-full w-full rounded-full bg-gray-100 dark:bg-neutral-800"
+              transition={{ duration: 0.25, ease: "easeInOut" }}
+            />
+          )}
+          <motion.span
+            layout
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="relative z-10 py-1"
+          >
+            {item.name}
+          </motion.span>
+        </motion.a>
+      ))}
+    </motion.div>
+  );
+};
 export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
   return (
     <motion.div
@@ -216,29 +259,48 @@ export const MobileNavToggle = ({
     <IconMenu2 className="text-black dark:text-white" onClick={onClick} />
   );
 };
- export const NavbarLogo = ({children, visible, className}: {children?: React.ReactNode, visible?: boolean, className?: string}) => {
+ export const NavbarLogo = ({
+  children,
+  visible,
+  className,
+}: {
+  children?: React.ReactNode;
+  visible?: boolean;
+  className?: string;
+}) => {
+  const childArray = React.Children.toArray(children);
+
   return (
-    
     <a
       href="#"
-      className={!visible? "relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black": "relative z-20 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black"}
+      className="relative z-20 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black pointer-events-none"
     >
-    <motion.div
-      transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={cn(
-        className
-      )}
-    >
-      {!visible && (() => {
-        const childArray = React.Children.toArray(children);
-        return childArray[0] ?? childArray[1] ?? null;
-      })()}
-      {visible && (() => {
-        const childArray = React.Children.toArray(children);
-        return childArray[1] ?? childArray[0] ?? null;
-      })()}
-      </motion.div>
-      
+      <AnimatePresence mode="wait">
+        {visible ? (
+          <motion.div
+            key="symbol"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 30 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className={cn(className)}
+          >
+            {childArray[1] ?? childArray[0] ?? null}
+          </motion.div>
+        ) : (
+          // Logo text (slide in from the left)
+          <motion.div
+            key="logo"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -30 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className={cn(className)}
+          >
+            {childArray[0] ?? childArray[1] ?? null}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </a>
   );
 };
