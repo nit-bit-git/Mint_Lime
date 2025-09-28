@@ -12,7 +12,7 @@ export function MintLimeIllustration() {
       <EvervaultCard text="hover" />
       <span className="absolute bottom-0 bg-slate-900/60 px-5 rounded-t-xl">
       <h2 className=" dark:text-white text-black mt-4 text-sm font-light">
-        Thirsty? don't worry we got you covered.
+        Thirsty? don&lsquo;t worry we got you covered.
       </h2>
       <p className="text-sm border max-w-fit font-light dark:border-white/[0.2] border-black/[0.2] rounded-full mt-4 text-black dark:text-white px-2 py-0.5">
         psss... hover me out

@@ -6,7 +6,7 @@ import { Heading } from "@/lib/componentUtils/text";
 
 export function Testimonials() {
   return (
-    <div className="h-[40rem] rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
+    <div className="h-fit rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
       <Heading size="6xl">
         What Our Clients Say...
       </Heading>
@@ -22,31 +22,32 @@ export function Testimonials() {
 const testimonials = [
   {
     quote:
-      "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
-    name: "Charles Dickens",
-    title: "A Tale of Two Cities",
+      "We were drowning in manual data entry, but **Mint Lime** completely streamlined our workflow. The transition was seamless, and we saw an **immediate 40% reduction in processing time**. It was truly a game-changer for our small team.",
+    name: "Sarah Chen",
+    title: "Operations Director, Apex Solutions",
   },
   {
     quote:
-      "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
-    name: "William Shakespeare",
-    title: "Hamlet",
-  },
-  {
-    quote: "All that we see or seem is but a dream within a dream.",
-    name: "Edgar Allan Poe",
-    title: "A Dream Within a Dream",
+      "The **support team is phenomenal**. Whenever we hit a snag, they responded within minutes, not hours. It's rare to find a company that backs up a great product with such a high level of **personal, attentive service**.",
+    name: "Marcus Jones",
+    title: "VP of Product, Stellar Innovations",
   },
   {
     quote:
-      "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-    name: "Jane Austen",
-    title: "Pride and Prejudice",
+      "I was skeptical about integrating a new platform, but the **onboarding process was incredibly smooth**. Their dedicated specialist made sure our entire team was up and running and **feeling confident** in less than a week. Highly recommend!",
+    name: "Emily Rodriguez",
+    title: "Marketing Manager, GeoMetrics",
   },
   {
     quote:
-      "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-    name: "Herman Melville",
-    title: "Moby-Dick",
+      "The new **reporting dashboard is exactly what we needed**. It’s so intuitive and gives us clarity on our KPIs that we simply didn't have before. We can finally make **data-driven decisions** quickly and efficiently.",
+    name: "David Kim",
+    title: "Founder & CEO, Velocity Agency",
+  },
+  {
+    quote:
+      "We've been using this service for over a year, and it just keeps getting better. The continuous updates and new features show they're **committed to staying ahead of the curve**. It's an **essential tool** that pays for itself many times over.",
+    name: "Jessica Miller",
+    title: "Senior Analyst, FinTech Global",
   },
 ];

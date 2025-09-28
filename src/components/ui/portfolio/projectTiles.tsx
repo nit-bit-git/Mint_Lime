@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   DraggableCardBody,
 } from "@/lib/componentUtils/draggableCards";
@@ -88,7 +88,7 @@ const cards = [
       content: () => {
       return (
         <p>
-          AWS LEX designed chat bot that would take in user requirements and fetch informations from API's, also included other aws services such as SNS, SES, etc
+          AWS LEX designed chat bot that would take in user requirements and fetch informations from API&lsquo;s, also included other aws services such as SNS, SES, etc
         </p>
       );
     },
@@ -133,10 +133,10 @@ export function Portfolio( {setNavVisible}:{setNavVisible: React.Dispatch<any>})
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [active]);
+  }, [active, setNavVisible]);
  const [isDragging, setIsDragging] = useState(false);
   return (
-    <div ref={parentRef} className="relative flex min-h-full w-full p-10 justify-center overflow-clip  [perspective:3000px] bg-slate-500">
+    <div ref={parentRef} className="relative flex min-h-full w-full p-10 justify-center   [perspective:3000px] bg-slate-500">
        <OurWork className=" flex flex-col justify-center mx-auto max-w-sm text-center font-black text-neutral-400  dark:text-neutral-800"/>
      
       {cards.map((item, index) => (
@@ -174,7 +174,7 @@ export function Portfolio( {setNavVisible}:{setNavVisible: React.Dispatch<any>})
     </div>
   );
 }
-// const cards = [
+
 //   {
 //     description: "Lana Del Rey",
 //     title: "Summertime Sadness",

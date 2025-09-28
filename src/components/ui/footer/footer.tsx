@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { cn } from '@/lib/utils';
-
+import { LinkedInIcon, InstagramIcon, XIcon } from "@/components/icons/icons";
+import Image from 'next/image';
 // Type definitions
 interface ImageProps {
   src: string;
@@ -21,14 +22,9 @@ interface LinkItem {
   href: string;
 }
 
-interface SocialItem {
-  name: string;
-  href: string;
-}
-
 // Mock Image component for demo - replace with your actual Image import
-const Image: React.FC<ImageProps> = ({ src, alt, fill, priority, className, ...props }) => (
-  <img src={src} alt={alt} className={className} {...props} />
+const ImageProp: React.FC<ImageProps> = ({ src, alt, fill, priority, className, ...props }) => (
+  <Image src={src} alt={alt} className={className} fill={fill}{...props} priority={priority} />
 );
 
 export const Footer: React.FC<FooterProps> = ({ className }) => {
@@ -77,7 +73,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
       )}
     >
       {/* Background SVG - positioned at bottom with crop */}
-      <div className="absolute bottom-0 left-0 w-full  h-[120%] z-10">
+      <div className="absolute bottom-0 left-0 w-full  h-[120%] z-10 blur-sm">
         <motion.div
           initial={{ opacity: 0, scale: 1.1 }}
           whileInView={{ opacity: 0.6, scale: 1 }}
@@ -85,9 +81,10 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="w-full h-full"
         >
-            <Image
+            <ImageProp
                 src="/images/footer/bgArt.svg"
                 alt=""
+                fill={true}
                 className="object-cover object-bottom w-full h-full opacity-30 dark:opacity-20"
             />
         </motion.div>
@@ -99,7 +96,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="absolute top-6 left-6 z-10 space-y-3"
+        className="absolute flex flex-col top-6 left-6 z-10 space-y-3"
       >
         <motion.div
           whileHover={{ scale: 1.05 }}
@@ -117,26 +114,29 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                       />
         </motion.div>
          {/* Social Links */}
-          <motion.div variants={itemVariants} className="flex float-left gap-3">
-            {([
-              { name: "Twitter", href: "#" },
-              { name: "LinkedIn", href: "#" },
-              { name: "GitHub", href: "#" },
-              { name: "Dribbble", href: "#" },
-            ] as SocialItem[]).map((social: SocialItem, index: number) => (
-              <motion.a
-                key={index}
-                href={social.href}
-                whileHover={{ scale: 1.1, rotate: 5 }}
-                whileTap={{ scale: 0.9 }}
-                className="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-700 flex items-center justify-center hover:bg-blue-100 dark:hover:bg-blue-900 transition-colors duration-200"
+            <motion.div
+                variants={itemVariants}
+                className="flex w-fit gap-2 md:gap-4 p-2 md:p-3 bg-white/20 dark:bg-white/60 backdrop-blur-sm rounded-full shadow-lg border border-white/30"
               >
-                <span className="text-xs font-semibold text-neutral-600 dark:text-neutral-400">
-                  {social.name[0]}
-                </span>
-              </motion.a>
-            ))}
-          </motion.div>
+              {(
+                [
+                  { name: "Twitter", href: "#", icon: XIcon },
+                  { name: "LinkedIn", href: "#", icon: LinkedInIcon },
+                  { name: "Instagram", href: "#", icon: InstagramIcon },
+                ] as { name: string; href: string; icon: React.ComponentType<any> }[]
+              ).map((social, index) => (
+                <motion.a
+                  key={index}
+                  href={social.href}
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                  aria-label={`Visit our ${social.name}`}
+                  className="p-2 md:p-3 bg-white/0 dark:bg-neutral-700/60 rounded-full hover:bg-white/50 dark:hover:bg-neutral-600 transition-all duration-200 flex items-center justify-center"
+                >
+                  <social.icon className="w-5 h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
+                </motion.a>
+              ))}
+            </motion.div>
       </motion.div>
 
       {/* Main Content */}
@@ -145,13 +145,13 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="relative z-10 flex flex-col items-center justify-center h-full px-6 py-8"
+        className="absolute  z-10 flex flex-col top-0 h-full px-6 py-8"
       >
-        <div className="text-center space-y-6">
+        <div className=" relative text-center space-y-4 md:space-y-8">
           {/* Main Footer Content */}
-          <motion.div variants={itemVariants} className="space-y-4">
+          <motion.div variants={itemVariants} >
             <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
-              Let's Build Something Amazing
+              Let&lsquo;s Build Something Amazing
             </h3>
             <p className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto">
               Transforming ideas into digital experiences that drive growth and innovation.
@@ -161,7 +161,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
           {/* Contact Links */}
           <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-6">
             {([
-              { label: "hello@mintlime.com", href: "mailto:hello@mintlime.com" },
+              { label: "mintlime.info@gmail.com", href: "mailto:hello@mintlime.com" },
               { label: "Work with us", href: "/contact" },
               { label: "Our Story", href: "/about" },
             ] as LinkItem[]).map((link: LinkItem, index: number) => (
