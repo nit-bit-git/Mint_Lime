@@ -11,7 +11,7 @@ export const WhyUs = ({className}: {className?: string}) => {
                     Why Us ?
                 </Heading>
                 ) : (
-                     <Heading level={1} size="5xl" color=" text-white" className="z-10" weight="extrabold">
+                     <Heading level={1} size="7xl" color=" text-white" className="z-10" weight="extrabold">
                     Why Us ?
                 </Heading>
                 )}
