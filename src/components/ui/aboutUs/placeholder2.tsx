@@ -1,8 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Icon } from "@/lib/componentUtils/placeholder";
 import { cn } from "@/lib/utils";
-import { AspectRatio } from "@/lib/aspectRatio";
 import { useMediaQuery } from "@/lib/mediaQuery";
 import { motion } from "motion/react";
  

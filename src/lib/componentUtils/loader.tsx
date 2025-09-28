@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Image from "next/image";
 /**
  * Enhanced Production-Grade Screen Loader
  * Features:
