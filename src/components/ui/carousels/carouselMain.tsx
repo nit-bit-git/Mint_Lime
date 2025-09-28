@@ -171,8 +171,9 @@ const CarouselMain = ({
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(autoPlay);
   const autoPlayRef = useRef<NodeJS.Timeout | number | null>(null);
 
-  const updateCarouselState = () => setCarouselState(dataManager.getCurrentState());
-
+   const updateCarouselState = useCallback(() => {
+    setCarouselState(dataManager.getCurrentState());
+  }, [dataManager]);
   const startAutoPlay = useCallback(() => {
     if (isAutoPlaying) {
       autoPlayRef.current = setInterval(() => {
