@@ -141,7 +141,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
       <div className="relative flex-shrink-0  md:py-4">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50/20 via-purple-50/20 to-indigo-50/20 rounded-xl blur-lg -z-10" />
         
-        <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 px-4">
+        <div className="flex flex-row items-center justify-center gap-2 md:gap-4 px-4">
           {navItems.map((item) => (
             <motion.button
               key={item.id}
@@ -174,8 +174,11 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
                   {item.name}
                 </Heading>
               </span>
-              <div className={`absolute bottom-0 left-4 right-0 h-px bg-gradient-to-r from-white/20 to-transparent transition-opacity duration-200 opacity-100`} />
-            
+              <div className={`absolute top-0 bottom-0 left-4 w-px bg-gradient-to-b from-white/20 to-transparent transition-opacity duration-200 opacity-100`}
+                  />
+                  <div className={`absolute top-0 bottom-0 right-4 w-px bg-gradient-to-b from-white/20 to-transparent transition-opacity duration-200 opacity-100`}
+                  />
+
               {/* Hover effect for non-selected items */}
               {selectedId !== item.id && (
                 <div className="absolute inset-0 bg-white/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
