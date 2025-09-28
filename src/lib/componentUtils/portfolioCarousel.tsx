@@ -35,10 +35,10 @@ export function PortfolioMobile({
         transition={{ duration: 0.5 }}
         className="text-center mb-4 px-4 flex flex-col items-center justify-center"
       >
-        <Heading size="xl" className="mb-2 bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 bg-clip-text text-transparent">
+        <Heading size="xl" color="text-white" className="mb-2 bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 bg-clip-text text-transparent">
           Our Notable Works
         </Heading>
-        <Paragraph size="sm" className="text-gray-600">
+        <Paragraph size="sm" color="text-gray-200" className="">
           Innovative mobile-first solutions
         </Paragraph>
       </motion.div>

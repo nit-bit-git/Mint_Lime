@@ -82,14 +82,16 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
               >
                 <Heading
                   size="5xl"
-                  className="text-slate-100 mb-6 font-bold tracking-tight"
+                  color="text-white"
+                  className=" mb-6 font-bold tracking-tight"
                 >
                   {item.title}
                 </Heading>
 
                 <Paragraph
                   size="lg"
-                  className="text-slate-300 leading-relaxed max-w-md opacity-90 text-justify md:text-base"
+                  color="text-slate-300"
+                  className=" leading-relaxed max-w-md opacity-90 text-justify md:text-base"
                 >
                   {item.description}
                 </Paragraph>
