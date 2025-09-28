@@ -156,7 +156,7 @@ export default function Home(): React.ReactElement {
 
         {/* Services Detail */}
         <section 
-          className="relative min-h-[100vh]  w-full flex flex-col py-8 md:py-16 pointer-events-auto"
+          className="relative min-h-fit max-h-screen md:min-h-screen  w-full flex flex-col py-8 md:py-16 pointer-events-auto"
           aria-label="Services section"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-gray-100/20 via-white/10 to-gray-100/20 w-full h-full rounded-xl md:rounded-3xl" />
