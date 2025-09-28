@@ -26,7 +26,7 @@ export default function Home(): React.ReactElement {
   const [navVisible, setNavVisible] = useState<boolean | null>(true);
 
   return (
-    <div className="relative min-h-screen font-sans overflow-clip bg-gradient-to-b from-black via-gray-50/30 to-black">
+    <div className="relative min-h-screen font-sans overflow-clip bg-gradient-to-b from-black via-gray-50/30 to-black ">
       {/* Navigation Layer */}
       <AnimatePresence>
         {navVisible !== null && (
@@ -72,7 +72,7 @@ export default function Home(): React.ReactElement {
           </div>  
         
       {/* Main Content Grid */}
-      <main className="relative z-10 flex flex-col gap-4 md:grid md:auto-rows-max  md:gap-8 w-full min-h-screen pt-20 pointer-events-none">
+      <main className="relative z-10 flex flex-col gap-4 md:grid md:auto-rows-max  md:gap-8 w-full min-h-screen pt-20 pointer-events-none hide-scrollbar overflow-y-scroll">
         
         {/* Hero Section */}
         <section 
