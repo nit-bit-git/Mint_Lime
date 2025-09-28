@@ -31,7 +31,7 @@ export default function Home(): React.ReactElement {
       <AnimatePresence>
         {navVisible !== null && (
           <motion.nav
-            className="fixed  top-5 md:top-0 left-0 w-full h-auto z-50 md:pointer-events-none"
+            className="fixed  top-5 md:top-0 left-0 w-full h-auto md:h-fit z-50 md:pointer-events-none"
             initial={{ 
               width: navVisible ? 0 : "100vw", 
               opacity: 0 
@@ -55,15 +55,15 @@ export default function Home(): React.ReactElement {
       </AnimatePresence>
 
       {/* Background Effects Layer */}
-       <div className=" absolute top-0 w-full h-[600px] md:h-[750px] z-0 overflow-hidden pointer-events-auto">
-              <div className= "hidden md:block relative w-full oveflow-clip" 
+       <div className=" hidden md:block absolute top-0 w-full h-[650px] md:h-[750px] z-0 overflow-hidden pointer-events-auto">
+              <div className= " md:block relative w-full oveflow-clip" 
               style={{
                   transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
               }}>
                 <Boxes className="flex w-full h-full  "/>
               </div>
               {/* Marquee Section */}
-          <div className="absolute w-full h-fit z-10 bottom-0 bg-white/50">
+          <div className="absolute w-full h-fit z-10 bottom-0 bg-amber-50">
           
             <div className="flex justify-center items-center h-full px-4 ">
               <Marquee />
@@ -79,17 +79,23 @@ export default function Home(): React.ReactElement {
           className="relative flex flex-col w-full min-h-[600px] md:min-h-[800px] items-center overflow-clip"
           aria-label="Hero section"
         >
-          <div className="flex flex-col md:flex-row w-full items-center justify-between md:bg-transparent  pointer-events-none p-2 md:p-6 lg:p-8 gap-4 md:gap-8">
+          <div className="flex flex-col md:flex-row w-full h-full items-center justify-between md:items-start md:bg-transparent  pointer-events-none py-2 md:p-6 lg:p-8 gap-4 md:gap-8">
             {/* Hero Text Content */}
-            <div className="flex flex-col w-full md:max-w-[40%] order-2 md:order-1 gap-2 md:gap-6 z-20 p-4 md:p-8 pointer-events-none">
-              <TagLine className="rounded-xl md:rounded-2xl p-2 md:p-6 md:bg-white/40 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
-              <div className="flex justify-center w-full z-20">
-                <Line1 className="rounded-xl md:rounded-2xl p-2 md:p-6 w-full md:bg-white/30 backdrop-blur-sm shadow-lg md:border border-white/20" />
+            <div className=" md:bg-white/10 rounded-2xl flex flex-col items-center flex-1 w-full md:max-w-[40%] order-2 md:order-1 gap-2 md:gap-6 z-20 py-4 md:p-8 pointer-events-none">
+              <TagLine className=" w-2/3 md:w-full rounded-xl md:rounded-2xl p-2 md:p-6 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
+              <div className="flex flex-col justify-center w-full h-full z-20">
+                <Line1 className="rounded-xl md:rounded-2xl p-2 md:p-6 w-full h-full backdrop-blur-sm shadow-lg md:border border-white/20" />
+              <div className=" w-full h-fit z-10 bg-amber-50 md:hidden">
+                  <div className="flex justify-center items-center h-full">
+                    <Marquee />
+                </div>
               </div>
+              </div>
+              
             </div>
 
             {/* Hero Carousel */}
-            <div className="flex relative w-full md:max-w-[60%] order-1 md:order-2 z-30 min-h-fit  ">
+            <div className="flex relative w-full md:max-w-[60%] order-1 md:order-2 z-30 h-full md:h-1/2 pointer-events-auto overflow-visible">
               <CarouselMain />
             </div>
           </div>
@@ -118,9 +124,9 @@ export default function Home(): React.ReactElement {
             </div>
 
             {/* Why Choose Us */}
-            <div className="flex flex-col items-center justify-center space-y-8 md:space-y-12">
+            <div className="flex flex-col items-center justify-center space-y-8 md:space-y-10">
               <div className="w-full max-w-6xl  rounded-[30px] md:rounded-t-[70px] bg-white/50 backdrop-blur-sm border-t border-white/20 shadow-xl">
-                <WhyUs className="p-8 md:p-16 flex items-center justify-center" />
+                <WhyUs className="p-8 flex items-center justify-center" />
                 <WhyChooseUsCards />
               </div>
             </div>
@@ -128,8 +134,8 @@ export default function Home(): React.ReactElement {
             {/* Our Mission */}
             <div className="flex flex-col items-center justify-center md:space-y-8">
               <div className="w-full max-w-6xl mx-auto rounded-[30px] md:rounded-b-[70px] bg-gradient-to-b from-slate-500/60 to-slate-900/60 backdrop-blur-sm border border-white/30 shadow-xl">
-                <OurMission className="p-4 md:p-16 flex items-center justify-center" />
-                <OurMissionContent className="flex flex-col md:flex-1 md:justify-around px-4 md:px-8  md:pb-16 gap-4 md:gap-0" />
+                <OurMission className="p-4 md:p-5 flex items-center justify-center bg-black" />
+                <OurMissionContent className="flex flex-col md:flex-1  px-4 md:px-8  md:pb-16 gap-4 md:gap-0" />
               </div>
             </div>
           </div>
