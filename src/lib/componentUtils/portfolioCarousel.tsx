@@ -33,7 +33,7 @@ export function PortfolioMobile({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ duration: 0.5 }}
-        className="text-center mb-4 px-4"
+        className="text-center mb-4 px-4 flex flex-col items-center justify-center"
       >
         <Heading size="xl" className="mb-2 bg-gradient-to-r from-gray-900 via-purple-900 to-gray-900 bg-clip-text text-transparent">
           Our Notable Works
