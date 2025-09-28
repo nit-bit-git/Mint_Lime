@@ -227,13 +227,13 @@ const CarouselMain = ({
           <div className="absolute inset-0 bg-black/30" />
           {/* Text content */}
           <div className="absolute inset-0 flex items-center justify-center text-center px-6">
-            <div className="text-white max-w-3xl">
+            <div className=" max-w-3xl">
               <motion.h2
                 key={carouselState.current.title}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-3xl md:text-5xl font-extrabold mb-2 drop-shadow-lg"
+                className="text-3xl text-white md:text-5xl font-extrabold mb-2 drop-shadow-lg"
               >
                 {carouselState.current.title}
               </motion.h2>
@@ -242,7 +242,7 @@ const CarouselMain = ({
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-                className="text-lg md:text-xl opacity-90 drop-shadow-md"
+                className="text-lg text-white md:text-xl opacity-90 drop-shadow-md"
               >
                 {carouselState.current.subtitle}
                 

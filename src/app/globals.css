@@ -2,9 +2,8 @@
 
 /* --- Theme colors and fonts --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-
+  --background: #0a0a0a;
+  --foreground: #ededed;
   --font-heading: 'Playfair Display', serif;  /* Headings */
   --font-sans: 'Geist Sans', sans-serif;      /* Body / paragraphs */
   --font-mono: 'Geist Mono', monospace;       /* Code / mono */
