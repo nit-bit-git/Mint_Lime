@@ -5,6 +5,7 @@ import { mainCarouselSlides } from "@/constants/imageData";
 import { AspectRatio } from "@/lib/aspectRatio";
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image";
+import { useMediaQuery } from "@/lib/mediaQuery";
 type Slide = { 
   id: number,
   title: string,
@@ -164,13 +165,13 @@ const CarouselMain = ({
   slides = mainCarouselSlides,
   autoPlay = true, 
   interval = 4000,
-  className = "h-full w-full"
+  className = ""
 }) => {    
   const [dataManager] = useState(new CarouselManager(slides, 3));
   const [carouselState, setCarouselState] = useState(dataManager.getCurrentState());
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(autoPlay);
   const autoPlayRef = useRef<NodeJS.Timeout | number | null>(null);
-
+  const isMobile = useMediaQuery("(max-width: 768px)") ?? false;
    const updateCarouselState = useCallback(() => {
     setCarouselState(dataManager.getCurrentState());
   }, [dataManager]);
@@ -204,7 +205,7 @@ const CarouselMain = ({
   if (!carouselState.current) return <div>No slides available</div>;
 
   return (
-    <div className={`w-full h-inherit relative max-w-4xl mx-auto ${className}`}>
+    <div className={`w-full h-full my-auto md:my-0 md:h-inherit relative max-w-4xl mx-auto ${className}`}>
   <div className="relative rounded-2xl shadow-2xl overflow-hidden">
 
     {/* Current Slide */}
@@ -245,6 +246,7 @@ const CarouselMain = ({
                 className="text-lg md:text-xl opacity-90 drop-shadow-md"
               >
                 {carouselState.current.subtitle}
+                
               </motion.p>
             </div>
           </div>
@@ -253,6 +255,11 @@ const CarouselMain = ({
     </div>
 
     {/* Navigation Buttons */}
+    { isMobile ? (
+      <>
+      </>
+    ) : (
+      <>
     <motion.button
       onClick={handlePrev}
       whileHover={{ scale: 1.15 }}
@@ -267,9 +274,15 @@ const CarouselMain = ({
     >
       <ChevronRight className="w-6 h-6 text-black" />
     </motion.button>
+  </>)}
 
     {/* Control Panel */}
     <div className="absolute top-4 right-4 flex space-x-3 pointer-events-auto">
+      { isMobile ? (
+      <>
+      </>
+    ) : (
+      <>
       <motion.button
         onClick={() => setIsAutoPlaying(!isAutoPlaying)}
         whileHover={{ scale: 1.15 }}
@@ -284,10 +297,15 @@ const CarouselMain = ({
       >
         <RotateCcw className="w-5 h-5 text-black" />
       </motion.button>
+      </>)}
     </div>
 
     {/* Slide Indicators */}
-    <div className="absolute bottom-6 flex w-full justify-center space-x-2 pointer-events-auto">
+    { isMobile ? (
+      <>
+      </>
+    ) : (
+      <div className="absolute bottom-6 flex w-full justify-center space-x-2 pointer-events-auto">
       {slides.map((_, index) => (
         <motion.button
           key={index}
@@ -298,8 +316,7 @@ const CarouselMain = ({
             : 'bg-white/50 w-3 h-3 hover:bg-white/70'}`}
         />
       ))}
-    </div>
-
+    </div> )}
   </div>
 </div>
   );

@@ -31,7 +31,7 @@ export default function Home(): React.ReactElement {
       <AnimatePresence>
         {navVisible !== null && (
           <motion.nav
-            className="fixed top-0 left-0 w-full h-auto z-50 pointer-events-none"
+            className="fixed  top-5 md:top-0 left-0 w-full h-auto z-50 md:pointer-events-none"
             initial={{ 
               width: navVisible ? 0 : "100vw", 
               opacity: 0 
@@ -55,7 +55,7 @@ export default function Home(): React.ReactElement {
       </AnimatePresence>
 
       {/* Background Effects Layer */}
-       <div className="absolute top-0 w-full h-[400px] md:h-[750px] z-0 overflow-hidden pointer-events-auto">
+       <div className="hidden md:block absolute top-0 w-full h-[400px] md:h-[750px] z-0 overflow-hidden pointer-events-auto">
               <div className= "relative w-full oveflow-clip" 
               style={{
                   transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
@@ -72,24 +72,24 @@ export default function Home(): React.ReactElement {
           </div>  
         
       {/* Main Content Grid */}
-      <main className="relative z-10 grid auto-rows-max  md:gap-8 w-full min-h-screen pt-20 pointer-events-none">
+      <main className="relative z-10 flex flex-col md:grid md:auto-rows-max  md:gap-8 w-full min-h-screen pt-20 pointer-events-none">
         
         {/* Hero Section */}
         <section 
-          className="relative flex flex-col w-full min-h-[400px] md:min-h-[800px] items-center overflow-clip"
+          className="relative flex flex-col w-full min-h-[600px] md:min-h-[800px] items-center overflow-clip"
           aria-label="Hero section"
         >
-          <div className="flex flex-col md:flex-row w-full items-center justify-between  pointer-events-none p-4 md:p-6 lg:p-8 gap-4 md:gap-8">
+          <div className="flex flex-col md:flex-row w-full items-center justify-between bg-white/20 md:bg-transparent  pointer-events-none p-2 md:p-6 lg:p-8 gap-4 md:gap-8">
             {/* Hero Text Content */}
-            <div className="flex flex-col w-full md:max-w-[40%] order-2 md:order-1 gap-4 md:gap-6 z-20 p-4 md:p-8 pointer-events-none">
-              <TagLine className="rounded-xl md:rounded-2xl p-4 md:p-6 bg-white/40 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
+            <div className="flex flex-col w-full md:max-w-[40%] order-2 md:order-1 gap-2 md:gap-6 z-20 p-4 md:p-8 pointer-events-none">
+              <TagLine className="rounded-xl md:rounded-2xl p-2 md:p-6 md:bg-white/40 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
               <div className="flex justify-center w-full z-20">
-                <Line1 className="rounded-xl md:rounded-2xl p-4 md:p-6 w-full bg-white/30 backdrop-blur-sm shadow-lg border border-white/20" />
+                <Line1 className="rounded-xl md:rounded-2xl p-2 md:p-6 w-full md:bg-white/30 backdrop-blur-sm shadow-lg md:border border-white/20" />
               </div>
             </div>
 
             {/* Hero Carousel */}
-            <div className="flex relative w-full md:max-w-[60%] order-1 md:order-2 z-30 min-h-[250px] md:min-h-[400px] ">
+            <div className="flex relative w-full md:max-w-[60%] order-1 md:order-2 z-30 min-h-fit  ">
               <CarouselMain />
             </div>
           </div>

@@ -63,8 +63,15 @@ export default function TopNavbar() {
         </NavBody>
         <MobileNav>
           <MobileNavHeader>
-            <NavbarLogo />
-            <MobileNavToggle
+           <div className="absolute inset-0 -z-10 overflow-hidden rounded-lg pointer-events-none">
+            <Image
+              src="/images/logos/logo.svg"
+              alt="Logo"
+              fill
+              priority
+            />
+           </div>
+          <MobileNavToggle
               isOpen={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             />
@@ -85,13 +92,6 @@ export default function TopNavbar() {
               </a>
             ))}
             <div className="flex w-full flex-col gap-4">
-              <NavbarButton
-                onClick={() => setIsMobileMenuOpen(false)}
-                variant="primary"
-                className="w-full"
-              >
-                Login
-              </NavbarButton>
               <NavbarButton
                 onClick={() => setIsMobileMenuOpen(false)}
                 variant="primary"
