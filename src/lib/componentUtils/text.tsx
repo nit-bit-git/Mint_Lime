@@ -112,7 +112,7 @@ export const Paragraph = ({
   };
 
   const variantStyles = {
-    default: "text-gray-700 dark:text-gray-300",
+    default: "text-white",
     muted: "text-gray-500 dark:text-gray-400",
     emphasis: "text-gray-900 dark:text-white",
     small: "text-gray-600 dark:text-gray-400 text-sm",
