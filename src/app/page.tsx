@@ -72,7 +72,7 @@ export default function Home(): React.ReactElement {
           </div>  
         
       {/* Main Content Grid */}
-      <main className="relative z-10 flex flex-col gap-4 md:grid md:auto-rows-max  md:gap-8 w-full min-h-screen pt-20 pointer-events-none hide-scrollbar overflow-y-scroll">
+      <main className="relative z-10 flex flex-col gap-4 md:grid md:auto-rows-max  md:gap-8 w-full min-h-screen pt-20 pointer-events-none">
         
         {/* Hero Section */}
         <section 
