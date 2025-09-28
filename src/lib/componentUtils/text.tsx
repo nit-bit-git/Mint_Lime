@@ -20,7 +20,7 @@ export const Heading = ({
     const sizeStyles = {
     xs: "text-xs",
     sm: "text-sm",
-    lg: "text-base",
+    md: "text-base",
     lg: "text-lg",
     xl: "text-xl",
     "2xl": "text-2xl",
