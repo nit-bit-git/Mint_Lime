@@ -46,7 +46,7 @@ export const OurMissionContent = ({className}: {className?: string}) => {
 )     ;
 }
 // Extracted Content for reuse
-const Content = ({mode}:{mode: Boolean}) => (
+const Content = ({mode}:{mode: boolean}) => (
   <div className="px-6 py-3 md:px-12 md:py-5">
     {/* Main Description */}
     {mode ? (
