@@ -9,8 +9,8 @@ export const TagLine = ({className}: {className: string}) => {
     return (     
         <div className={cn("inline-block w-full", className)}>
   {isMobile ? (
-    <>
-      <span className="float-left">
+    <div className="relative w-full h-full flex flex-col">
+      <span className="self-start">
         <Heading
           level={2}
           size="2xl"
@@ -18,10 +18,10 @@ export const TagLine = ({className}: {className: string}) => {
           className="z-10"
           weight="extrabold"
         >
-          Your Business {String(isMobile)},
+          Your Business,
         </Heading>
       </span>
-      <span className="float-right">
+      <span className="self-end">
         <Heading
           level={1}
           variant="gradient"
@@ -32,7 +32,7 @@ export const TagLine = ({className}: {className: string}) => {
           Re-Freshed
         </Heading>
       </span>
-    </>
+    </div>
   ) : (
     <>
       <span className="float-left">

@@ -152,10 +152,10 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         <div className=" relative text-center space-y-4 md:space-y-8">
           {/* Main Footer Content */}
           <motion.div variants={itemVariants} className='flex flex-col ' >
-            <Heading size={isMobile ? 'xl': '2xl'} className=" font-bold text-neutral-200">
+            <Heading size={isMobile ? 'xl': '2xl'} className=" font-bold" color=' text-neutral-200'>
               Let&lsquo;s Build Something Amazing
             </Heading>
-            <Paragraph size={isMobile ? 'sm': 'xl'} className="text-neutral-400 max-w-md mx-auto">
+            <Paragraph size={isMobile ? 'sm': 'xl'} className=" max-w-md mx-auto" color='text-neutral-400'>
               Transforming ideas into digital experiences that drive growth and innovation.
             </Paragraph>
           </motion.div>

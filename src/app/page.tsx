@@ -63,7 +63,7 @@ export default function Home(): React.ReactElement {
                 <Boxes className="flex w-full h-full  "/>
               </div>
               {/* Marquee Section */}
-          <div className="absolute w-full h-fit z-10 bottom-0 bg-amber-50">
+          <div className="absolute w-full h-fit z-10 bottom-0 bg-white/50">
           
             <div className="flex justify-center items-center h-full px-4 ">
               <Marquee />
