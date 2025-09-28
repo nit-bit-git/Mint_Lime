@@ -1,102 +1,114 @@
 "use client"
-import React, { useState, useRef, useCallback, useEffect } from "react";
+import React,  { useState, useRef, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-react';
 import { mainCarouselSlides } from "@/constants/imageData";
 import { AspectRatio } from "@/lib/aspectRatio";
-import { motion, AnimatePresence } from "framer-motion"
-import Image from "next/image";
 type Slide = { 
-  id: number,
-  title: string,
-  subtitle: string,
-  image: string,
-  color: string,
-}
-
-// ---------------------- Carousel Manager ----------------------
+                id: number,
+                title: string,
+                subtitle: string,
+                image: string,
+                color: string, 
+                        }
 class CarouselManager {
-  originalSlides: Slide[];
-  queueSize: number;
-  currentIndex: number;
-  preloadedSlideImages: Set<number>;
-  queue2: Slide[];
-  queue: Slide[];
-
-  constructor(slides: Slide[], queueSize = 3) {
-    this.originalSlides = slides;
-    this.queueSize = Math.min(queueSize, slides.length);
-    this.currentIndex = 0;
-    this.preloadedSlideImages = new Set();
-    this.queue = [];
-    this.queue2 = [];
-    this.initializeDataStructs();
-  }
-
-  initializeDataStructs() {
-    this.queue2 = [...this.originalSlides].reverse();
-    this.fillQueue();
-  }
-
-  fillQueue() {
-    while(this.queue.length < this.queueSize && this.queue2.length > 0) {
-      this.queue.push(this.queue2.pop()!);
+    originalSlides: any;
+    queueSize: number;
+    currentIndex: number;
+    preloadedSlideImages: Set<number>;
+    queue2: Slide[];
+    queue: Slide[];
+    constructor( slides : Slide[], queueSize = 3) {
+        this.originalSlides = slides;
+        this.queueSize = Math.min(queueSize, slides.length);
+        this.currentIndex = 0;
+        this.preloadedSlideImages = new Set();
+        this.queue = [];
+        this.queue2 = [];
+        this.initializeDataStructs();
     }
-  }
+    initializeDataStructs() {
+        this.queue2 = [...this.originalSlides].reverse();
+        this.fillQueue();
+        this.preloadImages();
 
-  // Preload only the next slide to reduce CPU load
-  preloadNextSlide() {
-    if (typeof window === 'undefined') return;
-    const nextSlide = this.queue[1];
-    if (nextSlide && !this.preloadedSlideImages.has(nextSlide.id)) {
-      const img = new window.Image();
-      img.src = nextSlide.image;
-      img.alt = nextSlide.title;
-      img.onload = () => this.preloadedSlideImages.add(nextSlide.id);
     }
-  }
-
-  next() {
-    if(this.queue.length === 0) return null;
-    const currentSlide = this.queue.shift();
-    this.queue2.unshift(currentSlide!);
-    this.currentIndex = (this.currentIndex + 1) % this.originalSlides.length;
-    this.fillQueue();
-    this.preloadNextSlide();
-    return this.getCurrentState();
-  }
-
-  prev() {
-    if(this.queue.length === 0) return null;
-    if(this.queue2.length === 0) {
-      const remainingSlides = [...this.originalSlides]
-        .filter(slide => !this.queue.find(q => q.id === slide.id))
-        .sort((a,b) => b.id - a.id);
-      this.queue2 = [...remainingSlides];
+    fillQueue() {
+        while(this.queue.length < this.queueSize && this.queue2.length > 0) {
+            this.queue.push(this.queue2.pop()!);
+        }
+        // if(this.queue2.length === 0 && this.queue.length > 0) {
+        //     const remainingSlides = [...this.originalSlides].filter(slide => !this.queue.find(q => q.id === slide.id));
+        //     this.queue2 = [...remainingSlides].reverse();
+        //  }
     }
-    const upcomingSlide = this.queue2.shift();
-    this.queue.unshift(upcomingSlide!);
-    if(this.queue.length > this.queueSize) this.queue2.push(this.queue.pop()!);
-    this.currentIndex = (this.currentIndex - 1 + this.originalSlides.length) % this.originalSlides.length;
-    this.fillQueue();
-    this.preloadNextSlide();
-    return this.getCurrentState();
-  }
 
-  jumpToSlide(targetIndex: number) {
+    //lazy load images
+    preloadImages() {
+        if (typeof window === 'undefined') return; // Only run in browser
+
+        const slidesToPreload = this.queue.filter(Boolean);
+        slidesToPreload.forEach(slide => {
+            if (slide && slide.image && !this.preloadedSlideImages.has(slide.id)) {
+                const img = new window.Image();
+                img.src = slide.image;
+                img.alt = slide.title;
+                img.onload = () => {
+                    this.preloadedSlideImages.add(slide.id);
+                };
+                img.onerror = (event) => {
+                    // Optionally handle failed preload
+                    console.warn(`Failed to preload image: ${slide.image}`, event, img);
+                };
+            }
+        });
+    }
+
+    next(){
+        if(this.queue.length === 0) return null;
+        const currentSlide = this.queue.shift()
+        this.queue2.unshift(currentSlide!);
+        this.currentIndex = (this.currentIndex + 1) % this.originalSlides.length;
+        this.fillQueue();
+        this.preloadImages(); // Preload new images    
+        return this.getCurrentState();
+    }
+
+    prev(){
+        if(this.queue.length === 0) { return null;}
+        if(this.queue2.length === 0) {
+            const remainingSlides = [...this.originalSlides].filter(slide => !this.queue.find(q => q.id === slide.id)).sort((a,b) => b.id - a.id);
+            this.queue2 = [...remainingSlides];
+         }
+        const upcomingSlide = this.queue2.shift();
+        this.queue.unshift(upcomingSlide!);
+        if(this.queue.length > this.queueSize) {
+            this.queue2.push(this.queue.pop()!);
+        }
+        this.currentIndex = (this.currentIndex - 1 + this.originalSlides.length) % this.originalSlides.length;
+        this.fillQueue();
+        this.preloadImages();
+        return this.getCurrentState();
+    }
+
+    jumpToSlide(targetIndex : number) {
     if (targetIndex < 0 || targetIndex >= this.originalSlides.length) return null;
+    
+    // Reorder slides to put target slide first
     const reorderedSlides = [
       ...this.originalSlides.slice(targetIndex),
       ...this.originalSlides.slice(0, targetIndex)
     ];
+    
     this.queue2 = [...reorderedSlides].reverse();
     this.queue = [];
     this.currentIndex = targetIndex;
     this.fillQueue();
-    this.preloadNextSlide();
+    this.preloadImages();
+    
     return this.getCurrentState();
   }
 
-  reset() {
+    reset() {
     this.currentIndex = 0;
     this.queue2 = [];
     this.queue = [];
@@ -104,7 +116,7 @@ class CarouselManager {
     this.initializeDataStructs();
     return this.getCurrentState();
   }
-
+  
   getCurrentState() {
     return {
       current: this.queue[0] || null,
@@ -119,189 +131,224 @@ class CarouselManager {
   }
 }
 
-// ---------------------- Lazy Image Component ----------------------
-const LazyImage = ({ src, alt, className, onLoad, onError }: { src: string; alt: string; className: string; onLoad?: ()=> void; onError?: ()=> void }) => {
+// Optimized image component with lazy loading
+const LazyImage = ({ src, alt, className, onLoad, onError }:{src: string; alt: string, className: string, onLoad?: ()=> void, onError?: ()=>void}) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-
+  const [isIntersecting, setIsIntersecting] = useState(false);
+  const imgRef = useRef(null);
+  
+  // Intersection Observer for lazy loading
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsIntersecting(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+    
+    if (imgRef.current) {
+      observer.observe(imgRef.current);
+    }
+    
+    return () => observer.disconnect();
+  }, []);
+  
   const handleLoad = () => {
     setIsLoading(false);
     onLoad?.();
   };
-
+  
   const handleError = () => {
+    setIsLoading(false);
     setHasError(true);
     onError?.();
   };
-
+  
   return (
-    <AspectRatio ratio={16/9}>
-      {hasError ? (
-        <div className="w-full h-full flex items-center justify-center text-gray-500">
+    <div ref={imgRef} className={`relative h-inherit ${className}`}>
+      {isIntersecting && !hasError && (
+        <AspectRatio ratio={16/9}>
+        <img
+          src={src}
+          alt={alt}
+          className={`transition-opacity duration-300 ${
+            isLoading ? 'opacity-0' : 'opacity-100'
+          } ${className}`}
+          onLoad={handleLoad}
+          onError={handleError}
+        />
+        </AspectRatio>
+      )}
+      
+      {isLoading && isIntersecting && (
+        <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      )}
+      
+      {hasError && (
+        <div className="absolute inset-0 bg-gray-200 flex items-center justify-center text-gray-500">
           Failed to load image
         </div>
-      ) : (
-        <>
-          <Image
-            src={src}
-            alt={alt}
-            loading="lazy"
-            className={`w-full h-auto max-h-[400px] object-cover transition-opacity duration-300 ${isLoading ? 'opacity-50' : 'opacity-100'} ${className}`}
-            onLoad={handleLoad}
-            onError={handleError}
-            data-critical="true"
-            fill
-          />
-          
-        </>
       )}
-    </AspectRatio>
+    </div>
   );
 };
 
-// ---------------------- Carousel Main ----------------------
+
 const CarouselMain = ({
-  slides = mainCarouselSlides,
-  autoPlay = true, 
-  interval = 4000,
-  className = "h-full w-full"
-}) => {    
-  const [dataManager] = useState(new CarouselManager(slides, 3));
-  const [carouselState, setCarouselState] = useState(dataManager.getCurrentState());
-  const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(autoPlay);
-  const autoPlayRef = useRef<NodeJS.Timeout | number | null>(null);
+    slides = mainCarouselSlides,
+    autoPlay = true, 
+    interval = 4000,
+    showDebug = false, 
+    className = "h-full w-full"
+}) =>{    
 
-  const updateCarouselState = () => setCarouselState(dataManager.getCurrentState());
+        const [dataManager] = useState(new CarouselManager(slides, 3));
+        const [carouselState, setCarouselState] = useState(dataManager.getCurrentState());
+        const [isAutoPlaying, setIsAutoPlaying] = useState< Boolean >(autoPlay);
+        
+        const autoPlayRef = useRef< NodeJS.Timeout | number | null >(null);
+        
+        const updateCarouselState = () => {
+            setCarouselState(dataManager.getCurrentState());
+        };
+    //autoPlay 
+        const startAutoPlay = useCallback(() => {
+            if (isAutoPlaying) {
+                autoPlayRef.current = setInterval(() => {
+                    dataManager.next();
+                    updateCarouselState();
+                }, interval);
+            }
+        }, [isAutoPlaying, interval]);
 
-  const startAutoPlay = useCallback(() => {
-    if (isAutoPlaying) {
-      autoPlayRef.current = setInterval(() => {
-        dataManager.next();
-        updateCarouselState();
-      }, interval);
-    }
-  }, [dataManager, updateCarouselState, isAutoPlaying, interval]);
+        const stopAutoPlay = useCallback(()=>{
+            if(autoPlayRef.current) 
+                {
+                    clearInterval(autoPlayRef.current);
+                    autoPlayRef.current = null;
+        
+                }
+        },[]);
+        // autoPlay useEffect
+        useEffect(() => {
+            if (isAutoPlaying) {
+                startAutoPlay();
+            }else {
+                stopAutoPlay();
+            }
 
-  const stopAutoPlay = useCallback(() => {
-    if(autoPlayRef.current) {
-      clearInterval(autoPlayRef.current as number);
-      autoPlayRef.current = null;
-    }
-  }, []);
+            return () => { 
+                stopAutoPlay();
+            }
+        },[isAutoPlaying, startAutoPlay, stopAutoPlay] )
 
-  useEffect(() => {
-    if (isAutoPlaying) startAutoPlay();
-    else stopAutoPlay();
-    return () => stopAutoPlay();
-  }, [isAutoPlaying, startAutoPlay, stopAutoPlay]);
+        const handleNext = () => {
+            stopAutoPlay();
+            dataManager.next();
+            updateCarouselState();
+            if (isAutoPlaying) setTimeout(startAutoPlay, 100);
+        }
 
-  const handleNext = () => { stopAutoPlay(); dataManager.next(); updateCarouselState(); if (isAutoPlaying) setTimeout(startAutoPlay, 100); }
-  const handlePrev = () => { stopAutoPlay(); dataManager.prev(); updateCarouselState(); if (isAutoPlaying) setTimeout(startAutoPlay, 100); }
-  const handleJumpToSlide = (index: number) => { stopAutoPlay(); dataManager.jumpToSlide(index); updateCarouselState(); if (isAutoPlaying) setTimeout(startAutoPlay, 100); }
-  const handleReset = () => { stopAutoPlay(); dataManager.reset(); updateCarouselState(); if (isAutoPlaying) setTimeout(startAutoPlay, 100); }
+        const handlePrev = () => {
+            stopAutoPlay();
+            dataManager.prev();
+            updateCarouselState();
+            if (isAutoPlaying) setTimeout(startAutoPlay, 100);
+        }
 
-  if (!carouselState.current) return <div>No slides available</div>;
+        const handleJumpToSlide = (index : number) => {
+            stopAutoPlay();
+            dataManager.jumpToSlide(index);
+            updateCarouselState();
+            if (isAutoPlaying) setTimeout(startAutoPlay, 100);
+        }
 
-  return (
-    <div className={`w-full h-inherit relative max-w-4xl mx-auto ${className}`}>
-  <div className="relative rounded-2xl shadow-2xl overflow-hidden">
+        const handleReset = () => {
+            stopAutoPlay();
+            dataManager.reset();
+            updateCarouselState();
+            if (isAutoPlaying) setTimeout(startAutoPlay, 100);
+        }
 
-    {/* Current Slide */}
-    <div className="relative w-full h-full">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={carouselState.current.id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative w-full"
-        >
-          <LazyImage
-            src={carouselState.current.image}
-            alt={carouselState.current.title}
-            className="w-full"
-          />
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/30" />
-          {/* Text content */}
-          <div className="absolute inset-0 flex items-center justify-center text-center px-6">
-            <div className="text-white max-w-3xl">
-              <motion.h2
-                key={carouselState.current.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-3xl md:text-5xl font-extrabold mb-2 drop-shadow-lg"
+        if (!carouselState.current) return <div>No slides available</div>;
+        return (
+            <div className="w-full h-inherit relative max-w-4xl mx-auto space-y-6">
+             <div className="relative rounded-xl shadow-2xl overflow-hidden">
+              {/* Current Slide */}
+              <div className="relative w-full h-full">
+                <LazyImage
+                  src={carouselState.current.image}
+                  alt={carouselState.current.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className={`absolute inset-0  bg-gradient-to-r ${carouselState.current.color}/0.6`} />
+                <div className="absolute inset-0 flex items-center justify-center text-center">
+                  <div className="text-white px-6">
+                    <h2 className="text-3xl md:text-5xl font-bold mb-2 drop-shadow-lg">
+                      {carouselState.current.title}
+                    </h2>
+                    <p className="text-lg md:text-xl opacity-90 drop-shadow-md">
+                      {carouselState.current.subtitle}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Navigation Controls */}
+              <button
+                onClick={handlePrev}
+                className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
               >
-                {carouselState.current.title}
-              </motion.h2>
-              <motion.p
-                key={carouselState.current.subtitle}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-                className="text-lg md:text-xl opacity-90 drop-shadow-md"
+                <ChevronLeft className="w-6 h-6 text-white" />
+              </button>
+              
+              <button
+                onClick={handleNext}
+                className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200"
               >
-                {carouselState.current.subtitle}
-              </motion.p>
+                <ChevronRight className="w-6 h-6 text-white" />
+              </button>
+              
+              {/* Control Panel */}
+              <div className="absolute top-4 right-4 flex space-x-2">
+                <button
+                  onClick={() => setIsAutoPlaying(!isAutoPlaying)}
+                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 transition-all duration-200"
+                >
+                  {isAutoPlaying ? <Pause className="w-5 h-5 text-white" /> : <Play className="w-5 h-5 text-white" />}
+                </button>
+                
+                <button
+                  onClick={handleReset}
+                  className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 transition-all duration-200"
+                >
+                  <RotateCcw className="w-5 h-5 text-white" />
+                </button>
+              </div>
             </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
-
-    {/* Navigation Buttons */}
-    <motion.button
-      onClick={handlePrev}
-      whileHover={{ scale: 1.15 }}
-      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
-    >
-      <ChevronLeft className="w-6 h-6 text-black" />
-    </motion.button>
-    <motion.button
-      onClick={handleNext}
-      whileHover={{ scale: 1.15 }}
-      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
-    >
-      <ChevronRight className="w-6 h-6 text-black" />
-    </motion.button>
-
-    {/* Control Panel */}
-    <div className="absolute top-4 right-4 flex space-x-3 pointer-events-auto">
-      <motion.button
-        onClick={() => setIsAutoPlaying(!isAutoPlaying)}
-        whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
-      >
-        {isAutoPlaying ? <Pause className="w-5 h-5 text-black" /> : <Play className="w-5 h-5 text-black" />}
-      </motion.button>
-      <motion.button
-        onClick={handleReset}
-        whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
-      >
-        <RotateCcw className="w-5 h-5 text-black" />
-      </motion.button>
-    </div>
-
-    {/* Slide Indicators */}
-    <div className="absolute bottom-6 flex w-full justify-center space-x-2 pointer-events-auto">
-      {slides.map((_, index) => (
-        <motion.button
-          key={index}
-          onClick={() => handleJumpToSlide(index)}
-          animate={{ scale: carouselState.currentIndex === index ? 1.3 : 1 }}
-          className={`rounded-full transition-all duration-300 pointer-events-auto ${carouselState.currentIndex === index 
-            ? 'bg-blue-500 w-6 h-6 shadow-md' 
-            : 'bg-white/50 w-3 h-3 hover:bg-white/70'}`}
-        />
-      ))}
-    </div>
-
-  </div>
-</div>
-  );
-};
+            
+            {/* Slide Indicators */}
+            <div className="absolute bottom-10 flex w-full justify-center space-x-2">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleJumpToSlide(index)}
+                  className={`w-3 h-3 rounded-full transition-all duration-200 ${
+                    carouselState.currentIndex === index
+                      ? 'bg-blue-500 w-8'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                />
+              ))}
+            </div>
+      </div>
+        )
+}
 
 export default CarouselMain;

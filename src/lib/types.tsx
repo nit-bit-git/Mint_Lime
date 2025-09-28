@@ -1,4 +1,4 @@
-import { MotionProps } from "motion/react";
+import { motion, MotionProps } from "motion/react";
 import React from "react";
 
 // ============ SAFE TYPE DEFINITIONS ============

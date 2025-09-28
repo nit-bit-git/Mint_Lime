@@ -2,7 +2,7 @@ import { Paragraph } from "@/lib/componentUtils/text";
 import { cn } from "@/lib/utils";
 export const WhoUsContent = ({className}: {className?: string}) => {
     return (     
-        <div className={cn("inline-block w-fit", className)}>
+        <div className={cn("inline-block w-full", className)}>
          <span className="float-left">
              <Paragraph  size="xl" color=" text-white" className="z-10" weight="bold">
                We’re Mint Lime — a team of tech creatives with a taste for bold ideas and smarter execution. We don’t just imagine better businesses; we build them.
