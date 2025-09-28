@@ -1,7 +1,7 @@
 import { motion, MotionProps } from "motion/react";
 import React from "react";
 import { cn } from "../utils";
-import { HeadingComponentProps, ParagraphComponentProps, TextGroupComponentProps } from "../types";
+import { HeadingComponentProps, ParagraphComponentProps } from "../types";
 export const Heading = ({
     children,
     className, 

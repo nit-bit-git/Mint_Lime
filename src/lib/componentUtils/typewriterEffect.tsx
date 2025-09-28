@@ -1,6 +1,6 @@
 "use client"
 import { cn } from "../utils";
-import { useAnimate, useInView, stagger, motion } from "motion/react";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export const TypewriterEffect = ({ 
@@ -64,7 +64,6 @@ export const TypewriterEffect = ({
 ;
 }
 
- 
 export const TypewriterEffectSmooth = ({
   words,
   className,
@@ -77,76 +76,56 @@ export const TypewriterEffectSmooth = ({
   className?: string;
   cursorClassName?: string;
 }) => {
-  // split text inside of words into array of characters
-  const wordsArray = words.map((word) => {
-    return {
-      ...word,
-      text: word.text.split(""),
-    };
-  });
+  const [typedCount, setTypedCount] = useState(0);
 
-  const renderWords = () => {
-    return (
-      <span>
-        {wordsArray.map((word, idx) => {
-          return (
-            <span key={`word-${idx}`} className="inline-block">
-              
-              &nbsp;
-              {word.text.map((char, index) => (
-                <span
-                  key={`char-${index}`}
-                  className={cn(word.className) }
-                >
-                  {char}
-                </span>
-              ))}
-            </span>
-          );
-        })}
-      </span>
-    );
-  };
+  // Flatten all characters including spaces
+  const flatChars = words
+    .map((word) => word.text.split(""))
+    .reduce((acc, chars) => acc.concat(chars, [" "]), []);
+
+  useEffect(() => {
+    if (typedCount >= flatChars.length) return;
+    const timer = setTimeout(() => setTypedCount((prev) => prev + 1), 50);
+    return () => clearTimeout(timer);
+  }, [typedCount, flatChars.length]);
+
+  let remaining = typedCount;
 
   return (
-    <span
-      className={cn(
-        "inline-flex items-baseline gap-1 font-bold",
-        className
-      )}
-    >
-      <motion.span
-        className="overflow-hidden"
-        initial={{ width: "0%" }}
-        whileInView={{ width: "fit-content" }}
-        transition={{
-          duration: 2,
-          ease: "linear",
-          delay: 1,
-        }}
-      >
-        <span
-          className="inline"
-          style={{ whiteSpace: "nowrap" }}
-        >
-          {renderWords()}
-        </span>
-      </motion.span>
+    <span className={className} style={{ display: "inline-flex", flexWrap: "wrap" }}>
+      {words.map((word, wordIdx) => {
+        const wordChars = word.text.split("");
+        if (remaining <= 0) return null;
 
-      {/* cursor */}
+        const charsToRender = wordChars.slice(0, remaining);
+        remaining -= charsToRender.length + 1; // +1 for space
+        return (
+          <motion.span
+            key={wordIdx}
+            className={word.className}
+            style={{ display: "inline-flex" }}
+          >
+            {charsToRender.map((char, idx) => (
+              <motion.span
+                key={idx}
+                initial={{ opacity: 0, y: -2 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.05 }}
+              >
+               {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+            &nbsp;
+          </motion.span>
+        );
+      })}
       <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          duration: 0.8,
-          repeat: Infinity,
-          repeatType: "reverse",
-        }}
-        className={cn(
-          "inline-block align-baseline rounded-sm w-[2px] h-4 sm:h-6 xl:h-10 bg-green-400",
-          cursorClassName
-        )}
-      />
+        className={cursorClassName}
+        animate={{ opacity: [0, 1, 0] }}
+        transition={{ repeat: Infinity, duration: 1 }}
+      >
+        |
+      </motion.span>
     </span>
   );
 };

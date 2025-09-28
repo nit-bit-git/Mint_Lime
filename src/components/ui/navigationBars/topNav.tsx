@@ -16,12 +16,20 @@ import Image from "next/image";
 export default function TopNavbar() {
     const navItems = [
             {
-        name: "Pricing",
-        link: "#pricing",
+        name: "LinkedIn",
+        link: "#linkedIn",
         },
         {
-        name: "Contact",
-        link: "#contact",
+        name: "Instagram",
+        link: "#instagram",
+        },
+        {
+        name: "X",
+        link: "#x",
+        },
+        {
+        name: "Youtube",
+        link: "#youtube",
         }
     ]
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -30,9 +38,9 @@ export default function TopNavbar() {
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavbarLogo>
+          <NavbarLogo className="pointer-events-none">
             <Image
-              src="http://192.168.29.250:3000/images/logos/logo.svg"
+              src="/images/logos/logo.svg"
               alt="Logo"
               width={150}
               height={150}
@@ -40,7 +48,7 @@ export default function TopNavbar() {
               style={{ width: "auto", height: "auto" }}
             />
              <Image
-              src="http://192.168.29.250:3000/images/logos/logoSymbol.svg"
+              src="/images/logos/logoSymbol.svg"
               alt="Logo"
               width={64}
               height={64}
@@ -48,12 +56,52 @@ export default function TopNavbar() {
               style={{ width: "auto", height: "auto" }}
             />
           </NavbarLogo>
-          <NavItems items={navItems} />
+          <NavItems items={navItems}  />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="secondary">Xplore</NavbarButton>
-            <NavbarButton variant="primary">Book a call</NavbarButton>
+            <NavbarButton variant="primary" className="cursor-pointer pointer-events-auto">Book a call</NavbarButton>
           </div>
         </NavBody>
+        <MobileNav>
+          <MobileNavHeader>
+            <NavbarLogo />
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </MobileNavHeader>
+ 
+          <MobileNavMenu
+            isOpen={isMobileMenuOpen}
+            onClose={() => setIsMobileMenuOpen(false)}
+          >
+            {navItems.map((item, idx) => (
+              <a
+                key={`mobile-link-${idx}`}
+                href={item.link}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="relative text-neutral-600 dark:text-neutral-300"
+              >
+                <span className="block">{item.name}</span>
+              </a>
+            ))}
+            <div className="flex w-full flex-col gap-4">
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                variant="primary"
+                className="w-full"
+              >
+                Login
+              </NavbarButton>
+              <NavbarButton
+                onClick={() => setIsMobileMenuOpen(false)}
+                variant="primary"
+                className="w-full"
+              >
+                Book a call
+              </NavbarButton>
+            </div>
+          </MobileNavMenu>
+        </MobileNav>
         </Navbar>
         </div>
     )

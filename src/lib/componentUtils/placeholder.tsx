@@ -6,24 +6,23 @@ import { cn } from "@/lib/utils";
 
 
 export const EvervaultCard = ({
-  text,
   className,
 }: {
   text?: string;
   className?: string;
 }) => {
-  let mouseX = useMotionValue(0);
-  let mouseY = useMotionValue(0);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
  
   const [randomString, setRandomString] = useState("");
   const [isActive, setIsActive ] = useState<boolean>(false)  
   useEffect(() => {
-    let str = generateRandomString(1500);
+    const str = generateRandomString(1500);
     setRandomString(str);
   }, []);
  
   function onMouseMove({ currentTarget, clientX, clientY }: any) {
-    let { left, top } = currentTarget.getBoundingClientRect();
+    const { left, top } = currentTarget.getBoundingClientRect();
     mouseX.set(clientX - left);
     mouseY.set(clientY - top);
     const str = generateRandomString(1500);
@@ -52,9 +51,9 @@ export const EvervaultCard = ({
         />
         <div className=" z-10 flex items-center justify-center">
           <div className=" h-full w-full  rounded-full flex items-center justify-center text-white font-bold text-4xl">
-            <div className="relative w-[350px] h-[350px]">
+            <div className="relative w-[150px] h-[150px]">
                 <Image
-                    src="http://192.168.29.250:3000/images/page2/halfmintLimeLight.svg"
+                    src="/images/page2/halfmintLimeLight.svg"
                     alt="idle"
                     fill
                     priority
@@ -62,7 +61,7 @@ export const EvervaultCard = ({
                     style={{ opacity: isActive ? 0 : 1 }}
                 />
                 <Image
-                    src="http://192.168.29.250:3000/images/page2/mintLime.svg"
+                    src="/images/page2/mintLime.svg"
                     alt="active"
                     fill
                     priority
@@ -78,8 +77,8 @@ export const EvervaultCard = ({
 };
  
 export function CardPattern({ mouseX, mouseY, randomString }: any) {
-  let maskImage = useMotionTemplate`radial-gradient(350px at ${mouseX}px ${mouseY}px, white, transparent)`;
-  let style = { maskImage, WebkitMaskImage: maskImage };
+  const maskImage = useMotionTemplate`radial-gradient(350px at ${mouseX}px ${mouseY}px, white, transparent)`;
+  const style = { maskImage, WebkitMaskImage: maskImage };
  
   return (
     <div className="pointer-events-none">
