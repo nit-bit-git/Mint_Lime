@@ -2,19 +2,33 @@
 
 /* --- Theme colors and fonts --- */
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
+  --background: #0a0a0a;     /* Dark background */
+  --foreground: #ededed;     /* Light foreground */
   --font-heading: 'Playfair Display', serif;  /* Headings */
   --font-sans: 'Geist Sans', sans-serif;      /* Body / paragraphs */
   --font-mono: 'Geist Mono', monospace;       /* Code / mono */
 }
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+}
 
+.hide-scrollbar {
+  scrollbar-width: none !important;      /* Firefox */
+  -ms-overflow-style: none !important;   /* IE + Edge Legacy */
+}
+
+/* Alternative approach - set scrollbar width to 0 */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --animate-scroll: scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite;
+
   @keyframes scroll {
     to {
       transform: translate(calc(-50% - 0.5rem));
@@ -22,55 +36,51 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-
-body {
-  @apply antialiased;
+/* Force dark mode (ignore user system preference) */
+html, body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
+  @apply antialiased;
 }
-
 
 /* --- Base text styles --- */
 @layer base {
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
-    color: #171717;
+    color: var(--foreground); /* always light on dark */
   }
 
-  h1 { @apply text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-neutral-100; }
-  h2 { @apply text-3xl md:text-4xl font-semibold tracking-tight text-neutral-900 dark:text-neutral-100; }
-  h3 { @apply text-2xl md:text-3xl font-semibold text-neutral-900 dark:text-neutral-100; }
-  h4 { @apply text-xl md:text-2xl font-medium text-neutral-800 dark:text-neutral-200; }
-  h5 { @apply text-lg md:text-xl font-medium text-neutral-800 dark:text-neutral-200; }
-  h6 { @apply text-base md:text-lg font-medium text-neutral-700 dark:text-neutral-300; }
+  h1 { @apply text-4xl md:text-5xl font-bold tracking-tight; }
+  h2 { @apply text-3xl md:text-4xl font-semibold tracking-tight; }
+  h3 { @apply text-2xl md:text-3xl font-semibold; }
+  h4 { @apply text-xl md:text-2xl font-medium; }
+  h5 { @apply text-lg md:text-xl font-medium; }
+  h6 { @apply text-base md:text-lg font-medium; }
 
   p {
-    @apply text-base md:text-lg leading-relaxed text-neutral-700 dark:text-neutral-300;
+    @apply text-base md:text-lg leading-relaxed;
+    color: var(--foreground);
     font-family: var(--font-sans);
   }
 
   a {
-    @apply text-blue-600 dark:text-blue-400 hover:underline;
+    color: #60a5fa; /* fixed blue for dark mode */
+    @apply hover:underline;
     font-family: var(--font-sans);
   }
 
   code, pre {
     font-family: var(--font-mono);
+    color: var(--foreground);
   }
 }
+
 .initial-loader {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: white;
+  background: #0a0a0a; /* dark loader bg */
   display: flex;
   align-items: center;
   justify-content: center;

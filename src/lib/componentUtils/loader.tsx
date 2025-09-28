@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { LogoSVG } from "@/components/ui/loaderLogo";
 /**
  * Enhanced Production-Grade Screen Loader
  * Features:
@@ -238,14 +239,14 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({
 interface LoaderProps {
   brandName?: string;
   logoComponent?: React.ReactNode;
-  theme?: 'light' | 'dark' | 'gradient';
+  theme?: 'light' | 'dark' | 'gradient' | 'gradient2';
   showProgress?: boolean;
 }
 
 export const Loader: React.FC<LoaderProps> = ({ 
   brandName = "MintLime",
   logoComponent,
-  theme = 'light',
+  theme = 'dark',
   showProgress = true
 }) => {
   const ctx = useContext(LoaderContext);
@@ -268,47 +269,49 @@ export const Loader: React.FC<LoaderProps> = ({
   const themeClasses = {
     light: "bg-white/95 text-slate-900",
     dark: "bg-slate-900/95 text-white",
-    gradient: "bg-gradient-to-br from-blue-50/95 via-white/95 to-purple-50/95 text-slate-900"
+    gradient: "bg-gradient-to-br from-gray-900 via-gray-950 to-black text-slate-100",
+    gradient2:"bg-gradient-to-br from-gray-900 via-indigo-950 to-black text-slate-100"
+
   };
 
-  const defaultLogo = (
+ const defaultLogo = (
+  <motion.div
+    className="relative"
+    initial={{ scale: 0.8, opacity: 0 }}
+    animate={{ scale: 1, opacity: 1 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+  >
     <motion.div
-      className="relative"
-      initial={{ scale: 0.8, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 via-green-200/80 to-teal-500 flex items-center justify-center shadow-2xl"
+      animate={{ rotate: [0, 5, -5, 0] }}
+      transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
     >
       <motion.div
-        className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 via-yellow-500/80  to-teal-500 flex items-center justify-center shadow-2xl"
-        animate={{ rotate: [0, 5, -5, 0] }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+        className="w-10 h-10 text-white" // Adjust size as needed
+        initial={{ scale: 0 }}
+        animate={{ scale: 1 }}
+        transition={{ delay: 0.3, duration: 0.4, type: "spring", stiffness: 200 }}
       >
-        <motion.span 
-          className="text-white font-bold text-2xl"
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.4, type: "spring", stiffness: 200 }}
-        >
-          {brandName.charAt(0)}
-        </motion.span>
+        <LogoSVG className="w-full h-full" />
       </motion.div>
-      
-      {/* Animated ring */}
-      <motion.div
-        className="absolute inset-0 rounded-2xl border-2 border-blue-400/30"
-        animate={{ 
-          scale: [1, 1.1, 1],
-          opacity: [0.5, 0.2, 0.5]
-        }}
-        transition={{ 
-          duration: 2, 
-          repeat: Infinity, 
-          ease: "easeInOut",
-          delay: 0.5
-        }}
-      />
     </motion.div>
-  );
+    
+    {/* Animated ring - same as before */}
+    <motion.div
+      className="absolute inset-0 rounded-2xl border-2 border-blue-400/30"
+      animate={{ 
+        scale: [1, 1.1, 1],
+        opacity: [0.5, 0.2, 0.5]
+      }}
+      transition={{ 
+        duration: 2, 
+        repeat: Infinity, 
+        ease: "easeInOut",
+        delay: 0.5
+      }}
+    />
+  </motion.div>
+ );
 
   return (
     <AnimatePresence mode="wait">
