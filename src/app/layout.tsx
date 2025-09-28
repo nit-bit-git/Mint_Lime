@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { LoaderProvider, Loader, useLoader } from "@/lib/componentUtils/loader";
+import { LoaderProvider, Loader} from "@/lib/componentUtils/loader";
 import { AppContent } from "@/lib/componentUtils/appContent";
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,10 +27,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-       
-          
-         {children}
-        
+       <LoaderProvider timeoutMs={8000} minLoadTime={1200}>
+          <Loader brandName="MintLime" theme="gradient" showProgress={true} /> 
+         <AppContent>{children}</AppContent>
+         </LoaderProvider>
       </body>
     </html>
   );

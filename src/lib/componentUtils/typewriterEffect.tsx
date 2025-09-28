@@ -1,6 +1,6 @@
 "use client"
 import { cn } from "../utils";
-import { useAnimate, useInView, stagger, motion } from "motion/react";
+import { motion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export const TypewriterEffect = ({ 
@@ -81,7 +81,7 @@ export const TypewriterEffectSmooth = ({
   // Flatten all characters including spaces
   const flatChars = words
     .map((word) => word.text.split(""))
-    .reduce((acc, chars, idx) => acc.concat(chars, [" "]), []);
+    .reduce((acc, chars) => acc.concat(chars, [" "]), []);
 
   useEffect(() => {
     if (typedCount >= flatChars.length) return;

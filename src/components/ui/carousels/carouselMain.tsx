@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight, Pause, Play, RotateCcw } from 'lucide-react'
 import { mainCarouselSlides } from "@/constants/imageData";
 import { AspectRatio } from "@/lib/aspectRatio";
 import { motion, AnimatePresence } from "framer-motion"
-
+import Image from "next/image";
 type Slide = { 
   id: number,
   title: string,
@@ -48,7 +48,7 @@ class CarouselManager {
     if (typeof window === 'undefined') return;
     const nextSlide = this.queue[1];
     if (nextSlide && !this.preloadedSlideImages.has(nextSlide.id)) {
-      const img = new Image();
+      const img = new window.Image();
       img.src = nextSlide.image;
       img.alt = nextSlide.title;
       img.onload = () => this.preloadedSlideImages.add(nextSlide.id);
@@ -130,7 +130,6 @@ const LazyImage = ({ src, alt, className, onLoad, onError }: { src: string; alt:
   };
 
   const handleError = () => {
-    setIsLoading(false);
     setHasError(true);
     onError?.();
   };
@@ -138,25 +137,22 @@ const LazyImage = ({ src, alt, className, onLoad, onError }: { src: string; alt:
   return (
     <AspectRatio ratio={16/9}>
       {hasError ? (
-        <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
+        <div className="w-full h-full flex items-center justify-center text-gray-500">
           Failed to load image
         </div>
       ) : (
         <>
-          <img
+          <Image
             src={src}
             alt={alt}
             loading="lazy"
-            className={`w-full h-auto max-h-[400px] object-cover transition-opacity duration-300 ${isLoading ? 'opacity-0' : 'opacity-100'} ${className}`}
+            className={`w-full h-auto max-h-[400px] object-cover transition-opacity duration-300 ${isLoading ? 'opacity-50' : 'opacity-100'} ${className}`}
             onLoad={handleLoad}
             onError={handleError}
             data-critical="true"
+            fill
           />
-          {isLoading && (
-            <div className="absolute inset-0 bg-gray-200 flex items-center justify-center">
-              <div className="w-8 h-8 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
-            </div>
-          )}
+          
         </>
       )}
     </AspectRatio>
@@ -184,7 +180,7 @@ const CarouselMain = ({
         updateCarouselState();
       }, interval);
     }
-  }, [isAutoPlaying, interval]);
+  }, [dataManager, updateCarouselState, isAutoPlaying, interval]);
 
   const stopAutoPlay = useCallback(() => {
     if(autoPlayRef.current) {
@@ -259,44 +255,44 @@ const CarouselMain = ({
     <motion.button
       onClick={handlePrev}
       whileHover={{ scale: 1.15 }}
-      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300"
+      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronLeft className="w-6 h-6 text-black" />
     </motion.button>
     <motion.button
       onClick={handleNext}
       whileHover={{ scale: 1.15 }}
-      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300"
+      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronRight className="w-6 h-6 text-black" />
     </motion.button>
 
     {/* Control Panel */}
-    <div className="absolute top-4 right-4 flex space-x-3">
+    <div className="absolute top-4 right-4 flex space-x-3 pointer-events-auto">
       <motion.button
         onClick={() => setIsAutoPlaying(!isAutoPlaying)}
         whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300"
+        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         {isAutoPlaying ? <Pause className="w-5 h-5 text-black" /> : <Play className="w-5 h-5 text-black" />}
       </motion.button>
       <motion.button
         onClick={handleReset}
         whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300"
+        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         <RotateCcw className="w-5 h-5 text-black" />
       </motion.button>
     </div>
 
     {/* Slide Indicators */}
-    <div className="absolute bottom-6 flex w-full justify-center space-x-2">
+    <div className="absolute bottom-6 flex w-full justify-center space-x-2 pointer-events-auto">
       {slides.map((_, index) => (
         <motion.button
           key={index}
           onClick={() => handleJumpToSlide(index)}
           animate={{ scale: carouselState.currentIndex === index ? 1.3 : 1 }}
-          className={`rounded-full transition-all duration-300 ${carouselState.currentIndex === index 
+          className={`rounded-full transition-all duration-300 pointer-events-auto ${carouselState.currentIndex === index 
             ? 'bg-blue-500 w-6 h-6 shadow-md' 
             : 'bg-white/50 w-3 h-3 hover:bg-white/70'}`}
         />

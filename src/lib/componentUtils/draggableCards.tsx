@@ -1,12 +1,11 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useRef, useState, useEffect, forwardRef } from "react";
+import React, { useRef, useState, useEffect} from "react";
 import {
   motion,
   useMotionValue,
   useSpring,
   useTransform,
-  animate,
   useVelocity,
   useAnimationControls,
   PanInfo

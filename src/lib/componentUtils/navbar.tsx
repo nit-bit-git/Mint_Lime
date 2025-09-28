@@ -1,6 +1,6 @@
 import { IconX, IconMenu2 } from "@tabler/icons-react";
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from "motion/react";
-import React, { ReactNode, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cn } from "../utils";
 
 interface NavbarProps {
@@ -118,7 +118,7 @@ export const NavItems = ({ items, className, onItemClick, visible }: NavItemProp
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
-      layout // 👈 enables smooth layout transitions
+      layout // enables smooth layout transitions
       animate={{
         // Add responsive spacing based on visible state
         gap: visible ? "0.25rem" : "0.5rem", // Tighter spacing when compact
@@ -130,8 +130,7 @@ export const NavItems = ({ items, className, onItemClick, visible }: NavItemProp
         opacity: { duration: 0.2, ease: "easeInOut" }
       }}
       className={cn(
-        "hidden w-fit flex-1 flex-row items-center justify-center text-sm font-medium text-zinc-600 hover:text-zinc-800 lg:flex",
-        // Remove space-x-* classes since we're using animated gap
+        "hidden w-fit flex-1 flex-row items-center justify-center text-sm font-medium text-zinc-600 hover:text-zinc-800 lg:flex pointer-events-auto",
         className
       )}
     >
@@ -227,25 +226,47 @@ export const MobileNavMenu = ({
   isOpen,
   onClose,
 }: MobileNavMenuProps) => {
+  // Close on Escape key
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [onClose]);
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          className={cn(
-            "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
-            className,
-          )}
-        >
-          {children}
-        </motion.div>
+        <>
+          {/* Backdrop */}
+          <motion.div
+            className="fixed inset-0 z-40 bg-black/30 backdrop-blur-sm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={onClose} // click outside closes
+          />
+
+          {/* Menu */}
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className={cn(
+              "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-4 rounded-lg bg-white px-4 py-8 shadow-[0_0_24px_rgba(34,_42,_53,_0.06),_0_1px_1px_rgba(0,_0,_0,_0.05),_0_0_0_1px_rgba(34,_42,_53,_0.04),_0_0_4px_rgba(34,_42,_53,_0.08),_0_16px_68px_rgba(47,_48,_55,_0.05),_0_1px_0_rgba(255,_255,_255,_0.1)_inset] dark:bg-neutral-950",
+              className
+            )}
+          >
+            {children}
+          </motion.div>
+        </>
       )}
     </AnimatePresence>
   );
 };
- 
+
 export const MobileNavToggle = ({
   isOpen,
   onClick,

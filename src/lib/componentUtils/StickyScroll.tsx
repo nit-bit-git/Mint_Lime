@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect, useMemo } from "react";
+import React, { useRef, useState, useMemo } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Heading, Paragraph } from "./text";

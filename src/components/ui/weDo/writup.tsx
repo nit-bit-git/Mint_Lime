@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
 import { StickyScroll } from "@/lib/componentUtils/StickyScroll";
 import { cn } from "@/lib/utils";
 import { Heading } from "@/lib/componentUtils/text";
@@ -13,13 +13,7 @@ const content = [
       "It may be bold to say “refresh business” but we stick to our word. Every business is ever changing and a “refresh” is always something you would look for. We transform your challenges into fresh, scalable platforms built for an ever-changing pace.",
     content: (
       <div className="flex h-full w-full items-center justify-center text-white">
-        {/* <img
-          src="/linear.webp"
-          width={300}
-          height={300}
-          className="h-full w-full object-cover"
-          alt="linear board demo"
-        /> */}
+       
       </div>
     ),
   },
@@ -63,23 +57,23 @@ const content = [
 ];
 
 export const WeDo = ({ className }: { className?: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  // const ref = useRef<HTMLDivElement>(null);
+  // const [isVisible, setIsVisible] = useState(false);
 
-  useEffect(() => {
-    if (!ref.current) return;
+  // useEffect(() => {
+  //   if (!ref.current) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.intersectionRatio > 0.2),
-      { threshold: [0, 0.2, 1] }
-    );
+  //   const observer = new IntersectionObserver(
+  //     ([entry]) => setIsVisible(entry.intersectionRatio > 0.2),
+  //     { threshold: [0, 0.2, 1] }
+  //   );
 
-    observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
+  //   observer.observe(ref.current);
+  //   return () => observer.disconnect();
+  // }, []);
 
   return (
-    <div ref={ref} className={cn(className, "relative w-full flex flex-col items-center justify-center")}>
+    <div className={cn(className, "relative w-full flex flex-col items-center justify-center")}>
       <Heading size="6xl" className="p-5" >
         WHAT WE DO ?
       </Heading>

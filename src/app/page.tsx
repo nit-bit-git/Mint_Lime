@@ -14,119 +14,199 @@ import ServiceComponent from "@/components/ui/services/servicesComponent";
 import { Portfolio } from "@/components/ui/portfolio/projectTiles";
 import { Testimonials } from "@/components/ui/testimonials/testimonialCards";
 import { WeDo } from "@/components/ui/weDo/writup";
-import { LinkedInIcon, InstagramIcon, XIcon } from "@/components/icons/icons";import { OurMission } from "@/components/ui/aboutUs/heading3";
+import { OurMission } from "@/components/ui/aboutUs/heading3";
 import { OurMissionContent } from "@/components/ui/aboutUs/para3";
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Footer } from "@/components/ui/footer/footer";
-;
+import { Hills } from "@/components/ui/footer/hill";
 
-export default function Home() {
- const [navVisible, setNavVisible] = useState< boolean | null>( true );
+export default function Home(): React.ReactElement {
+  // State management
+  const [navVisible, setNavVisible] = useState<boolean | null>(true);
 
   return (
-    <div className="relative pointer-events-none font-sans grid grid-rows-[1fr_100px] items-center justify-items-center pb-20 sm:p-20 overflow-clip">
+    <div className="relative min-h-screen font-sans overflow-clip bg-gradient-to-b from-black via-gray-50/30 to-black">
+      {/* Navigation Layer */}
       <AnimatePresence>
         {navVisible !== null && (
-          <motion.div
-            className="absolute top-0 left-0 w-[100vw] h-inherit z-100"
-            initial={{ width: navVisible ? 0 : "100vw", opacity: 0 }}
-            animate={{ width: navVisible ? "100vw" : 0, opacity: navVisible ? 1 : 0 }}
-            exit={{ width: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
+          <motion.nav
+            className="fixed top-0 left-0 w-full h-auto z-50 pointer-events-none"
+            initial={{ 
+              width: navVisible ? 0 : "100vw", 
+              opacity: 0 
+            }}
+            animate={{ 
+              width: navVisible ? "100vw" : 0, 
+              opacity: navVisible ? 1 : 0 
+            }}
+            exit={{ 
+              width: 0, 
+              opacity: 0 
+            }}
+            transition={{ 
+              duration: 0.4, 
+              ease: "easeInOut" 
+            }}
           >
             <TopNavbar />
-          </motion.div>
+          </motion.nav>
         )}
       </AnimatePresence>
 
-      <div className="absolute top-0 w-full h-[800px] z-10 overflow-hidden ">
-              <div className= "relative w-full oveflow-clip" style={{
+      {/* Background Effects Layer */}
+       <div className="absolute top-0 w-full h-[400px] md:h-[750px] z-0 overflow-hidden pointer-events-auto">
+              <div className= "relative w-full oveflow-clip" 
+              style={{
                   transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
               }}>
-                <Boxes className="flex w-full h-full "/>
+                <Boxes className="flex w-full h-full  "/>
               </div>
-          <div className="absolute w-full h-fit z-10 bottom-0">
-          <div className="absolute bottom-0 z-10 flex items-center-safe w-full h-60 bg-white">
-            <div className="flex flex-row justify-center items-center  ">
+              {/* Marquee Section */}
+          <div className="absolute w-full h-fit z-10 bottom-0 bg-amber-50">
+          
+            <div className="flex justify-center items-center h-full px-4 ">
               <Marquee />
-            </div>  
           </div>
         </div>
-          </div>
-      <main className="row-start-1 grid grid-rows-[800px_auto_250px_1fr_100vh_250px_150vh_100vh] h-auto gap-2 w-full">
-        <div className="relative row-start-1 flex flex-col w-full h-full items-center overflow-clip">
-          <div className="flex flex-row w-full items-center-safe justify-between p-2 ">
-            <div className="flex flex-col w-[40%] gap-2 z-20 p-5 pointer-events-none"> 
-                <TagLine className=" rounded-xl p-5  " />
-                  <div className="flex flex-row w-full justify-center z-20">
-                <Line1 className="rounded-xl p-5 w-full "/>
+          </div>  
+        
+      {/* Main Content Grid */}
+      <main className="relative z-10 grid auto-rows-max  md:gap-8 w-full min-h-screen pt-20 pointer-events-none">
+        
+        {/* Hero Section */}
+        <section 
+          className="relative flex flex-col w-full min-h-[400px] md:min-h-[800px] items-center overflow-clip"
+          aria-label="Hero section"
+        >
+          <div className="flex flex-col md:flex-row w-full items-center justify-between  pointer-events-none p-4 md:p-6 lg:p-8 gap-4 md:gap-8">
+            {/* Hero Text Content */}
+            <div className="flex flex-col w-full md:max-w-[40%] order-2 md:order-1 gap-4 md:gap-6 z-20 p-4 md:p-8 pointer-events-none">
+              <TagLine className="rounded-xl md:rounded-2xl p-4 md:p-6 bg-white/40 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
+              <div className="flex justify-center w-full z-20">
+                <Line1 className="rounded-xl md:rounded-2xl p-4 md:p-6 w-full bg-white/30 backdrop-blur-sm shadow-lg border border-white/20" />
+              </div>
             </div>
-                </div>
-            <div className="flex relative gap-2 w-[60%] z-30">
-            <CarouselMain />
+
+            {/* Hero Carousel */}
+            <div className="flex relative w-full md:max-w-[60%] order-1 md:order-2 z-30 min-h-[250px] md:min-h-[400px] ">
+              <CarouselMain />
             </div>
           </div>
-        </div>
-        <div className="row-start-2 relative flex flex-col h-[200vh] w-full">
-              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-3xl blur-3xl"></div>
-              <div className="absolute inset-0  bg-gray-100/20 w-full h-full rounded-bl-3xl">
-              <div className=" flex flex-row w-full h-auto items-center px-5 relative z-10">
-                      <WhoAreWe />
-                      <WhoUsContent className="flex max-w-[60%] h-full items-center justify-center-safe" />
-                  <div className="flex flex-row  w-fit">
-                    <MintLimeIllustration />
-                  </div>
+        </section>
+
+        {/* About Section */}
+        <section 
+          className="relative flex flex-col min-h-[150vh] md:min-h-[200vh] w-full pointer-events-auto"
+          aria-label="About us section"
+        >
+          {/* Background Layers */}
+            
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-100/10 via-blue-50/20 to-gray-100/30 w-full h-full rounded-xl md:rounded-3xl blur-sm md:blur-2xl " />
+          <div className="absolute inset-0 bg-gradient-to-t from-white/90 to-transparent w-full h-full rounded-bl-xl md:rounded-b-3xl md:[clip-path:polygon(0_20%,100%_15%,100%_100%,0_100%)]" />
+
+          <div className="relative z-10 space-y-8 md:space-y-16 p-4 md:p-8">
+            {/* Who Are We */}
+            <div className="flex flex-col md:flex-row w-full items-center gap-4 md:gap-8">
+              <div className="w-full md:w-auto">
+                <WhoAreWe />
               </div>
-              <div className=" flex px-8 w-full h-auto items-start relative z-10">
-                <div className=" flex flex-col items-center-safe justify-center h-full w-full rounded-b-[70%] ">
-                  <WhyUs className="p-10 flex items-center justify-center-safe" />
-                 <WhyChooseUsCards className="flex flex-row items-center-safe justify-center h-full w-full "/>
-                </div>
+              <WhoUsContent className="flex w-full md:max-w-[60%] h-full items-center justify-center" />
+              <div className="flex flex-row w-full md:w-fit justify-center">
+                <MintLimeIllustration />
               </div>
-              <div className="flex px-8 w-full h-auto relative z-10">
-                <div className=" flex flex-col items-center-safe justify-center h-full w-full rounded-b-[70%] ">
-                  <OurMission className="p-10 flex items-center justify-center-safe" />
-                 <OurMissionContent className="flex flex-1 justify-around" />
-                </div>
+            </div>
+
+            {/* Why Choose Us */}
+            <div className="flex flex-col items-center justify-center space-y-8 md:space-y-12">
+              <div className="w-full max-w-6xl mx-auto rounded-[30px] md:rounded-t-[70px] bg-white/50 backdrop-blur-sm border-t border-white/20 shadow-xl">
+                <WhyUs className="p-8 md:p-16 flex items-center justify-center" />
+                <WhyChooseUsCards className="flex flex-col md:flex-row items-center justify-center h-full w-full px-4 md:px-8 pb-8 md:pb-16 gap-4 md:gap-0" />
               </div>
-              </div>     
-        </div>
-        <div className="row-start-3 relative h-full w-full">
-          <div className="absolute top-5 bg-gray-100/10 w-full h-full [clip-path:polygon(0_50%,100%_0,100%_100%,0_100%)]"></div>
-          <div className="absolute inset-0 bg-gray-100/20 w-full h-full [clip-path:polygon(0_40%,100%_0,100%_100%,0_100%)]"></div>     
-        </div>
-        <WeDo className=" row-start-4 h-full w-full bg-amber-500" />
-         <div className="row-start-5 relative mt-10 h-full w-full flex flex-col py-10">
-          <div className="absolute inset-0 bg-gray-100/20 w-full h-full"></div>
-          <ServiceComponent className="flex flex-col gap-6 h-full w-full" />
-        </div>
-        <div className="row-start-6 my-5 relative h-full w-full">
-          <div className="absolute inset-0  bg-gray-100/10 w-full h-full [clip-path:polygon(0_0,100%_0,100%_50%,0_100%)]"></div>
-          <div className="absolute top-5 bg-gray-100/20 w-full h-full [clip-path:polygon(0_0,100%_0,100%_60%,0_100%)]"></div>
-          <div className="absolute bottom-[-15] right-0 bg-gray-100/10 w-3/4 h-full [clip-path:polygon(0_100%,100%_65%,100%_100%,0_100%)]"></div>
-        </div>
-        <div className="row-start-7 relative mt-10 h-full w-full flex flex-col pt-10">
-          <div className="absolute inset-0 bg-gray-100/20 w-full h-full"></div>
-          <div className=" h-full w-full">
-             <Portfolio setNavVisible={setNavVisible} />
+            </div>
+
+            {/* Our Mission */}
+            <div className="flex flex-col items-center justify-center space-y-4 md:space-y-8">
+              <div className="w-full max-w-6xl mx-auto rounded-[30px] md:rounded-b-[70px] bg-gradient-to-b from-slate-400/60 to-slate-800/40 backdrop-blur-sm border border-white/30 shadow-xl">
+                <OurMission className="p-8 md:p-16 flex items-center justify-center" />
+                <OurMissionContent className="flex flex-col md:flex-1 md:justify-around px-4 md:px-8 pb-8 md:pb-16 gap-4 md:gap-0" />
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="row-start-8 relative h-full w-full flex flex-col my-10">
-          <div className="h-full w-full">
-             <Testimonials />
-         
-          <div className="flex gap-4">
-          <InstagramIcon className="w-6 h-6 text-white" />
-          <XIcon className="w-6 h-6 text-white" />
-          <LinkedInIcon className="w-6 h-6 text-white" />
-          {/* <YouTubeIcon className="w-6 h-6 text-white" /> */}
-        </div>  
-         </div>
-        </div>
-        </main>
-      <Footer className="absolute bottom-0 flex flex-wrap items-center justify-center w-full h-fit text-black" />
-   
-    </div>
+        </section>
+
+        {/* Decorative Transition */}
+        <section 
+          className="relative h-32 md:h-64 w-full overflow-hidden"
+          aria-hidden="true"
+        >
+          <div className="absolute top-0 left-0 bg-gradient-to-tl from-indigo-100/20 to-transparent w-3/5 h-full md:[clip-path:polygon(0_0,100%_0,0%_40%,0_40%)] backdrop-blur-sm" />            
+     
+         <div className="absolute inset-0 bg-gradient-to-br from-purple-100/20 to-blue-100/20 w-full h-full md:[clip-path:polygon(0_50%,100%_0,100%_100%,0_100%)] backdrop-blur-sm" />
+          <div className="absolute top-4 md:top-8 bg-gradient-to-br from-blue-100/30 to-purple-100/30 w-full h-full md:[clip-path:polygon(0_50%,100%_0,100%_100%,0_100%)] backdrop-blur-sm" />
+          </section>
+
+        {/* Services Preview */}
+        <section 
+          className="relative h-[50vh] md:h-full w-full px-4 md:px-0"
+          aria-label="What we do section"
+        >
+          <WeDo className="h-full w-full bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 rounded-2xl md:rounded-3xl shadow-2xl" />
+        </section>
+
+        {/* Services Detail */}
+        <section 
+          className="relative min-h-[80vh] md:h-[100vh] w-full flex flex-col py-8 md:py-16 pointer-events-auto"
+          aria-label="Services section"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-gray-100/20 via-white/10 to-gray-100/20 w-full h-full rounded-xl md:rounded-3xl" />
+          <div className="relative z-10 flex flex-col h-full w-full p-4 md:p-8">
+            <ServiceComponent className="flex flex-col gap-6 md:gap-12 h-full w-full" />
+          </div>
+        </section>
+
+        {/* Portfolio Transition */}
+        <section 
+          className="relative h-32 md:h-64 w-full overflow-hidden my-4 md:my-8 "
+          aria-hidden="true"
+        >
+          <div className="absolute inset-0 bg-gradient-to-br from-purple-100/20 to-blue-100/20 w-full h-full md:[clip-path:polygon(0_0,100%_0,100%_40%,0_100%)] backdrop-blur-sm" />
+          <div className="absolute top-4 md:top-8 bg-gradient-to-br from-blue-100/30 to-purple-100/30 w-full h-full md:[clip-path:polygon(0_0,100%_0,100%_40%,0_100%)] backdrop-blur-sm" />
+          <div className="absolute -bottom-2 md:-bottom-4 right-0 bg-gradient-to-tl from-indigo-100/20 to-transparent w-3/5 h-full md:[clip-path:polygon(0_100%,100%_55%,100%_100%,0_100%)] backdrop-blur-sm" />            
+        </section>
+
+        {/* Portfolio Section */}
+        <section 
+          className="relative min-h-[80vh] md:min-h-screen w-full flex flex-col p-2 md:p-4 pointer-events-auto"
+          aria-label="Portfolio section"
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-slate-100/30 to-white/50 w-full h-full rounded-xl md:rounded-t-3xl backdrop-blur-sm" />
+          <div className="relative z-10 h-full w-full px-4 md:px-0 ">
+            <Portfolio setNavVisible={setNavVisible} />
+          </div>
+        </section>
+
+        {/* Testimonials & Social */}
+        <section 
+          className="relative min-h-[60vh] md:min-h-screen w-full flex flex-col my-8 md:my-16 pointer-events-auto"
+          aria-label="Testimonials section"
+        >
+          <div className="h-full w-full flex  flex-col items-center justify-center px-4 md:px-0">
+            <Testimonials />
+            
+            
+          </div>
+          <Hills />
+        </section>
+      </main>
+              
+    <div className="relative w-full h-inherit z-20 text-black">
+
+    
+  
+  {/* Footer content */}
+  <Footer className="relative z-10 flex items-center justify-center w-full text-black pt-16 md:pt-24" />
+</div>
+</div>
   );
 }

@@ -62,20 +62,24 @@ const waitForFonts = (timeoutMs: number): Promise<void> =>
 const waitForCriticalImages = (timeoutMs: number): Promise<void> =>
   new Promise((resolve) => {
     if (typeof document === "undefined") return resolve();
-    
-    // Get both regular imgs and Next.js images
-    const regularImgs = Array.from(document.querySelectorAll("img[data-critical='true']")) as HTMLImageElement[];
-    const nextImgs = Array.from(document.querySelectorAll("img[data-nimg], img[data-priority]")) as HTMLImageElement[];
-    
-    // Filter Next images that are in critical containers or have priority
-    const criticalNextImgs = nextImgs.filter(img => 
-      img.hasAttribute('data-priority') || 
-      img.closest('[data-critical="true"]')
-    );
-    
-    const allImgs = [...regularImgs, ...criticalNextImgs];
-    
-    if (allImgs.length === 0) return resolve();
+    const checkImages = () => {
+      const regularImgs = Array.from(document.querySelectorAll("img[data-critical='true']")) as HTMLImageElement[];
+      const nextImgs = Array.from(document.querySelectorAll("img[data-nimg], img[data-priority]")) as HTMLImageElement[];
+      
+      const criticalNextImgs = nextImgs.filter(img => 
+        img.hasAttribute('data-priority') || 
+        img.closest('[data-critical="true"]')
+      );
+      
+      const allImgs = [...regularImgs, ...criticalNextImgs];
+      
+      console.log("Found critical images:", allImgs.length); // Debug log
+      
+      if (allImgs.length === 0) {
+        // If no images found, wait a bit more and check again
+        setTimeout(checkImages, 500);
+        return;
+      }
 
     let loaded = 0;
     const timer = setTimeout(resolve, timeoutMs);
@@ -101,6 +105,11 @@ const waitForCriticalImages = (timeoutMs: number): Promise<void> =>
         img.addEventListener("error", onLoad);
       }
     });
+    };
+    setTimeout(checkImages, 1000);
+    
+    // Safety timeout
+    setTimeout(resolve, timeoutMs);
   });
 
 const waitForDOMContentLoaded = (timeoutMs: number): Promise<void> =>
@@ -167,7 +176,7 @@ export const LoaderProvider: React.FC<LoaderProviderProps> = ({
 
         // Execute tasks with progress updates
         let completed = 0;
-        const taskPromises = tasks.map((task, index) =>
+        const taskPromises = tasks.map((task) =>
           task.then(() => {
             completed++;
             updateProgress((completed / tasks.length) * 90);
@@ -242,7 +251,12 @@ export const Loader: React.FC<LoaderProps> = ({
 }) => {
   const ctx = useContext(LoaderContext);
   const [shouldShow, setShouldShow] = useState(true);
-
+  useEffect(() => {
+    // Only hide if context says not loading
+    if (ctx && !ctx.isLoading) {
+      setShouldShow(false);
+    }
+  }, [ctx, ctx?.isLoading]);
   if (!ctx) {
     // Show a basic loader while context initializes
     return (
@@ -252,12 +266,6 @@ export const Loader: React.FC<LoaderProps> = ({
     );
   }
   const { isLoading, progress } = ctx;
-  useEffect(() => {
-    // Only hide if context says not loading
-    if (ctx && !ctx.isLoading) {
-      setShouldShow(false);
-    }
-  }, [ctx?.isLoading]);
   const themeClasses = {
     light: "bg-white/95 text-slate-900",
     dark: "bg-slate-900/95 text-white",
@@ -306,7 +314,7 @@ export const Loader: React.FC<LoaderProps> = ({
   return (
     <AnimatePresence mode="wait">
         <div className={`initial-loader ${!isLoading ? 'loaded' : ''}`}>
-      {isLoading && (
+      {(isLoading || shouldShow) && (
         <motion.div
           key="screen-loader"
           initial={{ opacity: 0 }}

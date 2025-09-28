@@ -2,7 +2,7 @@ import { useOutsideClick } from "@/lib/componentUtils/popup";
 import { motion } from "motion/react";
 import { useRef } from "react";
 import { createPortal } from "react-dom";
-
+import Image from "next/image";
 export const ExpandableCardDemo = ({ active, setActive }: {active: any, setActive:React.Dispatch<any>}) => {
  const ref = useRef<HTMLDivElement>(null);
   useOutsideClick(ref, () => setActive(null));
@@ -28,10 +28,11 @@ export const ExpandableCardDemo = ({ active, setActive }: {active: any, setActiv
                     exit={{ opacity: 0 }}
           className="w-full max-w-[500px] h-fit flex flex-col bg-white dark:bg-neutral-900 sm:rounded-3xl overflow-hidden"
         >
-          <motion.div layoutId={`image-${active.title}`}>
-            <img
+          <motion.div layoutId={`image-${active.title}`} className="relative h-80 w-full overflow-hidden sm:rounded-t-3xl">
+            <Image
               src={active.image}
               alt={active.title}
+              fill
               className="w-full h-80 object-cover object-top sm:rounded-t-3xl"
             />
           </motion.div>
