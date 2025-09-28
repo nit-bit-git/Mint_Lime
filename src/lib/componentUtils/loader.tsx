@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import Image from "next/image";
 /**
  * Enhanced Production-Grade Screen Loader
  * Features:
@@ -280,7 +280,7 @@ export const Loader: React.FC<LoaderProps> = ({
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <motion.div
-        className="w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500 via-purple-500 to-pink-500 flex items-center justify-center shadow-2xl"
+        className="w-16 h-16 rounded-2xl bg-gradient-to-br from-green-500 via-yellow-500/80  to-teal-500 flex items-center justify-center shadow-2xl"
         animate={{ rotate: [0, 5, -5, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -344,16 +344,17 @@ export const Loader: React.FC<LoaderProps> = ({
             >
               {logoComponent || defaultLogo}
               
+              
               <motion.div
                 initial={{ y: 10, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
                 className="text-center"
               >
-                <h1 className="text-3xl font-bold tracking-tight mb-2">
+                <h1 className="text-3xl font-bold tracking-tight mb-2  text-green-500 ">
                   {brandName}
                 </h1>
-                <p className="text-sm opacity-70 font-medium">
+                <p className="text-sm opacity-70 font-medium  text-green-700">
                   Crafting digital experiences
                 </p>
               </motion.div>
@@ -370,7 +371,7 @@ export const Loader: React.FC<LoaderProps> = ({
                 {/* Progress Bar */}
                 <div className="w-full h-1 bg-black/10 dark:bg-white/10 rounded-full overflow-hidden">
                   <motion.div
-                    className="h-full bg-gradient-to-r from-blue-500 to-purple-500 rounded-full origin-left"
+                    className="h-full bg-gradient-to-r from-green-500 to-teal-500 rounded-full origin-left"
                     initial={{ scaleX: 0 }}
                     animate={{ scaleX: progress / 100 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}

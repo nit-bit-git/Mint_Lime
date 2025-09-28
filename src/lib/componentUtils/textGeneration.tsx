@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { motion, stagger, useAnimate } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Paragraph } from "./text";
+import { useMediaQuery } from "../mediaQuery";
 
 export const TextGenerateEffect = ({
   words,
@@ -19,7 +20,7 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   const wordsArray = words.split(" ");
-
+  const isMobile = useMediaQuery("(max-width: 768px)")
   useEffect(() => {
     const timeout = setTimeout(() => {
       animate(
@@ -42,9 +43,17 @@ export const TextGenerateEffect = ({
             filter: filter ? "blur(10px)" : "none",
           }}
         >
-          <Paragraph className="inline-block" size="lg">
+          
+          {isMobile ? (
+            <Paragraph className="inline-block" size="sm">
             {word}&nbsp;
           </Paragraph>
+          ) : (
+            <Paragraph className="inline-block" size="lg">
+            {word}&nbsp;
+          </Paragraph>
+          )}
+          
         </motion.span>
       ))}
     </motion.div>
@@ -54,6 +63,7 @@ export const TextGenerateEffect = ({
     <div className={cn("font-bold", className)}>
         <div className="dark:text-white text-black text-2xl leading-snug tracking-wide">
           {renderWords()}
+          
       </div>
     </div>
   );
