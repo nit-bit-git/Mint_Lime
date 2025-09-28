@@ -20,7 +20,7 @@ export const Heading = ({
     const sizeStyles = {
     xs: "text-xs",
     sm: "text-sm",
-    md: "text-base",
+    lg: "text-base",
     lg: "text-lg",
     xl: "text-xl",
     "2xl": "text-2xl",
@@ -44,7 +44,7 @@ export const Heading = ({
     outlined: "text-transparent text-bold [-webkit-text-stroke:2px_theme(colors.gray.300)] dark:[-webkit-text-stroke:2px_theme(colors.gray.600)] [-webkit-text-fill-color:transparent]",  
     shadow: "text-gray-900 dark:text-white [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]",
   };;
-  const baseStyles = "leading-tight tracking-tight px-2 md:px-4 text-lg";
+  const baseStyles = "leading-tight tracking-tight px-2 lg:px-4 text-lg";
    if (animated) {
         return (
             <motion.div
@@ -88,7 +88,7 @@ export const Paragraph = ({
     className, 
     color,
     variant = 'default',
-    size = 'md',
+    size = 'lg',
     weight = 'medium',
     animated = false,
     animationProps,
@@ -98,7 +98,7 @@ export const Paragraph = ({
     const sizeStyles = {
     xs: "text-xs",
     sm: "text-sm",
-    md: "text-base",
+    lg: "text-base",
     lg: "text-lg",
     xl: "text-xl",
   };

@@ -20,7 +20,7 @@ export const TextGenerateEffect = ({
 }) => {
   const [scope, animate] = useAnimate();
   const wordsArray = words.split(" ");
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
   useEffect(() => {
     const timeout = setTimeout(() => {
       animate(

@@ -28,18 +28,18 @@ const valueContent = [
         ];
 export const OurMissionContent = ({className}: {className?: string}) => {
     const [hovering, setHovering] = useState(false);
-    const isMobile = useMediaQuery("(max-width: 768px)")
+    const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
     return (
   <div className={cn("w-full h-full inline-block", className)}>
-    {/* Use Lens on md+ screens */}
-    <div className="hidden md:block">
+    {/* Use Lens on lg+ screens */}
+    <div className="hidden lg:block">
       <Lens hovering={hovering} setHovering={setHovering} lensSize={300}>
         <Content mode= {isMobile} />
       </Lens>
     </div>
 
     {/* Mobile / small screens */}
-    <div className="block md:hidden">
+    <div className="block lg:hidden">
       <Content mode={isMobile} />
     </div>
   </div>
@@ -47,25 +47,25 @@ export const OurMissionContent = ({className}: {className?: string}) => {
 }
 // Extracted Content for reuse
 const Content = ({mode}:{mode: boolean}) => (
-  <div className="px-6 py-3 md:px-12 md:py-5">
+  <div className="px-6 py-3 lg:px-12 lg:py-5">
     {/* Main Description */}
     {mode ? (
       <>
       <Paragraph
       size="lg"
       color="text-white"
-      className="z-10 leading-relaxed text-justify md:text-xl"
+      className="z-10 leading-relaxed text-justify lg:text-xl"
       weight="bold"
     >
       At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency, and provide strategic guidance to drive informed decisions and sustainable growth.
     </Paragraph>
 
     {/* Values Section */}
-    <div className="mt-8 md:mt-10">
+    <div className="mt-8 lg:mt-10">
       <Heading
         size="2xl"
         color="text-white"
-        className="z-10 mb-4 text-lg md:text-xl"
+        className="z-10 mb-4 text-lg lg:text-xl"
         weight="bold"
       >
         Our Values
@@ -79,7 +79,7 @@ const Content = ({mode}:{mode: boolean}) => (
           >
             <span className="font-semibold">
               <Paragraph
-                  size="md"
+                  size="lg"
                   color="text-white"
                   className="z-10 leading-relaxed text-base"
                   weight="bold"
@@ -97,18 +97,18 @@ const Content = ({mode}:{mode: boolean}) => (
       <Paragraph
       size="xl"
       color="text-white"
-      className="z-10 leading-relaxed text-base md:text-xl"
+      className="z-10 leading-relaxed text-base lg:text-xl"
       weight="bold"
     >
       At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency, and provide strategic guidance to drive informed decisions and sustainable growth.
     </Paragraph>
 
     {/* Values Section */}
-    <div className="mt-8 md:mt-10">
+    <div className="mt-8 lg:mt-10">
       <Heading
         size="4xl"
         color="text-white"
-        className="z-10 mb-4 text-lg md:text-xl"
+        className="z-10 mb-4 text-lg lg:text-xl"
         weight="bold"
       >
         Our Values
@@ -124,7 +124,7 @@ const Content = ({mode}:{mode: boolean}) => (
               <Paragraph
                   size="xl"
                   color="text-white"
-                  className="z-10 leading-relaxed text-base md:text-xl"
+                  className="z-10 leading-relaxed text-base lg:text-xl"
                   weight="bold"
                 >
                   {item.title}:

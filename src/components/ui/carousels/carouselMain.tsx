@@ -170,7 +170,7 @@ const CarouselMain = ({
   const [carouselState, setCarouselState] = useState(dataManager.getCurrentState());
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(autoPlay);
   const autoPlayRef = useRef<NodeJS.Timeout | number | null>(null);
-  const isMobile = useMediaQuery("(max-width: 768px)") ?? false;
+  const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)") ?? false;
    const updateCarouselState = useCallback(() => {
     setCarouselState(dataManager.getCurrentState());
   }, [dataManager]);
@@ -217,7 +217,7 @@ const CarouselMain = ({
       transition={{ duration: 0.8 }}
       className="relative w-full h-full"
     >
-      <div className="w-full h-full max-h-[400px] md:max-h-[500px]">
+      <div className="w-full h-full max-h-[400px] lg:max-h-[500px]">
         <LazyImage
           src={carouselState.current.image}
           alt={carouselState.current.title}
@@ -233,7 +233,7 @@ const CarouselMain = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-xl md:text-3xl text-white font-extrabold mb-2 drop-shadow-lg"
+            className="text-xl lg:text-3xl text-white font-extrabold mb-2 drop-shadow-lg"
           >
             {carouselState.current.title}
           </motion.h2>
@@ -242,7 +242,7 @@ const CarouselMain = ({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-            className="text-sm md:text-lg text-white opacity-90 drop-shadow-md"
+            className="text-sm lg:text-lg text-white opacity-90 drop-shadow-lg"
           >
             {carouselState.current.subtitle}
           </motion.p>
@@ -261,14 +261,14 @@ const CarouselMain = ({
     <motion.button
       onClick={handlePrev}
       whileHover={{ scale: 1.15 }}
-      className="cursor-pointer absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="cursor-pointer absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-lg rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronLeft className="w-6 h-6 text-black" />
     </motion.button>
     <motion.button
       onClick={handleNext}
       whileHover={{ scale: 1.15 }}
-      className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-lg rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronRight className="w-6 h-6 text-black" />
     </motion.button>
@@ -284,14 +284,14 @@ const CarouselMain = ({
       <motion.button
         onClick={() => setIsAutoPlaying(!isAutoPlaying)}
         whileHover={{ scale: 1.15 }}
-        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
+        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-lg rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         {isAutoPlaying ? <Pause className="w-5 h-5 text-black" /> : <Play className="w-5 h-5 text-black" />}
       </motion.button>
       <motion.button
         onClick={handleReset}
         whileHover={{ scale: 1.15 }}
-        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
+        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-lg rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         <RotateCcw className="w-5 h-5 text-black" />
       </motion.button>
@@ -310,7 +310,7 @@ const CarouselMain = ({
           onClick={() => handleJumpToSlide(index)}
           animate={{ scale: carouselState.currentIndex === index ? 1.3 : 1 }}
           className={`cursor-pointer rounded-full transition-all duration-300 pointer-events-auto ${carouselState.currentIndex === index 
-            ? 'bg-blue-500 w-6 h-6 shadow-md' 
+            ? 'bg-blue-500 w-6 h-6 shadow-lg' 
             : 'bg-white/50 w-3 h-3 hover:bg-white/70'}`}
         />
       ))}

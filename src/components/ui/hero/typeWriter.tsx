@@ -11,7 +11,7 @@ const words = [
   { text: "future-ready tomorrow", className: "text-slate-400" }
 ];
 export const Line1 = ({className}: {className: string}) => {
-    const isMobile = useMediaQuery("(max-width: 768px)");
+    const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
     return (     
         <div className={cn("inline-block", className)}>
           {isMobile ? (
