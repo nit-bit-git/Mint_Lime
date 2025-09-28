@@ -70,7 +70,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
   return (
     <footer
       className={cn(
-        "relative border-t border-neutral-200 dark:border-neutral-800 h-[200px] lg:h-[250px] overflow-hidden bg-gradient-to-t from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800",
+        "relative border-t border-neutral-800 h-[200px] lg:h-[250px] overflow-hidden bg-gradient-to-t from-neutral-900 to-neutral-800",
         className
       )}
     >
@@ -118,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
          {/* Social Links */}
             <motion.div
                 variants={itemVariants}
-                className="flex w-fit gap-2 md:gap-4 p-2 md:p-3 bg-white/20 dark:bg-white/60 backdrop-blur-sm rounded-full shadow-lg border border-white/30"
+                className="flex w-fit gap-2 md:gap-4 p-2 md:p-3 bg-white/60 backdrop-blur-sm rounded-full shadow-lg border border-white/30"
               >
               {(
                 [
@@ -133,9 +133,9 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`Visit our ${social.name}`}
-                  className="p-2 md:p-3 bg-white/0 dark:bg-neutral-700/60 rounded-full hover:bg-white/50 dark:hover:bg-neutral-600 transition-all duration-200 flex items-center justify-center"
+                  className="p-2 md:p-3 bg-white/0 dark:bg-neutral-700/60 rounded-full hover:bg-neutral-600 transition-all duration-200 flex items-center justify-center"
                 >
-                  <social.icon className="w-5 h-5 md:w-6 md:h-6 text-gray-700 dark:text-gray-300" />
+                  <social.icon className="w-5 h-5 md:w-6 md:h-6 text-gray-300" />
                 </motion.a>
               ))}
             </motion.div>
@@ -152,10 +152,10 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         <div className=" relative text-center space-y-4 md:space-y-8">
           {/* Main Footer Content */}
           <motion.div variants={itemVariants} className='flex flex-col ' >
-            <Heading size={isMobile ? 'xl': '2xl'} className=" font-bold text-neutral-800 dark:text-neutral-200">
+            <Heading size={isMobile ? 'xl': '2xl'} className=" font-bold text-neutral-200">
               Let&lsquo;s Build Something Amazing
             </Heading>
-            <Paragraph size={isMobile ? 'sm': 'xl'} className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto">
+            <Paragraph size={isMobile ? 'sm': 'xl'} className="text-neutral-400 max-w-md mx-auto">
               Transforming ideas into digital experiences that drive growth and innovation.
             </Paragraph>
           </motion.div>
@@ -172,7 +172,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                 href={link.href}
                 whileHover={{ scale: 1.05, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="text-neutral-700 dark:text-neutral-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 font-medium text-sm"
+                className="text-neutral-300 hover:text-blue-400 transition-colors duration-200 font-medium text-sm"
               >
                 {link.label}
               </motion.a>
@@ -185,7 +185,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         {/* Bottom Bar */}
         <motion.div
           variants={itemVariants}
-          className="absolute bottom-4 left-0 right-0 flex flex-col sm:flex-row items-center justify-between px-6 gap-2 text-xs text-neutral-500 dark:text-neutral-500"
+          className="absolute bottom-4 left-0 right-0 flex flex-col sm:flex-row items-center justify-between px-6 gap-2 text-xs text-neutral-500"
         >
           <div className="flex items-center gap-4">
             <span>© {currentYear} MintLime. All rights reserved.</span>
