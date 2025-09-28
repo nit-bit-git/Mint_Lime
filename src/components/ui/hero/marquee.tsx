@@ -3,7 +3,7 @@ import { Heading } from "@/lib/componentUtils/text"
 import { useMediaQuery } from "@/lib/mediaQuery";
 
 export const Marquee = () => {
-     const isMobile = useMediaQuery("(max-width: 768px)");
+     const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
     return (
         <>
         {isMobile ? (

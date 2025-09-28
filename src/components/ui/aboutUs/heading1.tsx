@@ -2,10 +2,10 @@ import { Heading } from "@/lib/componentUtils/text";
 import { useMediaQuery } from "@/lib/mediaQuery";
 import { cn } from "@/lib/utils";
 export const WhoAreWe = ({className}: {className?: string}) => {
-    const isMobile = useMediaQuery("(max-width: 768px)");
+    const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
     return (     
-        <div className={cn("inline-block w-full md:w-fit h-full", className)}>
-         <span className=" flex flex-col items-center justify-center md:float-left">
+        <div className={cn("inline-block w-full lg:w-fit h-full", className)}>
+         <span className=" flex flex-col items-center justify-center lg:float-left">
             { isMobile ? (
                  <Heading level={4} size="3xl" color=" text-white" className="z-10" weight="extrabold">
                 Who are we ?

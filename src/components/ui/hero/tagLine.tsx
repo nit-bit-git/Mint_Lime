@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 
 
 export const TagLine = ({className}: {className: string}) => {
-    const isMobile = useMediaQuery("(max-width: 768px)");
+    const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
     return (     
         <div className={cn("inline-block w-full", className)}>
   {isMobile ? (
@@ -46,7 +46,7 @@ export const TagLine = ({className}: {className: string}) => {
           Your Business,
         </Heading>
       </span>
-      <span className="md:float-right">
+      <span className="lg:float-right">
         <Heading
           level={1}
           variant="gradient"

@@ -117,7 +117,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
   const [selectedId, setSelectedId] = useState<number>(1);
   const [selectedSkill, setSelectedSkill] = useState<number>(0);
   const [content, setContent] = useState<ContentState>({ id: 1, skill: 0 });
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
   // Reset skill selection when main category changes
   useEffect(() => {
     setSelectedSkill(0);
@@ -138,24 +138,24 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
       aria-label="Our services"
     >
       {/* Service Category Navigation - Compact */}
-      <div className="relative flex-shrink-0  md:py-4">
+      <div className="relative flex-shrink-0  lg:py-4">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50/20 via-purple-50/20 to-indigo-50/20 rounded-xl blur-lg -z-10" />
         
-        <div className="flex flex-row items-center justify-center gap-2 md:gap-4 px-4">
+        <div className="flex flex-row items-center justify-center gap-2 lg:gap-4 px-4">
           {navItems.map((item) => (
             <motion.button
               key={item.id}
               onClick={() => setSelectedId(item.id)}
               whileHover={{ scale: 1.01 }}
               whileTap={{ scale: 0.99 }}
-              className="relative px-3 md:px-4 py-2 md:py-3 rounded-lg transition-all duration-300 group w-full md:w-auto"
+              className="relative px-3 lg:px-4 py-2 lg:py-3 rounded-lg transition-all duration-300 group w-full lg:w-auto"
               aria-pressed={selectedId === item.id}
             >
               {/* Animated background highlight */}
               {selectedId === item.id && (
                 <motion.div
                   layoutId="service-highlight"
-                  className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white rounded-lg shadow-md border border-white/40"
+                  className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white rounded-lg shadow-lg border border-white/40"
                   transition={{ 
                     type: "spring", 
                     stiffness: 400, 
@@ -189,10 +189,10 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
       </div>
 
       {/* Content Area - Takes remaining height */}
-      <div className="relative flex-1 min-h-0 py-2 md:py-4">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-gray-900/30 rounded-xl md:rounded-2xl blur-sm -z-10" />
+      <div className="relative flex-1 min-h-0 py-2 lg:py-4">
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 to-gray-900/30 rounded-xl lg:rounded-2xl blur-sm -z-10" />
         
-        <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-4 md:gap-6 px-4 h-full">
+        <div className="grid grid-cols-1 lg:grid-cols-[45%_55%] gap-4 lg:gap-6 px-4 h-full">
           
           {/* Left Panel - Content */}
           <motion.div
@@ -201,11 +201,11 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="h-full flex flex-col min-h-0  rounded-lg md:rounded-4xl"
+            className="h-full flex flex-col min-h-0  rounded-lg lg:rounded-4xl"
           >
             {/* Submenu - Compact */}
             <div className="relative flex-shrink-0">
-              <div className="absolute inset-0 backdrop-blur-md " />
+              <div className="absolute inset-0 backdrop-blur-lg " />
               <div className="relative z-10">
                 <SubMenu 
                   className="flex flex-col w-full text-white" 
@@ -217,10 +217,10 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
             </div>
 
             {/* Content description - Flexible height */}
-            <div className="flex-1 md:min-h-0 ">
+            <div className="flex-1 lg:min-h-0 ">
               <div className="relative w-full">
-                <div className="absolute inset-0 backdrop-blur-sm rounded-lg md:rounded-xl" />
-                <div className="relative z-10 p-4 md:p-6 text-center">
+                <div className="absolute inset-0 backdrop-blur-sm rounded-lg lg:rounded-xl" />
+                <div className="relative z-10 p-4 lg:p-6 text-center">
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={selectedId}
@@ -228,12 +228,12 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -20 }}
                       transition={{ duration: 0.3, ease: "easeInOut" }}
-                      className="max-h-[200px] md:max-h-[300px] overflow-y-auto"
+                      className="max-h-[200px] lg:max-h-[300px] overflow-y-auto"
                     >
                       {para ? (
                         <TextGenerateEffect key={para} words={para} />
                       ) : (
-                        <Paragraph className="text-white/80" size="md">
+                        <Paragraph className="text-white/80" size="lg">
                           Select a service to learn more about our expertise and approach.
                         </Paragraph>
                       )}
@@ -251,7 +251,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="relative w-full h-full min-h-[150px] rounded-lg md:rounded-xl overflow-hidden group"
+            className="relative w-full h-full min-h-[150px] rounded-lg lg:rounded-xl overflow-hidden group"
           >
             {/* Background gradient for loading state */}
             <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-slate-800 to-black" />
@@ -275,7 +275,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
 
                 {/* Image caption */}
                 <div className="absolute bottom-2 left-2 right-2 transform translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                  <div className="bg-black/70 backdrop-blur-sm rounded-md p-2">
+                  <div className="bg-black/70 backdrop-blur-sm rounded-lg p-2">
                     <Paragraph size="sm" className="text-white font-medium">
                       {sideImg.alt}
                     </Paragraph>
@@ -285,9 +285,9 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
             ) : (
               /* Fallback content */
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4">
-                <div className="w-12 h-12 md:w-16 md:h-16 bg-white/10 rounded-full flex items-center justify-center mb-3">
+                <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/10 rounded-full flex items-center justify-center mb-3">
                   <svg 
-                    className="w-6 h-6 md:w-8 md:h-8 text-white/60" 
+                    className="w-6 h-6 lg:w-8 lg:h-8 text-white/60" 
                     fill="none" 
                     stroke="currentColor" 
                     viewBox="0 0 24 24"

@@ -6,7 +6,7 @@ import { motion } from "motion/react";
  
 
 export function WhyChooseUsCards({ className }: { className?: string }) {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
 
   const cards = [
     { 
@@ -29,7 +29,7 @@ export function WhyChooseUsCards({ className }: { className?: string }) {
   return (
     <main className={cn("w-full", className)}>
       <div className={cn(
-        "grid gap-6 md:gap-8 p-4 md:p-6",
+        "grid gap-6 lg:gap-8 p-4 lg:p-6",
         isMobile 
           ? "grid-cols-1 max-w-sm mx-auto" 
           : "grid-cols-1 lg:grid-cols-3 max-w-6xl mx-auto"
@@ -71,7 +71,7 @@ export function WhyChooseUsCards({ className }: { className?: string }) {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
               
               {/* Content Container */}
-              <div className="relative z-10 p-4 md:p-6">
+              <div className="relative z-10 p-4 lg:p-6">
                 <motion.h2 
                   className={cn(
                     "text-white font-semibold mb-2 leading-tight",

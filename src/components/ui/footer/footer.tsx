@@ -31,7 +31,7 @@ const ImageProp: React.FC<ImageProps> = ({ src, alt, fill, priority, className, 
 
 export const Footer: React.FC<FooterProps> = ({ className }) => {
   const currentYear = new Date().getFullYear();
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -75,7 +75,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
       )}
     >
       {/* Background SVG - positioned at bottom with crop */}
-      <div className="hidden md:block absolute bottom-0 left-0 w-full  h-[120%] z-10 blur-sm">
+      <div className="hidden lg:block absolute bottom-0 left-0 w-full  h-[120%] z-10 blur-sm">
         <motion.div
           initial={{ opacity: 0, scale: 1.1 }}
           whileInView={{ opacity: 0.6, scale: 1 }}
@@ -98,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="hidden absolute md:flex flex-col top-6 left-6 z-10 space-y-3"
+        className="hidden absolute lg:flex flex-col top-6 left-6 z-10 space-y-3"
       >
         <motion.div
           whileHover={{ scale: 1.05 }}
@@ -118,7 +118,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
          {/* Social Links */}
             <motion.div
                 variants={itemVariants}
-                className="flex w-fit gap-2 md:gap-4 p-2 md:p-3 bg-white/60 backdrop-blur-sm rounded-full shadow-lg border border-white/30"
+                className="flex w-fit gap-2 lg:gap-4 p-2 lg:p-3 bg-white/60 backdrop-blur-sm rounded-full shadow-lg border border-white/30"
               >
               {(
                 [
@@ -133,9 +133,9 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={`Visit our ${social.name}`}
-                  className="p-2 md:p-3 bg-white/0 dark:bg-neutral-700/60 rounded-full hover:bg-neutral-600 transition-all duration-200 flex items-center justify-center"
+                  className="p-2 lg:p-3 bg-white/0 dark:bg-neutral-700/60 rounded-full hover:bg-neutral-600 transition-all duration-200 flex items-center justify-center"
                 >
-                  <social.icon className="w-5 h-5 md:w-6 md:h-6 text-gray-300" />
+                  <social.icon className="w-5 h-5 lg:w-6 lg:h-6 text-gray-300" />
                 </motion.a>
               ))}
             </motion.div>
@@ -149,19 +149,19 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         viewport={{ once: true }}
         className="absolute  z-10 flex flex-col top-0 h-full px-6 py-8"
       >
-        <div className=" relative text-center space-y-4 md:space-y-8">
+        <div className=" relative text-center space-y-4 lg:space-y-8">
           {/* Main Footer Content */}
           <motion.div variants={itemVariants} className='flex flex-col ' >
             <Heading size={isMobile ? 'xl': '2xl'} className=" font-bold" color=' text-neutral-200'>
               Let&lsquo;s Build Something Amazing
             </Heading>
-            <Paragraph size={isMobile ? 'sm': 'xl'} className=" max-w-md mx-auto" color='text-neutral-400'>
+            <Paragraph size={isMobile ? 'sm': 'xl'} className=" max-w-lg mx-auto" color='text-neutral-400'>
               Transforming ideas into digital experiences that drive growth and innovation.
             </Paragraph>
           </motion.div>
 
           {/* Contact Links */}
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2 md:gap-6">
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2 lg:gap-6">
             {([
               { label: "mintlime.info@gmail.com", href: "mailto:hello@mintlime.com" },
               { label: "Work with us", href: "/contact" },
