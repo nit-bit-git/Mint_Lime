@@ -156,7 +156,7 @@ export default function Home(): React.ReactElement {
 
         {/* Services Detail */}
         <section 
-          className="relative h-fit min-h-[100vh]  w-full flex flex-col py-8 md:py-16 pointer-events-auto"
+          className="relative min-h-[100vh]  w-full flex flex-col py-8 md:py-16 pointer-events-auto"
           aria-label="Services section"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-gray-100/20 via-white/10 to-gray-100/20 w-full h-full rounded-xl md:rounded-3xl" />
@@ -177,7 +177,7 @@ export default function Home(): React.ReactElement {
 
         {/* Portfolio Section */}
         <section 
-          className="relative min-h-[60vh] md:min-h-screen w-full flex flex-col p-2 md:p-4 pointer-events-auto"
+          className="relative min-h-fit md:min-h-screen w-full flex flex-col p-2 md:p-4 pointer-events-auto"
           aria-label="Portfolio section"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-slate-900/30 to-slate-100/90 w-full h-full rounded-xl md:rounded-t-3xl backdrop-blur-sm" />
