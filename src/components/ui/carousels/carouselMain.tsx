@@ -204,54 +204,53 @@ const CarouselMain = ({
   if (!carouselState.current) return <div>No slides available</div>;
 
   return (
-    <div className={`w-full h-full my-auto md:my-0 md:h-inherit relative max-w-4xl mx-auto ${className}`}>
-  <div className="relative rounded-2xl shadow-2xl overflow-hidden">
-
+   <div className={`w-full h-full max-h-full relative ${className}`}>
+    <div className="relative w-full h-full rounded-2xl shadow-2xl ">
     {/* Current Slide */}
-    <div className="relative w-full h-full">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={carouselState.current.id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative w-full"
-        >
-          <LazyImage
-            src={carouselState.current.image}
-            alt={carouselState.current.title}
-            className="w-full"
-          />
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/30" />
-          {/* Text content */}
-          <div className="absolute inset-0 flex items-center justify-center text-center px-6">
-            <div className=" max-w-3xl">
-              <motion.h2
-                key={carouselState.current.title}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="text-3xl text-white md:text-5xl font-extrabold mb-2 drop-shadow-lg"
-              >
-                {carouselState.current.title}
-              </motion.h2>
-              <motion.p
-                key={carouselState.current.subtitle}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
-                className="text-lg text-white md:text-xl opacity-90 drop-shadow-md"
-              >
-                {carouselState.current.subtitle}
-                
-              </motion.p>
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
+   <div className="relative w-full h-full max-h-full overflow-hidden"> 
+  <AnimatePresence mode="wait">
+    <motion.div
+      key={carouselState.current.id}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.8 }}
+      className="relative w-full h-full"
+    >
+      <div className="w-full h-full max-h-[400px] md:max-h-[500px]">
+        <LazyImage
+          src={carouselState.current.image}
+          alt={carouselState.current.title}
+          className="w-full h-full object-cover"
+        />
+      </div>
+      {/* Dark overlay and text content */}
+      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 flex items-center justify-center text-center px-4">
+        <div className="max-w-full">
+          <motion.h2
+            key={carouselState.current.title}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-xl md:text-3xl text-white font-extrabold mb-2 drop-shadow-lg"
+          >
+            {carouselState.current.title}
+          </motion.h2>
+          <motion.p
+            key={carouselState.current.subtitle}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+            className="text-sm md:text-lg text-white opacity-90 drop-shadow-md"
+          >
+            {carouselState.current.subtitle}
+          </motion.p>
+        </div>
+      </div>
+    </motion.div>
+  </AnimatePresence>
+</div>
 
     {/* Navigation Buttons */}
     { isMobile ? (
@@ -304,7 +303,7 @@ const CarouselMain = ({
       <>
       </>
     ) : (
-      <div className="absolute bottom-6 flex w-full justify-center space-x-2 pointer-events-auto">
+      <div className="absolute -bottom-10 flex w-full justify-center space-x-2 pointer-events-auto">
       {slides.map((_, index) => (
         <motion.button
           key={index}
