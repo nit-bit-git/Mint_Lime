@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
        <LoaderProvider timeoutMs={8000} minLoadTime={1200}>
           <Loader brandName="MintLime" theme="gradient" showProgress={true} /> 
