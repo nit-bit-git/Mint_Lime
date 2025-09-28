@@ -3,18 +3,21 @@
 import React from "react";
 import { InfiniteMovingCards } from "@/lib/componentUtils/infinteScrollCards"
 import { Heading } from "@/lib/componentUtils/text";
+import { useMediaQuery } from "@/lib/mediaQuery";
 
 export function Testimonials() {
+  const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     <div className="h-fit rounded-md flex flex-col antialiased bg-white dark:bg-black dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-      <Heading size="6xl">
+      <Heading size={isMobile ?"3xl": '6xl'}>
         What Our Clients Say...
       </Heading>
-      <InfiniteMovingCards
+      {!isMobile && (<InfiniteMovingCards
         items={testimonials}
         direction="right"
         speed="slow"
-      />
+      />)}
+      
     </div>
   );
 }

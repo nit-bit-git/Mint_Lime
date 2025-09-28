@@ -53,16 +53,16 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
       transition={{
         backgroundColor: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
       }}
-      className="flex flex-row-reverse w-full justify-between  h-full min-h-screen overflow-y-auto"
+      className="flex flex-row-reverse w-full justify-between  h-full min-h-screen overflow-y-auto px-5 md:px-0"
       ref={ref}
     >
       {/* Text Section */}
       <div className="flex justify-between">
-        <div className="w-full max-w-2xl pr-8 lg:pr-12 py-6">
+        <div className="w-full max-w-2xl pr-8 lg:pr-12 md:py-6">
           {content.map((item, index) => (
             <motion.div
               key={`${item.title}-${index}`}
-              className="mb-32 first:mt-16"
+              className="mb-10 md:mb-16 lg:mb-32 first:mt-16"
               initial={{ opacity: 0.5 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: false, amount: 0.6 }}
@@ -89,20 +89,20 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
 
                 <Paragraph
                   size="lg"
-                  className="text-slate-300 leading-relaxed max-w-md opacity-90"
+                  className="text-slate-300 leading-relaxed max-w-md opacity-90 text-justify md:text-base"
                 >
                   {item.description}
                 </Paragraph>
               </motion.div>
             </motion.div>
           ))}
-          <div className="h-32" />
+          
         </div>
       </div>
 
       {/* Fixed Content Section */}
       {content[activeCard].content && (
-        <div className="sticky top-10 hidden h-full w-[40%] overflow-hidden rounded-md bg-white lg:block">
+        <div className="sticky top-10 hidden h-full w-[40%] overflow-hidden bg-white/20  md:block">
           <motion.div
             key={activeCard}
             initial={{
@@ -136,7 +136,7 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
               transformStyle: "preserve-3d",
             }}
             className={cn(
-              "relative h-full w-full overflow-hidden rounded-2xl shadow-2xl",
+              "relative h-full w-full overflow-hidden shadow-2xl",
               "border border-white/10 backdrop-blur-sm",
               contentClassName
             )}

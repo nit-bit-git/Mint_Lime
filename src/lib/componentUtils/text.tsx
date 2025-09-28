@@ -2,6 +2,7 @@ import { motion, MotionProps } from "motion/react";
 import React from "react";
 import { cn } from "../utils";
 import { HeadingComponentProps, ParagraphComponentProps } from "../types";
+
 export const Heading = ({
     children,
     className, 
@@ -43,7 +44,7 @@ export const Heading = ({
     outlined: "text-transparent text-bold [-webkit-text-stroke:2px_theme(colors.gray.300)] dark:[-webkit-text-stroke:2px_theme(colors.gray.600)] [-webkit-text-fill-color:transparent]",  
     shadow: "text-gray-900 dark:text-white [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]",
   };;
-  const baseStyles = "leading-tight tracking-tight px-4";
+  const baseStyles = "leading-tight tracking-tight px-2 md:px-4 text-lg";
    if (animated) {
         return (
             <motion.div

@@ -5,12 +5,12 @@ import { mainCarouselSlides } from "@/constants/imageData";
 import { AspectRatio } from "@/lib/aspectRatio";
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image";
+import { useMediaQuery } from "@/lib/mediaQuery";
 type Slide = { 
   id: number,
   title: string,
   subtitle: string,
-  image: string,
-  color: string,
+  image: string
 }
 
 // ---------------------- Carousel Manager ----------------------
@@ -163,14 +163,14 @@ const LazyImage = ({ src, alt, className, onLoad, onError }: { src: string; alt:
 const CarouselMain = ({
   slides = mainCarouselSlides,
   autoPlay = true, 
-  interval = 4000,
-  className = "h-full w-full"
+  interval = 6000,
+  className = ""
 }) => {    
   const [dataManager] = useState(new CarouselManager(slides, 3));
   const [carouselState, setCarouselState] = useState(dataManager.getCurrentState());
   const [isAutoPlaying, setIsAutoPlaying] = useState<boolean>(autoPlay);
   const autoPlayRef = useRef<NodeJS.Timeout | number | null>(null);
-
+  const isMobile = useMediaQuery("(max-width: 768px)") ?? false;
    const updateCarouselState = useCallback(() => {
     setCarouselState(dataManager.getCurrentState());
   }, [dataManager]);
@@ -204,7 +204,7 @@ const CarouselMain = ({
   if (!carouselState.current) return <div>No slides available</div>;
 
   return (
-    <div className={`w-full h-inherit relative max-w-4xl mx-auto ${className}`}>
+    <div className={`w-full h-full my-auto md:my-0 md:h-inherit relative max-w-4xl mx-auto ${className}`}>
   <div className="relative rounded-2xl shadow-2xl overflow-hidden">
 
     {/* Current Slide */}
@@ -245,6 +245,7 @@ const CarouselMain = ({
                 className="text-lg md:text-xl opacity-90 drop-shadow-md"
               >
                 {carouselState.current.subtitle}
+                
               </motion.p>
             </div>
           </div>
@@ -253,53 +254,68 @@ const CarouselMain = ({
     </div>
 
     {/* Navigation Buttons */}
+    { isMobile ? (
+      <>
+      </>
+    ) : (
+      <>
     <motion.button
       onClick={handlePrev}
       whileHover={{ scale: 1.15 }}
-      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="cursor-pointer absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronLeft className="w-6 h-6 text-black" />
     </motion.button>
     <motion.button
       onClick={handleNext}
       whileHover={{ scale: 1.15 }}
-      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronRight className="w-6 h-6 text-black" />
     </motion.button>
+  </>)}
 
     {/* Control Panel */}
     <div className="absolute top-4 right-4 flex space-x-3 pointer-events-auto">
+      { isMobile ? (
+      <>
+      </>
+    ) : (
+      <>
       <motion.button
         onClick={() => setIsAutoPlaying(!isAutoPlaying)}
         whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
+        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         {isAutoPlaying ? <Pause className="w-5 h-5 text-black" /> : <Play className="w-5 h-5 text-black" />}
       </motion.button>
       <motion.button
         onClick={handleReset}
         whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
+        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         <RotateCcw className="w-5 h-5 text-black" />
       </motion.button>
+      </>)}
     </div>
 
     {/* Slide Indicators */}
-    <div className="absolute bottom-6 flex w-full justify-center space-x-2 pointer-events-auto">
+    { isMobile ? (
+      <>
+      </>
+    ) : (
+      <div className="absolute bottom-6 flex w-full justify-center space-x-2 pointer-events-auto">
       {slides.map((_, index) => (
         <motion.button
           key={index}
           onClick={() => handleJumpToSlide(index)}
           animate={{ scale: carouselState.currentIndex === index ? 1.3 : 1 }}
-          className={`rounded-full transition-all duration-300 pointer-events-auto ${carouselState.currentIndex === index 
+          className={`cursor-pointer rounded-full transition-all duration-300 pointer-events-auto ${carouselState.currentIndex === index 
             ? 'bg-blue-500 w-6 h-6 shadow-md' 
             : 'bg-white/50 w-3 h-3 hover:bg-white/70'}`}
         />
       ))}
-    </div>
-
+    </div> )}
   </div>
 </div>
   );

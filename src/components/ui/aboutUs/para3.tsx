@@ -1,52 +1,10 @@
 import { Lens } from "@/lib/componentUtils/lens";
-import { Paragraph } from "@/lib/componentUtils/text";
+import { Heading, Paragraph } from "@/lib/componentUtils/text";
+import { useMediaQuery } from "@/lib/mediaQuery";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-export const OurMissionContent = ({className}: {className?: string}) => {
-    const [hovering, setHovering] = useState(false);
-    
-    return (
-  <div className={cn("w-full h-full inline-block", className)}>
-    {/* Use Lens on md+ screens */}
-    <div className="hidden md:block">
-      <Lens hovering={hovering} setHovering={setHovering} lensSize={300}>
-        <Content />
-      </Lens>
-    </div>
 
-    {/* Mobile / small screens */}
-    <div className="block md:hidden">
-      <Content />
-    </div>
-  </div>
-)     ;
-}
-// Extracted Content for reuse
-const Content = () => (
-  <div className="px-6 py-8 md:px-12 md:py-10">
-    {/* Main Description */}
-    <Paragraph
-      size="xl"
-      color="text-white"
-      className="z-10 leading-relaxed text-base md:text-xl"
-      weight="bold"
-    >
-      At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency, and provide strategic guidance to drive informed decisions and sustainable growth.
-    </Paragraph>
-
-    {/* Values Section */}
-    <div className="mt-8 md:mt-10">
-      <Paragraph
-        size="xl"
-        color="text-white"
-        className="z-10 mb-4 text-lg md:text-xl"
-        weight="bold"
-      >
-        Our Values
-      </Paragraph>
-
-      <ul className="list-disc list-inside space-y-4 text-white text-left">
-        {[
+const valueContent = [
           {
             title: "Quality First",
             description:
@@ -67,15 +25,117 @@ const Content = () => (
             description:
               "Approach every project with structure, focus, and integrity, ensuring standards are maintained at every step, from conception to delivery.",
           },
-        ].map((item, idx) => (
+        ];
+export const OurMissionContent = ({className}: {className?: string}) => {
+    const [hovering, setHovering] = useState(false);
+    const isMobile = useMediaQuery("(max-width: 768px)")
+    return (
+  <div className={cn("w-full h-full inline-block", className)}>
+    {/* Use Lens on md+ screens */}
+    <div className="hidden md:block">
+      <Lens hovering={hovering} setHovering={setHovering} lensSize={300}>
+        <Content mode= {isMobile} />
+      </Lens>
+    </div>
+
+    {/* Mobile / small screens */}
+    <div className="block md:hidden">
+      <Content mode={isMobile} />
+    </div>
+  </div>
+)     ;
+}
+// Extracted Content for reuse
+const Content = ({mode}:{mode: boolean}) => (
+  <div className="px-6 py-3 md:px-12 md:py-5">
+    {/* Main Description */}
+    {mode ? (
+      <>
+      <Paragraph
+      size="lg"
+      color="text-white"
+      className="z-10 leading-relaxed text-justify md:text-xl"
+      weight="bold"
+    >
+      At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency, and provide strategic guidance to drive informed decisions and sustainable growth.
+    </Paragraph>
+
+    {/* Values Section */}
+    <div className="mt-8 md:mt-10">
+      <Heading
+        size="2xl"
+        color="text-white"
+        className="z-10 mb-4 text-lg md:text-xl"
+        weight="bold"
+      >
+        Our Values
+      </Heading>
+
+      <ul className="list-disc list-inside space-y-4 text-white text-left">
+        {valueContent.map((item, idx) => (
           <li
             key={idx}
             className="transition-all duration-200 hover:translate-x-1 hover:text-blue-400 focus:text-blue-400"
           >
-            <span className="font-semibold">{item.title}:</span> {item.description}
+            <span className="font-semibold">
+              <Paragraph
+                  size="md"
+                  color="text-white"
+                  className="z-10 leading-relaxed text-base"
+                  weight="bold"
+                >
+                  {item.title}
+              </Paragraph>
+              </span> 
           </li>
         ))}
       </ul>
     </div>
+    </>  
+    ) : (
+      <>
+      <Paragraph
+      size="xl"
+      color="text-white"
+      className="z-10 leading-relaxed text-base md:text-xl"
+      weight="bold"
+    >
+      At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency, and provide strategic guidance to drive informed decisions and sustainable growth.
+    </Paragraph>
+
+    {/* Values Section */}
+    <div className="mt-8 md:mt-10">
+      <Heading
+        size="4xl"
+        color="text-white"
+        className="z-10 mb-4 text-lg md:text-xl"
+        weight="bold"
+      >
+        Our Values
+      </Heading>
+
+      <ul className="list-disc list-inside space-y-4 text-white text-left">
+        {valueContent.map((item, idx) => (
+          <li
+            key={idx}
+            className="transition-all duration-200 hover:translate-x-1 hover:text-blue-400 focus:text-blue-400"
+          >
+            <span className="font-semibold">
+              <Paragraph
+                  size="xl"
+                  color="text-white"
+                  className="z-10 leading-relaxed text-base md:text-xl"
+                  weight="bold"
+                >
+                  {item.title}:
+              </Paragraph>
+            </span> <Paragraph>{item.description}</Paragraph>
+          </li>
+        ))}
+      </ul>
+    </div>
+      </>
+    )}
+    
   </div>
 );

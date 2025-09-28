@@ -5,6 +5,8 @@ import {
 import { OurWork } from "./title";
 import { ExpandableCardDemo } from "./expandable";
 import { AnimatePresence, motion } from "motion/react";
+import { useMediaQuery } from "@/lib/mediaQuery";
+import PortfolioSection from "./mobileView";
 const cards = [
     {
       title: "AI Plays Flappy Bird",
@@ -109,7 +111,7 @@ const cards = [
     }
   ];
 export function Portfolio( {setNavVisible}:{setNavVisible: React.Dispatch<any>}) {
-    
+  const isMobile = useMediaQuery("(max-width: 768px)")  
   const parentRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
     null
@@ -136,42 +138,49 @@ export function Portfolio( {setNavVisible}:{setNavVisible: React.Dispatch<any>})
   }, [active, setNavVisible]);
  const [isDragging, setIsDragging] = useState(false);
   return (
-    <div ref={parentRef} className="relative flex min-h-full w-full p-10 justify-center   [perspective:3000px] bg-slate-500">
-       <OurWork className=" flex flex-col justify-center mx-auto max-w-sm text-center font-black text-neutral-400  dark:text-neutral-800"/>
-     
-      {cards.map((item, index) => (
-  <DraggableCardBody 
-    key={index} 
-    parentRef={parentRef} 
-    className={item.className}
-    setDragging={setIsDragging}
-    
-  >
-    <div
-      onClick={() =>{if(!isDragging)setActive(item)}}
-      className="flex flex-col items-center cursor-pointer"
-    >
-      <motion.img
-        layoutId={`image-${item.title}`}
-        src={item.image}
-        alt={item.title}
-        className="pointer-events-none relative z-10 h-80 w-80 object-cover"
-      />
-      <motion.h3
-        layoutId={`title-${item.title}`}
-        className="mt-4 text-center text-2xl font-bold text-neutral-700 dark:text-neutral-300"
-      >
-        {item.title}
-      </motion.h3>
-    </div>
-  </DraggableCardBody>
-))}
-     <AnimatePresence>
-  {active && (
-    <ExpandableCardDemo active={active} setActive={setActive} />
-  )}
-</AnimatePresence>
-    </div>
+    <>
+            <div ref={parentRef} className="hidden md:flex relative min-h-full w-full p-10 justify-center rounded-xl [perspective:3000px] bg-slate-500/70 ">
+              <OurWork className=" flex flex-col justify-center mx-auto max-w-sm text-center font-black text-neutral-400  dark:text-neutral-800"/>
+            
+              {cards.map((item, index) => (
+          <DraggableCardBody 
+            key={index} 
+            parentRef={parentRef} 
+            className={item.className}
+            setDragging={setIsDragging}
+            
+          >
+            <div
+              onClick={() =>{if(!isDragging)setActive(item)}}
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <motion.img
+                layoutId={`image-${item.title}`}
+                src={item.image}
+                alt={item.title}
+                className="pointer-events-none relative z-10 h-80 w-80 object-cover"
+              />
+              <motion.h3
+                layoutId={`title-${item.title}`}
+                className="mt-4 text-center text-2xl font-bold text-neutral-700 dark:text-neutral-300"
+              >
+                {item.title}
+              </motion.h3>
+            </div>
+          </DraggableCardBody>
+        ))}
+            <AnimatePresence>
+          {active && (
+            <ExpandableCardDemo active={active} setActive={setActive} />
+          )}
+        </AnimatePresence>
+            </div>
+
+      {isMobile && (
+        <PortfolioSection />
+      )}    
+    </>
+   
   );
 }
 
