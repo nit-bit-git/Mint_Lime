@@ -28,7 +28,7 @@ const navItems = [
 ]
 
 function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuProps) {
-    const isMobile = useMediaQuery("(max-width: 768px)")
+    const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
    
     const selectedNavItem = navItems.find(item => item.id === selectedId)?.subItems
     const handleClick = (index: number) => {
@@ -37,9 +37,9 @@ function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuP
     return (
   <div className={cn("relative w-full", className)}>
     {selectedNavItem ? (
-      <div className="relative space-y-2 md:space-y-3">
+      <div className="relative space-y-2 lg:space-y-3">
         {/* Background decoration */}
-        <div className="flex flex-col gap-2 md:gap-3 p-3 md:p-4">
+        <div className="flex flex-col gap-2 lg:gap-3 p-3 lg:p-4">
           {selectedNavItem.map((subItem, index) => (
             <motion.div
               key={index}
@@ -68,7 +68,7 @@ function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuP
               {selectedSkill === index && (
                 <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-white/5 to-white/1 rounded-lg blur-sm -z-10" />
               )}
-              <div className="absolute inset-0 bg-white/10 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10" />
+              <div className="absolute inset-0 bg-white/10 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 -z-10" />
               
               {/* Selection indicator */}
               {selectedSkill === index && (
@@ -85,7 +85,7 @@ function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuP
               
               {/* Content */}
               <div 
-                className="relative pl-4 py-2 md:py-3 transition-all duration-200"
+                className="relative pl-4 py-2 lg:py-3 transition-all duration-200"
                 style={{ paddingLeft: `max(1rem, var(--pad))` }}
               >
                 <Heading 
@@ -104,11 +104,11 @@ function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuP
         </div>
         
         {/* Decorative gradient */}
-        <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-md pointer-events-none" />
+        <div className="absolute -bottom-2 -right-2 w-12 h-12 bg-gradient-to-br from-blue-400/10 to-purple-400/10 rounded-full blur-lg pointer-events-none" />
       </div>
     ) : (
       /* Empty state */
-      <div className="relative flex flex-col items-center justify-center p-6 md:p-8 text-center min-h-[120px]">
+      <div className="relative flex flex-col items-center justify-center p-6 lg:p-8 text-center min-h-[120px]">
         <div className="absolute inset-0 bg-white/5 rounded-lg backdrop-blur-sm -z-10" />
         
         <div className="w-8 h-8 bg-white/10 rounded-full flex items-center justify-center mb-3">

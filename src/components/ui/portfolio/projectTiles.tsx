@@ -111,7 +111,7 @@ const cards = [
     }
   ];
 export function Portfolio( {setNavVisible}:{setNavVisible: React.Dispatch<any>}) {
-  const isMobile = useMediaQuery("(max-width: 768px)")  
+  const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");  
   const parentRef = useRef<HTMLDivElement>(null)
   const [active, setActive] = useState<(typeof cards)[number] | boolean | null>(
     null
@@ -139,7 +139,7 @@ export function Portfolio( {setNavVisible}:{setNavVisible: React.Dispatch<any>})
  const [isDragging, setIsDragging] = useState(false);
   return (
     <>
-            <div ref={parentRef} className="hidden md:flex relative min-h-full w-full p-10 justify-center rounded-xl [perspective:3000px] bg-slate-500/70 ">
+            <div ref={parentRef} className="hidden lg:flex relative min-h-full w-full p-10 justify-center rounded-xl [perspective:3000px] bg-slate-500/70 ">
               <OurWork className=" flex flex-col justify-center mx-auto max-w-sm text-center font-black text-neutral-400  dark:text-neutral-800"/>
             
               {cards.map((item, index) => (
