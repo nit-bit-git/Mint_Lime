@@ -6,7 +6,7 @@ import { AspectRatio } from '@/lib/aspectRatio';
 
 export const Hills = ({ className }: {className?: string}) => {
   return (
-    <div className={cn("absolute top-25 w-full h-[200px] -z-10 bg-black", className)}>
+    <div className={cn("hidden md:block absolute top-25 w-full h-[200px] -z-10 bg-black", className)}>
       <AspectRatio ratio={4/3}>
           <Image
             src="/images/lastPage/hillArt.svg"

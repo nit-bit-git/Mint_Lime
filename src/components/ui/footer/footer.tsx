@@ -3,6 +3,8 @@ import { motion, type Variants } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import { LinkedInIcon, InstagramIcon, XIcon } from "@/components/icons/icons";
 import Image from 'next/image';
+import { Heading, Paragraph } from '@/lib/componentUtils/text';
+import { useMediaQuery } from '@/lib/mediaQuery';
 // Type definitions
 interface ImageProps {
   src: string;
@@ -29,7 +31,7 @@ const ImageProp: React.FC<ImageProps> = ({ src, alt, fill, priority, className, 
 
 export const Footer: React.FC<FooterProps> = ({ className }) => {
   const currentYear = new Date().getFullYear();
-
+  const isMobile = useMediaQuery("(max-width: 768px)");
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
@@ -68,12 +70,12 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
   return (
     <footer
       className={cn(
-        "relative border-t border-neutral-200 dark:border-neutral-800 lg:h-[250px] overflow-hidden bg-gradient-to-t from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800",
+        "relative border-t border-neutral-200 dark:border-neutral-800 h-[200px] lg:h-[250px] overflow-hidden bg-gradient-to-t from-neutral-50 to-white dark:from-neutral-900 dark:to-neutral-800",
         className
       )}
     >
       {/* Background SVG - positioned at bottom with crop */}
-      <div className="absolute bottom-0 left-0 w-full  h-[120%] z-10 blur-sm">
+      <div className="hidden md:block absolute bottom-0 left-0 w-full  h-[120%] z-10 blur-sm">
         <motion.div
           initial={{ opacity: 0, scale: 1.1 }}
           whileInView={{ opacity: 0.6, scale: 1 }}
@@ -96,7 +98,7 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
-        className="absolute flex flex-col top-6 left-6 z-10 space-y-3"
+        className="hidden absolute md:flex flex-col top-6 left-6 z-10 space-y-3"
       >
         <motion.div
           whileHover={{ scale: 1.05 }}
@@ -149,17 +151,17 @@ export const Footer: React.FC<FooterProps> = ({ className }) => {
       >
         <div className=" relative text-center space-y-4 md:space-y-8">
           {/* Main Footer Content */}
-          <motion.div variants={itemVariants} >
-            <h3 className="text-2xl font-bold text-neutral-800 dark:text-neutral-200">
+          <motion.div variants={itemVariants} className='flex flex-col ' >
+            <Heading size={isMobile ? 'xl': '2xl'} className=" font-bold text-neutral-800 dark:text-neutral-200">
               Let&lsquo;s Build Something Amazing
-            </h3>
-            <p className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto">
+            </Heading>
+            <Paragraph size={isMobile ? 'sm': 'xl'} className="text-neutral-600 dark:text-neutral-400 max-w-md mx-auto">
               Transforming ideas into digital experiences that drive growth and innovation.
-            </p>
+            </Paragraph>
           </motion.div>
 
           {/* Contact Links */}
-          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-6">
+          <motion.div variants={itemVariants} className="flex flex-wrap justify-center gap-2 md:gap-6">
             {([
               { label: "mintlime.info@gmail.com", href: "mailto:hello@mintlime.com" },
               { label: "Work with us", href: "/contact" },

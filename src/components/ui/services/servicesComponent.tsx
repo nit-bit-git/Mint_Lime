@@ -6,6 +6,7 @@ import Image from "next/image";
 import { AspectRatio } from "@/lib/aspectRatio";
 import { cn } from "@/lib/utils";
 import { TextGenerateEffect } from "@/lib/componentUtils/textGeneration";
+import { useMediaQuery } from "@/lib/mediaQuery";
 type ContentState = {
   id: number;
   skill: number;
@@ -116,7 +117,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
   const [selectedId, setSelectedId] = useState<number>(1);
   const [selectedSkill, setSelectedSkill] = useState<number>(0);
   const [content, setContent] = useState<ContentState>({ id: 1, skill: 0 });
-
+  const isMobile = useMediaQuery("(max-width: 768px)")
   // Reset skill selection when main category changes
   useEffect(() => {
     setSelectedSkill(0);
@@ -137,7 +138,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
       aria-label="Our services"
     >
       {/* Service Category Navigation - Compact */}
-      <div className="relative flex-shrink-0 py-2 md:py-4">
+      <div className="relative flex-shrink-0  md:py-4">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-50/20 via-purple-50/20 to-indigo-50/20 rounded-xl blur-lg -z-10" />
         
         <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 px-4">
@@ -167,13 +168,14 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
               <span className="relative z-10 cursor-pointer">
                 <Heading 
                   color={selectedId === item.id ? "text-gray-900" : "text-white group-hover:text-gray-700"} 
-                  size="3xl"
+                  size={isMobile ? "xl": "3xl"}
                   className="font-semibold transition-colors duration-200"
                 >
                   {item.name}
                 </Heading>
               </span>
-
+              <div className={`absolute bottom-0 left-4 right-0 h-px bg-gradient-to-r from-white/20 to-transparent transition-opacity duration-200 opacity-100`} />
+            
               {/* Hover effect for non-selected items */}
               {selectedId !== item.id && (
                 <div className="absolute inset-0 bg-white/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
@@ -201,7 +203,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
             {/* Submenu - Compact */}
             <div className="relative flex-shrink-0">
               <div className="absolute inset-0 backdrop-blur-md " />
-              <div className="relative z-10 p-3 md:p-0">
+              <div className="relative z-10">
                 <SubMenu 
                   className="flex flex-col w-full text-white" 
                   onSkillSelect={setSelectedSkill} 
@@ -212,7 +214,7 @@ export default function ServiceComponent({ className }: ServiceComponentProps): 
             </div>
 
             {/* Content description - Flexible height */}
-            <div className="flex-1 min-h-0 ">
+            <div className="flex-1 md:min-h-0 ">
               <div className="relative w-full">
                 <div className="absolute inset-0 backdrop-blur-sm rounded-lg md:rounded-xl" />
                 <div className="relative z-10 p-4 md:p-6 text-center">

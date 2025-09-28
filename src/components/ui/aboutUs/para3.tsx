@@ -33,7 +33,7 @@ export const OurMissionContent = ({className}: {className?: string}) => {
   <div className={cn("w-full h-full inline-block", className)}>
     {/* Use Lens on md+ screens */}
     <div className="hidden md:block">
-      <Lens hovering={hovering} setHovering={setHovering} lensSize={100}>
+      <Lens hovering={hovering} setHovering={setHovering} lensSize={300}>
         <Content mode= {isMobile} />
       </Lens>
     </div>
@@ -54,7 +54,7 @@ const Content = ({mode}:{mode: Boolean}) => (
       <Paragraph
       size="lg"
       color="text-white"
-      className="z-10 leading-relaxed text-base md:text-xl"
+      className="z-10 leading-relaxed text-justify md:text-xl"
       weight="bold"
     >
       At Mint Lime, we empower businesses to overcome digital challenges by building scalable platforms, bringing designs to life with seamless user experiences, and navigating the AI-driven future. We turn data into actionable insights, maximize digital marketing impact, optimize processes for efficiency, and provide strategic guidance to drive informed decisions and sustainable growth.

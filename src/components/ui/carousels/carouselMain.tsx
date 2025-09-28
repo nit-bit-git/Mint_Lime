@@ -10,8 +10,7 @@ type Slide = {
   id: number,
   title: string,
   subtitle: string,
-  image: string,
-  color: string,
+  image: string
 }
 
 // ---------------------- Carousel Manager ----------------------
@@ -164,7 +163,7 @@ const LazyImage = ({ src, alt, className, onLoad, onError }: { src: string; alt:
 const CarouselMain = ({
   slides = mainCarouselSlides,
   autoPlay = true, 
-  interval = 4000,
+  interval = 6000,
   className = ""
 }) => {    
   const [dataManager] = useState(new CarouselManager(slides, 3));
@@ -263,14 +262,14 @@ const CarouselMain = ({
     <motion.button
       onClick={handlePrev}
       whileHover={{ scale: 1.15 }}
-      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="cursor-pointer absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronLeft className="w-6 h-6 text-black" />
     </motion.button>
     <motion.button
       onClick={handleNext}
       whileHover={{ scale: 1.15 }}
-      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-md rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronRight className="w-6 h-6 text-black" />
     </motion.button>
@@ -286,14 +285,14 @@ const CarouselMain = ({
       <motion.button
         onClick={() => setIsAutoPlaying(!isAutoPlaying)}
         whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
+        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         {isAutoPlaying ? <Pause className="w-5 h-5 text-black" /> : <Play className="w-5 h-5 text-black" />}
       </motion.button>
       <motion.button
         onClick={handleReset}
         whileHover={{ scale: 1.15 }}
-        className="bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
+        className="cursor-pointer bg-white/20 hover:bg-white/40 backdrop-blur-md rounded-full p-2 shadow-lg transition-all duration-300 pointer-events-auto"
       >
         <RotateCcw className="w-5 h-5 text-black" />
       </motion.button>
@@ -311,7 +310,7 @@ const CarouselMain = ({
           key={index}
           onClick={() => handleJumpToSlide(index)}
           animate={{ scale: carouselState.currentIndex === index ? 1.3 : 1 }}
-          className={`rounded-full transition-all duration-300 pointer-events-auto ${carouselState.currentIndex === index 
+          className={`cursor-pointer rounded-full transition-all duration-300 pointer-events-auto ${carouselState.currentIndex === index 
             ? 'bg-blue-500 w-6 h-6 shadow-md' 
             : 'bg-white/50 w-3 h-3 hover:bg-white/70'}`}
         />

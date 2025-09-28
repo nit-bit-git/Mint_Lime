@@ -3,6 +3,7 @@ import { memo } from "react";
 import { cn } from "@/lib/utils";
 import { Heading, Paragraph } from "@/lib/componentUtils/text";
 import { motion } from "motion/react";
+import { useMediaQuery } from "@/lib/mediaQuery";
 
 
 type SubMenuProps = {
@@ -11,11 +12,7 @@ type SubMenuProps = {
   className: string;
   selectedSkill: number
 };
-
-
-function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuProps) {
- 
-   const navItems = [
+const navItems = [
   {
     id: 1,
     subItems: ["Web & Mobile Development", "AI & Machine Learning"]
@@ -29,19 +26,19 @@ function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuP
     subItems: ["Data Analytics","Digital Marketing & SEO", "Social Media Strategy"]
   }
 ]
-const selectedNavItem = navItems.find(item => item.id === selectedId)?.subItems
-const handleClick = (index: number) => {
-  
-  onSkillSelect(index)
 
-}
+function SubMenu({selectedId, className, selectedSkill, onSkillSelect}: SubMenuProps) {
+    const isMobile = useMediaQuery("(max-width: 768px)")
+   
+    const selectedNavItem = navItems.find(item => item.id === selectedId)?.subItems
+    const handleClick = (index: number) => {
+      onSkillSelect(index)
+    }
     return (
   <div className={cn("relative w-full", className)}>
     {selectedNavItem ? (
       <div className="relative space-y-2 md:space-y-3">
         {/* Background decoration */}
-        
-        
         <div className="flex flex-col gap-2 md:gap-3 p-3 md:p-4">
           {selectedNavItem.map((subItem, index) => (
             <motion.div
@@ -50,7 +47,7 @@ const handleClick = (index: number) => {
               animate={{ 
                 opacity: 1, 
                 x: 0,
-                paddingLeft: `${(index + 1) * 20}px` // Responsive padding
+                paddingLeft: isMobile ? (index + 1) * 10  : (index + 1) * 20 // Responsive padding
               }}
               transition={{ 
                 duration: 0.3, 
@@ -65,9 +62,7 @@ const handleClick = (index: number) => {
               whileTap={{ scale: 0.98 }}
               className="relative cursor-pointer group"
               onClick={() => handleClick(index)}
-              style={{ 
-                "--pad": `${(index + 1) * 16}px` // Smaller padding for mobile
-              } as React.CSSProperties}
+              style={{ paddingLeft: isMobile ? (index + 1) * 10 :(index + 1) * 20 }}
             >
               {/* Hover background */}
               {selectedSkill === index && (
