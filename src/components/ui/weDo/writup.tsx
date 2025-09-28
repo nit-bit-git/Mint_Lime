@@ -74,7 +74,7 @@ export const WeDo = ({ className }: { className?: string }) => {
 
   return (
     <div className={cn(className, "relative w-full flex flex-col items-center justify-center")}>
-      <Heading size="6xl" className="p-5" >
+      <Heading size="6xl" color="text-white" className="p-5" >
         WHAT WE DO ?
       </Heading>
       <StickyScroll content={content} contentClassName="shadow-xl w-full" />

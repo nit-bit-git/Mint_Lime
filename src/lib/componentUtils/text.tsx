@@ -113,10 +113,10 @@ export const Paragraph = ({
 
   const variantStyles = {
     default: "text-white",
-    muted: "text-gray-500 dark:text-gray-400",
-    emphasis: "text-gray-900 dark:text-white",
-    small: "text-gray-600 dark:text-gray-400 text-sm",
-    large: "text-gray-800 dark:text-gray-200 text-lg",
+    muted: "text-gray-200",
+    emphasis: "dark:text-white",
+    small: "text-gray-200 text-sm",
+    large: "text-gray-200 text-lg",
   };
 
   const baseStyles = "leading-relaxed";
