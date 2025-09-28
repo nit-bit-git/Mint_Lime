@@ -86,6 +86,7 @@ export const Heading = ({
 export const Paragraph = ({
     children,
     className, 
+    color,
     variant = 'default',
     size = 'md',
     weight = 'medium',
@@ -132,7 +133,7 @@ export const Paragraph = ({
                         baseStyles,
                         sizeStyles[size],
                         weightStyles[weight],
-                        variantStyles[variant]
+                        color? color :  variantStyles[variant]
                     )}
                     {...props}  // Now props only contains safe HTML attributes
                 >
@@ -148,7 +149,7 @@ export const Paragraph = ({
                     baseStyles,
                     sizeStyles[size],
                     weightStyles[weight],
-                    variantStyles[variant]
+                    color? color :  variantStyles[variant]
                 )}
                 {...props}  // Safe HTML props only
             >

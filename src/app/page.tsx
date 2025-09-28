@@ -107,7 +107,7 @@ export default function Home(): React.ReactElement {
 
           <div className="relative z-10 space-y-8 md:space-y-16 p-4 md:p-8">
             {/* Who Are We */}
-            <div className="flex flex-col md:flex-row w-full items-center gap-4 md:gap-8">
+            <div className="flex flex-col md:flex-row w-full items-center gap-4 md:gap-8 ">
               <div className="w-full md:w-auto">
                 <WhoAreWe />
               </div>
