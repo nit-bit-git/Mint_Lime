@@ -102,7 +102,7 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
 
       {/* Fixed Content Section */}
       {content[activeCard].content && (
-        <div className="sticky top-10 hidden h-full w-[40%] overflow-hidden rounded-md bg-white lg:block">
+        <div className="sticky top-10 hidden h-full w-[40%] overflow-hidden rounded-md bg-white md:block">
           <motion.div
             key={activeCard}
             initial={{

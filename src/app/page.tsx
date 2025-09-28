@@ -55,8 +55,8 @@ export default function Home(): React.ReactElement {
       </AnimatePresence>
 
       {/* Background Effects Layer */}
-       <div className="hidden md:block absolute top-0 w-full h-[400px] md:h-[750px] z-0 overflow-hidden pointer-events-auto">
-              <div className= "relative w-full oveflow-clip" 
+       <div className=" absolute top-0 w-full h-[600px] md:h-[750px] z-0 overflow-hidden pointer-events-auto">
+              <div className= "hidden md:block relative w-full oveflow-clip" 
               style={{
                   transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
               }}>
@@ -112,24 +112,24 @@ export default function Home(): React.ReactElement {
                 <WhoAreWe />
               </div>
               <WhoUsContent className="flex w-full md:max-w-[60%] h-full items-center justify-center" />
-              <div className="flex flex-row w-full md:w-fit justify-center">
+              <div className="hidden md:flex flex-row w-full md:w-fit justify-center">
                 <MintLimeIllustration />
               </div>
             </div>
 
             {/* Why Choose Us */}
             <div className="flex flex-col items-center justify-center space-y-8 md:space-y-12">
-              <div className="w-full max-w-6xl mx-auto rounded-[30px] md:rounded-t-[70px] bg-white/50 backdrop-blur-sm border-t border-white/20 shadow-xl">
+              <div className="w-full max-w-6xl  rounded-[30px] md:rounded-t-[70px] bg-white/50 backdrop-blur-sm border-t border-white/20 shadow-xl">
                 <WhyUs className="p-8 md:p-16 flex items-center justify-center" />
-                <WhyChooseUsCards className="flex flex-col md:flex-row items-center justify-center h-full w-full px-4 md:px-8 pb-8 md:pb-16 gap-4 md:gap-0" />
+                <WhyChooseUsCards />
               </div>
             </div>
 
             {/* Our Mission */}
-            <div className="flex flex-col items-center justify-center space-y-4 md:space-y-8">
+            <div className="flex flex-col items-center justify-center md:space-y-8">
               <div className="w-full max-w-6xl mx-auto rounded-[30px] md:rounded-b-[70px] bg-gradient-to-b from-slate-400/60 to-slate-800/40 backdrop-blur-sm border border-white/30 shadow-xl">
-                <OurMission className="p-8 md:p-16 flex items-center justify-center" />
-                <OurMissionContent className="flex flex-col md:flex-1 md:justify-around px-4 md:px-8 pb-8 md:pb-16 gap-4 md:gap-0" />
+                <OurMission className="p-4 md:p-16 flex items-center justify-center" />
+                <OurMissionContent className="flex flex-col md:flex-1 md:justify-around px-4 md:px-8  md:pb-16 gap-4 md:gap-0" />
               </div>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function Home(): React.ReactElement {
 
         {/* Decorative Transition */}
         <section 
-          className="relative h-32 md:h-64 w-full overflow-hidden"
+          className="hidden md:block relative h-32 md:h-64 w-full overflow-hidden"
           aria-hidden="true"
         >
           <div className="absolute top-0 left-0 bg-gradient-to-tl from-indigo-100/20 to-transparent w-3/5 h-full md:[clip-path:polygon(0_0,100%_0,0%_40%,0_40%)] backdrop-blur-sm" />            
@@ -148,26 +148,26 @@ export default function Home(): React.ReactElement {
 
         {/* Services Preview */}
         <section 
-          className="relative h-[50vh] md:h-full w-full px-4 md:px-0"
+          className="relative h-fit md:h-full w-full"
           aria-label="What we do section"
         >
-          <WeDo className="h-full w-full bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 rounded-2xl md:rounded-3xl shadow-2xl" />
+          <WeDo className="h-full w-full md:bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 rounded-2xl md:rounded-3xl shadow-2xl" />
         </section>
 
         {/* Services Detail */}
         <section 
-          className="relative min-h-[80vh] md:h-[100vh] w-full flex flex-col py-8 md:py-16 pointer-events-auto"
+          className="relative h-fit min-h-[100vh]  w-full flex flex-col py-8 md:py-16 pointer-events-auto"
           aria-label="Services section"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-gray-100/20 via-white/10 to-gray-100/20 w-full h-full rounded-xl md:rounded-3xl" />
-          <div className="relative z-10 flex flex-col h-full w-full p-4 md:p-8">
-            <ServiceComponent className="flex flex-col gap-6 md:gap-12 h-full w-full" />
+          <div className="relative z-10 flex flex-col h-full w-full p-2 md:p-8">
+            <ServiceComponent className="flex flex-col gap-4 md:gap-12 h-full w-full" />
           </div>
         </section>
 
         {/* Portfolio Transition */}
         <section 
-          className="relative h-32 md:h-64 w-full overflow-hidden my-4 md:my-8 "
+          className="hidden md:block relative h-32 md:h-64 w-full overflow-hidden my-4 md:my-8 "
           aria-hidden="true"
         >
           <div className="absolute inset-0 bg-gradient-to-br from-purple-100/20 to-blue-100/20 w-full h-full md:[clip-path:polygon(0_0,100%_0,100%_40%,0_100%)] backdrop-blur-sm" />
