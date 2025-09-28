@@ -156,6 +156,7 @@ interface ParagraphProps extends BaseTextProps {
   variant?: "default" | "muted" | "emphasis" | "small" | "large";
   size?: "xs" | "sm" | "md" | "lg" | "xl";
   weight?: "light" | "normal" | "medium" | "semibold" | "bold";
+  color?: string;
 }
 
 /**
