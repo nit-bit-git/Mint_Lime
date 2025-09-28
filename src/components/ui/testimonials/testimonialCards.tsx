@@ -9,7 +9,7 @@ export function Testimonials() {
   const isMobile = useMediaQuery("(max-width: 768px)");
   return (
     <div className="h-fit rounded-md flex flex-col antialiased bg-black bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
-      <Heading size={isMobile ?"3xl": '6xl'}>
+      <Heading size={isMobile ?"3xl": '6xl'} color="text-white" className="my-8 text-center px-4">
         What Our Clients Say...
       </Heading>
       {!isMobile && (<InfiniteMovingCards
