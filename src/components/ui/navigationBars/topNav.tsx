@@ -38,45 +38,60 @@ export default function TopNavbar() {
       <Navbar>
         {/* Desktop Navigation */}
         <NavBody>
-          <NavbarLogo className="pointer-events-none">
-            <Image
+          <NavbarLogo className="flex items-start pointer-events-none ">
+            <div className="relative h-16 w-48">
+              <Image
               src="/images/logos/logo.svg"
               alt="Logo"
-              width={150}
-              height={150}
+              fill
               priority
-              style={{ width: "auto", height: "auto" }}
             />
-             <Image
+            </div>
+            <div className="relative h-16 w-16">
+              <Image
               src="/images/logos/logoSymbol.svg"
               alt="Logo"
-              width={64}
-              height={64}
+              fill
+              className="hidden xl:block"
               priority
-              style={{ width: "auto", height: "auto" }}
             />
+            <Image
+              src="/images/logos/logoText.svg"
+              alt="Logo"
+              fill
+              className="xl:hidden"
+              priority
+            />
+            </div>
+             
+            
           </NavbarLogo>
           <NavItems items={navItems}  />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary" className="cursor-pointer pointer-events-auto">Book a call</NavbarButton>
+            <NavbarButton variant="primary" className="cursor-pointer pointer-events-auto">Contact</NavbarButton>
           </div>
         </NavBody>
         <MobileNav>
           <MobileNavHeader>
-           <div className="absolute inset-0 -z-10 overflow-hidden rounded-lg pointer-events-none">
+            <NavbarLogo className="absolute inset-0 pointer-events-none">
+             <Image
+              src="/images/logos/logoText.svg"
+              alt="Logo"
+              fill
+              priority
+            />
             <Image
               src="/images/logos/logo.svg"
               alt="Logo"
               fill
               priority
             />
-           </div>
+             </NavbarLogo>
           <MobileNavToggle
               isOpen={isMobileMenuOpen}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             />
           </MobileNavHeader>
- 
           <MobileNavMenu
             isOpen={isMobileMenuOpen}
             onClose={() => setIsMobileMenuOpen(false)}
@@ -97,7 +112,7 @@ export default function TopNavbar() {
                 variant="primary"
                 className="w-full"
               >
-                Book a call
+                Contact
               </NavbarButton>
             </div>
           </MobileNavMenu>

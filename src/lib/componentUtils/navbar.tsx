@@ -30,6 +30,7 @@ interface MobileNavProps {
 interface MobileNavHeaderProps {
   children: React.ReactNode;
   className?: string;
+  visible?: boolean;
 }
  
 interface MobileNavMenuProps {
@@ -53,7 +54,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
   return (
     <motion.div
       ref={ref}
-      className={cn(" fixed inset-x-0  z-40 w-full", className)}
+      className={cn(" fixed inset-x-0 z-40 w-full", className)}
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -87,7 +88,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
                 minWidth: "500px",
             }}
             className={cn(
-                "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row items-center justify-between self-start rounded-4xl px-4 py-2 lg:flex bg-transparent",
+                "relative z-[60] mx-auto hidden w-full max-w-7xl flex-row justify-between px-4 py-2  md:rounded-xl lg:flex bg-transparent lg:rounded-4xl",
                 visible && "bg-neutral-950/80",
                 className,
             )}
@@ -130,7 +131,7 @@ export const NavItems = ({ items, className, onItemClick, visible }: NavItemProp
         opacity: { duration: 0.2, ease: "easeInOut" }
       }}
       className={cn(
-        "hidden w-fit flex-1 flex-row items-center justify-center text-sm font-medium text-zinc-600 hover:text-zinc-800 lg:flex pointer-events-auto",
+        "hidden w-fit lg:absolute lg:inset-0 lg:m-auto lg:flex flex-1 flex-row items-center justify-center text-sm font-medium text-zinc-600 hover:text-zinc-800  pointer-events-auto",
         className
       )}
     >
@@ -143,15 +144,15 @@ export const NavItems = ({ items, className, onItemClick, visible }: NavItemProp
           layout // makes spacing/padding animate smoothly
           animate={{
             // Responsive padding based on navbar state
-            paddingLeft: visible ? "0.75rem" : "1rem", // px-3 vs px-4
-            paddingRight: visible ? "0.75rem" : "1rem",
+            paddingLeft: visible ? "0.75rem" : "2rem", // px-3 vs px-4
+            paddingRight: visible ? "0.75rem" : "2rem",
             opacity: isTransitioning ? 0 : 1, // Individual item fade
           }}
           transition={{ 
             layout: { duration: 0.4, ease: "easeInOut" },
             paddingLeft: { duration: 0.4, ease: "easeInOut" },
             paddingRight: { duration: 0.4, ease: "easeInOut" },
-            opacity: { duration: 0.15, ease: "easeInOut" }
+            opacity: { duration: 4  , ease: "easeInOut" }
           }}
           className="relative py-2 text-neutral-600 dark:text-neutral-300"
         >
@@ -194,12 +195,16 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         damping: 50,
       }}
       className={cn(
-        "relative z-50 mx-auto flex w-full  max-w-[calc(100vw-2rem)] flex-col items-center justify-between bg-transparent px-0 py-2 lg:hidden",
+        "relative z-50 mx-auto flex flex-col w-full  max-w-[calc(100vw-2rem)]  items-center justify-between bg-neutral-950/80 px-0 py-2 md:py-4 md:max-w-[calc(100vw-8rem)] lg:hidden",
         visible && "bg-neutral-950/80",
         className,
       )}
     >
-      {children}
+      {React.Children.map(children, (child, idx) =>
+                (idx === 0 || idx === 1) && React.isValidElement(child)
+                    ? React.cloneElement(child as React.ReactElement<{ visible?: boolean }>, { visible })
+                    : child
+            )}
     </motion.div>
   );
 };
@@ -207,6 +212,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
 export const MobileNavHeader = ({
   children,
   className,
+  visible
 }: MobileNavHeaderProps) => {
   return (
     <div
@@ -215,7 +221,11 @@ export const MobileNavHeader = ({
         className,
       )}
     >
-      {children}
+      {React.Children.map(children, (child, idx) =>
+                (idx === 0 || idx === 1) && React.isValidElement(child)
+                    ? React.cloneElement(child as React.ReactElement<{ visible?: boolean }>, { visible })
+                    : child
+            )}
     </div>
   );
 };
@@ -294,7 +304,7 @@ export const MobileNavToggle = ({
   return (
     <a
       href="#"
-      className="relative z-20 flex items-center space-x-2 px-2 py-1 text-sm font-normal text-black pointer-events-none"
+      className=""
     >
       <AnimatePresence mode="wait">
         {visible ? (
@@ -344,7 +354,7 @@ export const NavbarButton = ({
   | React.ComponentPropsWithoutRef<"button">
 )) => {
   const baseStyles =
-    "px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
+    " lg:px-2 xl:px-4 py-2 rounded-md bg-white button bg-white text-black text-sm font-bold relative cursor-pointer hover:-translate-y-0.5 transition duration-200 inline-block text-center";
  
   const variantStyles = {
     primary:

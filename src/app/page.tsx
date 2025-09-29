@@ -26,12 +26,12 @@ export default function Home(): React.ReactElement {
   const [navVisible, setNavVisible] = useState<boolean | null>(true);
 
   return (
-    <div className="relative min-h-screen max-w-screen font-sans overflow-clip bg-gradient-to-b from-black via-gray-50/30 to-black ">
+    <div className="relative min-h-screen max-w-screen mx-auto flex flex-col font-sans overflow-clip items-center space-y-8  bg-gradient-to-b from-black via-gray-50/30 to-black ">
       {/* Navigation Layer */}
       <AnimatePresence>
         {navVisible !== null && (
           <motion.nav
-            className="fixed  top-5 lg:top-0 left-0 w-full h-auto lg:h-fit z-50 lg:pointer-events-none"
+            className="fixed top-5 w-full h-auto z-50 max-w-7xl"
             initial={{ 
               width: navVisible ? 0 : "100vw", 
               opacity: 0 
@@ -72,7 +72,7 @@ export default function Home(): React.ReactElement {
           </div>  
         
       {/* Main Content Grid */}
-      <main className="relative z-10 flex flex-col gap-4 lg:grid lg:auto-rows-max  lg:gap-8 w-full min-h-screen pt-20 pointer-events-none">
+      <main className="relative z-10 flex flex-col gap-4 2xl:grid 2xl:auto-rows-max  2xl:gap-8 w-full min-h-screen pt-20 pointer-events-none">
         
         {/* Hero Section */}
         <section 
@@ -100,7 +100,6 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </section>
-
         {/* About Section */}
         <section 
           className="relative flex flex-col min-h-[150vh] lg:min-h-[200vh] w-full pointer-events-auto"
@@ -203,14 +202,10 @@ export default function Home(): React.ReactElement {
           <Hills />
         </section>
       </main>
-              
-    <div className="relative w-full h-inherit z-20 text-black">
-
-    
-  
-  {/* Footer content */}
-  <Footer className="relative z-10 flex items-center justify-center w-full text-black pt-16 lg:pt-24" />
-</div>
+      <div className="relative w-full h-inherit z-20 text-black">
+      {/* Footer content */}
+        <Footer className="relative z-10 flex items-center justify-center w-full text-black pt-16 lg:pt-24" />
+      </div>
 </div>
   );
 }
