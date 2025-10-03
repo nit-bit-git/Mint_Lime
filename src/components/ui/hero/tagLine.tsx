@@ -50,7 +50,7 @@ export const TagLine = ({className}: {className: string}) => {
         <Heading
           level={1}
           variant="gradient"
-          size="7xl"
+          size="5xl"
           className="italic text-right z-10"
           weight="extrabold"
         >

@@ -90,9 +90,9 @@ export default function Home(): React.ReactElement {
             <div className=" lg:bg-white/10 rounded-2xl flex flex-col items-center flex-1 w-full lg:max-w-[40%] order-2 lg:order-1 gap-2 lg:gap-6 z-20 py-4 lg:p-8 pointer-events-none">
               <TagLine className="max-w-fit rounded-xl lg:rounded-2xl p-2 lg:p-6 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
               <div className="flex flex-col items-center justify-center w-full z-20">
-                <Line1 className="mx-10 w-fit rounded-xl lg:rounded-2xl  lg:p-6  backdrop-blur-sm shadow-lg lg:border lg:border-white/20" />
+                <Line1 className="mx-10 h-[100px] w-fit rounded-xl lg:w-full lg:rounded-2xl lg:p-2  backdrop-blur-sm shadow-lg lg:border lg:border-white/20" />
               <div className=" w-full h-fit md:flex-1 z-10 bg-amber-50 lg:hidden">
-                  <div className="flex justify-center items-center h-full">
+                  <div className="flex justify-center items-center h-full w-full">
                     <Marquee />
                 </div>
               </div>

@@ -27,7 +27,7 @@ export const Line1 = ({className}: {className: string}) => {
           </Heading> 
             </>):(
               <>
-              <Heading level={4} size="xl" color=" text-white" className="z-10 whitespace-normal break-words h-fit italic w-full" weight="extrabold">
+              <Heading level={1} size="lg" color=" text-white" className="z-10 whitespace-normal break-words h-fit italic w-full" weight="extrabold">
                 <TypewriterEffectSmooth className="h-full w-full" words = {words} />&nbsp; 
               </Heading> 
               </>
