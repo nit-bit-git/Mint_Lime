@@ -27,13 +27,12 @@ const valueContent = [
           },
         ];
 export const OurMissionContent = ({className}: {className?: string}) => {
-    const [hovering, setHovering] = useState(false);
     const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
     return (
   <div className={cn("w-full h-full inline-block", className)}>
     {/* Use Lens on lg+ screens */}
     <div className="hidden lg:block">
-      <Lens hovering={hovering} setHovering={setHovering} lensSize={300}>
+      <Lens lensSize={300}>
         <Content mode= {isMobile} />
       </Lens>
     </div>

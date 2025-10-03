@@ -21,9 +21,9 @@ export const Heading = ({
     xs: "text-xs",
     sm: "text-sm",
     md: " sm:text-sm md:text-base",
-    lg: "text-lg",
-    xl: " text-sm md:text-md lg:text-lg xl:text-xl",
-    "2xl": "text-md md:text-lg lg:text-xl xl:text-2xl",
+    lg: " sm:text-sm md:text-base lg:text-lg",
+    xl: " text-sm md:text-base lg:text-lg xl:text-xl",
+    "2xl": "text-base md:text-lg lg:text-xl xl:text-2xl",
     "3xl": "text-lg md:text-xl lg:text-2xl xl:text-3xl",
     "4xl": "text-xl md:text-2xl lg:text-3xl xl:text-4xl",
     "5xl": "text-2xl md:text-3xl lg:text-4xl xl:text-5xl",
@@ -98,9 +98,9 @@ export const Paragraph = ({
     const sizeStyles = {
     xs: "text-xs",
     sm: "text-sm",
-    md: "text-base",
-    lg: "text-lg",
-    xl: "text-xl",
+    md: "sm:text-sm md:text-base",
+    lg: "text-sm md:text-base lg:text-lg",
+    xl: " text-sm md:text-base lg:text-lg xl:text-xl",
   };
 
   const weightStyles = {
