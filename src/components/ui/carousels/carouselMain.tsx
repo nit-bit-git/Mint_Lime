@@ -253,34 +253,24 @@ const CarouselMain = ({
 </div>
 
     {/* Navigation Buttons */}
-    { isMobile ? (
-      <>
-      </>
-    ) : (
-      <>
     <motion.button
       onClick={handlePrev}
       whileHover={{ scale: 1.15 }}
-      className="cursor-pointer absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-lg rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="hidden lg:block cursor-pointer absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-lg rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronLeft className="w-6 h-6 text-black" />
     </motion.button>
     <motion.button
       onClick={handleNext}
       whileHover={{ scale: 1.15 }}
-      className="cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-lg rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
+      className="hidden lg:block cursor-pointer absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 backdrop-blur-lg rounded-full p-3 shadow-lg transition-all duration-300 pointer-events-auto"
     >
       <ChevronRight className="w-6 h-6 text-black" />
     </motion.button>
-  </>)}
-
+ 
     {/* Control Panel */}
-    <div className="absolute top-4 right-4 flex space-x-3 pointer-events-auto">
-      { isMobile ? (
-      <>
-      </>
-    ) : (
-      <>
+    <div className="hidden lg:flex absolute top-4 right-4 space-x-3 pointer-events-auto">
+    
       <motion.button
         onClick={() => setIsAutoPlaying(!isAutoPlaying)}
         whileHover={{ scale: 1.15 }}
@@ -295,14 +285,11 @@ const CarouselMain = ({
       >
         <RotateCcw className="w-5 h-5 text-black" />
       </motion.button>
-      </>)}
+     
     </div>
 
     {/* Slide Indicators */}
-    { isMobile ? (
-      <>
-      </>
-    ) : (
+    { !isMobile && (
       <div className="absolute -bottom-10 flex w-full justify-center space-x-2 pointer-events-auto">
       {slides.map((_, index) => (
         <motion.button

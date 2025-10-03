@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useMemo } from "react";
+import React, { useRef, useState, useMemo, useEffect } from "react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Heading, Paragraph } from "./text";
@@ -22,7 +22,7 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const [activeCard, setActiveCard] = useState(0);
   const activeCardRef = useRef<number>(0);
-
+  const cardRefs = useRef<(HTMLDivElement|null)[]>([]);
   const backgroundColors = useMemo(
     () => ["#0f172a", "#000000", "#171717"],
     []
@@ -37,14 +37,42 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
     []
   );
 
-  // Update active card only if it actually changes
-  const handleCardEnter = (index: number) => {
-    if (activeCardRef.current !== index) {
-      activeCardRef.current = index;
-      setActiveCard(index);
+useEffect(() => {
+  const handleScroll = () => {
+    if (!ref.current) return;
+
+    const viewportHeight = window.innerHeight;
+    const viewportCenter = viewportHeight / 2;
+
+    let closestIndex = 0;
+    let closestDistance = Infinity;
+
+    cardRefs.current.forEach((card, index) => {
+      if (card) {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(cardCenter - viewportCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestIndex = index;
+        }
+      }
+    });
+
+    if (closestIndex !== activeCardRef.current) {
+      activeCardRef.current = closestIndex;
+      setActiveCard(closestIndex);
     }
   };
 
+  window.addEventListener("scroll", handleScroll, { passive: true });
+  handleScroll(); // run once on mount
+
+  return () => {
+    window.removeEventListener("scroll", handleScroll);
+  };
+}, []);
   return (
     <motion.div
       animate={{
@@ -62,11 +90,12 @@ export const StickyScroll: React.FC<StickyScrollProps> = ({
           {content.map((item, index) => (
             <motion.div
               key={`${item.title}-${index}`}
-              className="mb-10 lg:mb-16 lg:mb-32 first:mt-16"
-              initial={{ opacity: 0.5 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: false, amount: 0.6 }}
-              onViewportEnter={() => handleCardEnter(index)}
+              className="mb-10 lg:mb-16 xl:mb-32 first:mt-16"
+              ref={(el) => {
+                cardRefs.current[index] = el;
+              }}  
+              initial={{ opacity: 1 }}
+              viewport={{ once: false, amount: 0.5 }}
             >
               <motion.div
                 animate={{

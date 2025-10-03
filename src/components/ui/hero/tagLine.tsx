@@ -9,11 +9,11 @@ export const TagLine = ({className}: {className: string}) => {
     return (     
         <div className={cn("inline-block w-full", className)}>
   {isMobile ? (
-    <div className="relative w-full h-full flex flex-col">
-      <span className="self-start">
+    <div className="relative w-full h-full flex flex-col md:flex-row">
+      <span className="md:self-start">
         <Heading
           level={2}
-          size="2xl"
+          size="3xl"
           color="text-white"
           className="z-10"
           weight="extrabold"
