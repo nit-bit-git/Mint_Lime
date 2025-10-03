@@ -20,18 +20,19 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Footer } from "@/components/ui/footer/footer";
 import { Hills } from "@/components/ui/footer/hill";
+import { useMediaQuery } from "@/lib/mediaQuery";
 
 export default function Home(): React.ReactElement {
   // State management
   const [navVisible, setNavVisible] = useState<boolean | null>(true);
-
+   const isMobile = useMediaQuery("(hover: none) and (pointer: coarse)");
   return (
-    <div className="relative min-h-screen max-w-screen font-sans overflow-clip bg-gradient-to-b from-black via-gray-50/30 to-black ">
+    <div className="relative min-h-screen max-w-screen mx-auto flex flex-col font-sans overflow-clip items-center space-y-8  bg-gradient-to-b from-black via-gray-50/30 to-black ">
       {/* Navigation Layer */}
       <AnimatePresence>
         {navVisible !== null && (
           <motion.nav
-            className="fixed  top-5 lg:top-0 left-0 w-full h-auto lg:h-fit z-50 lg:pointer-events-none"
+            className="fixed top-5 w-full h-auto z-50 max-w-7xl"
             initial={{ 
               width: navVisible ? 0 : "100vw", 
               opacity: 0 
@@ -55,37 +56,42 @@ export default function Home(): React.ReactElement {
       </AnimatePresence>
 
       {/* Background Effects Layer */}
-       <div className=" hidden lg:block absolute top-0 w-full h-[650px] lg:h-[750px] z-0 overflow-hidden pointer-events-auto">
-              <div className= " lg:block relative w-full oveflow-clip" 
-              style={{
-                  transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
-              }}>
-                <Boxes className="flex w-full h-full  "/>
-              </div>
+      
+       <div className=" hidden lg:block absolute top-0 w-full lg:h-[650px] xl:h-[750px] z-0 overflow-hidden pointer-events-auto">
+              {!isMobile && 
+                  <div className= " lg:block relative w-full oveflow-clip" 
+                  style={{
+                      transform: `translate(20%,40%) skewX(-20deg) scale(1.2) skewY(2deg) rotate(0deg) translateZ(0)`,
+                  }}>
+                    <Boxes className="flex w-full h-full  "/>
+                  </div>
+              }
               {/* Marquee Section */}
-          <div className="absolute w-full h-fit z-10 bottom-0 bg-amber-50">
+            <div className="absolute w-full h-fit z-10 bottom-0 bg-amber-50">
           
-            <div className="flex justify-center items-center h-full px-4 ">
-              <Marquee />
-          </div>
-        </div>
-          </div>  
+              <div className="flex justify-center items-center h-full px-4 ">
+                <Marquee />
+              </div>
+            </div>
+        </div>  
+        
+      
         
       {/* Main Content Grid */}
-      <main className="relative z-10 flex flex-col gap-4 lg:grid lg:auto-rows-max  lg:gap-8 w-full min-h-screen pt-20 pointer-events-none">
+      <main className="relative z-10 flex flex-col gap-4 2xl:grid 2xl:auto-rows-max  2xl:gap-8 w-full min-h-screen pt-20 pointer-events-none">
         
         {/* Hero Section */}
         <section 
-          className="relative flex flex-col w-full min-h-[600px] lg:min-h-[800px] items-center overflow-clip"
+          className="relative flex flex-col w-full min-h-[500px] lg:min-h-[700px] xl:min-h-[800px] items-center overflow-clip "
           aria-label="Hero section"
         >
-          <div className="flex flex-col lg:flex-row w-full h-full items-center justify-between lg:items-start lg:bg-transparent  pointer-events-none py-2 lg:p-6 lg:p-8 gap-4 lg:gap-8">
+          <div className="flex flex-col w-full h-full items-center justify-between lg:mt-10 lg:flex-row lg:items-start lg:bg-transparent  pointer-events-none py-2 lg:p-8 gap-4 lg:gap-8">
             {/* Hero Text Content */}
             <div className=" lg:bg-white/10 rounded-2xl flex flex-col items-center flex-1 w-full lg:max-w-[40%] order-2 lg:order-1 gap-2 lg:gap-6 z-20 py-4 lg:p-8 pointer-events-none">
-              <TagLine className=" w-2/3 lg:w-full rounded-xl lg:rounded-2xl p-2 lg:p-6 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
-              <div className="flex flex-col justify-center w-full h-full z-20">
-                <Line1 className="rounded-xl lg:rounded-2xl p-2 lg:p-6 w-full h-full backdrop-blur-sm shadow-lg lg:border border-white/20" />
-              <div className=" w-full h-fit z-10 bg-amber-50 lg:hidden">
+              <TagLine className="max-w-fit rounded-xl lg:rounded-2xl p-2 lg:p-6 backdrop-blur-sm shadow-lg border border-white/20 pointer-events-none" />
+              <div className="flex flex-col items-center justify-center w-full z-20">
+                <Line1 className="mx-10 w-fit rounded-xl lg:rounded-2xl  lg:p-6  backdrop-blur-sm shadow-lg lg:border lg:border-white/20" />
+              <div className=" w-full h-fit md:flex-1 z-10 bg-amber-50 lg:hidden">
                   <div className="flex justify-center items-center h-full">
                     <Marquee />
                 </div>
@@ -100,7 +106,6 @@ export default function Home(): React.ReactElement {
             </div>
           </div>
         </section>
-
         {/* About Section */}
         <section 
           className="relative flex flex-col min-h-[150vh] lg:min-h-[200vh] w-full pointer-events-auto"
@@ -203,14 +208,10 @@ export default function Home(): React.ReactElement {
           <Hills />
         </section>
       </main>
-              
-    <div className="relative w-full h-inherit z-20 text-black">
-
-    
-  
-  {/* Footer content */}
-  <Footer className="relative z-10 flex items-center justify-center w-full text-black pt-16 lg:pt-24" />
-</div>
+      <div className="relative w-full h-inherit z-20 text-black">
+      {/* Footer content */}
+        <Footer className="relative z-10 flex items-center justify-center w-full text-black pt-16 lg:pt-24" />
+      </div>
 </div>
   );
 }
